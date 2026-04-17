@@ -12,10 +12,10 @@ body{
   background:#f4f4f4;
 }
 
-/* HERO SECTION */
+/* HERO */
 .hero{
   height:100vh;
-  background:url('https://i.imgur.com/8Km9tLL.jpg') center/cover no-repeat;
+  background:url('https://i.ibb.co/TB95TLSB/1000066583.jpg') center/cover no-repeat;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -24,14 +24,8 @@ body{
   text-align:center;
 }
 
-.hero h1{
-  font-size:40px;
-}
-
-.hero p{
-  font-size:20px;
-  margin:10px 0;
-}
+.hero h1{font-size:40px;}
+.hero p{font-size:20px;}
 
 .hero button{
   padding:12px 25px;
@@ -39,7 +33,6 @@ body{
   border:none;
   border-radius:20px;
   color:white;
-  cursor:pointer;
 }
 
 /* PRODUCTS */
@@ -72,6 +65,10 @@ button{
   cursor:pointer;
 }
 
+.section{
+  padding:30px;
+  text-align:center;
+}
 </style>
 </head>
 
@@ -88,60 +85,59 @@ button{
 
 <div class="products" id="products">
 
-  <!-- PRODUCT 1 -->
   <div class="card">
-    <img src="https://i.imgur.com/2DhmtJ4.png">
+    <img src="https://i.ibb.co/0jdSrmjs/1000066585.jpg">
     <h3>Instant Coffee Mix</h3>
     <p>₹99</p>
     <button onclick="buyNow('Instant Coffee Mix',99)">Buy Now</button>
   </div>
 
-  <!-- PRODUCT 2 -->
   <div class="card">
-    <img src="https://i.imgur.com/W6bXGJc.png">
+    <img src="https://i.ibb.co/WvfKhLZ9/1000066807.jpg">
     <h3>Iced Coffee Mix</h3>
     <p>₹129</p>
     <button onclick="buyNow('Iced Coffee Mix',129)">Buy Now</button>
   </div>
 
-  <!-- PRODUCT 3 -->
   <div class="card">
-    <img src="https://i.imgur.com/cGZQx8R.png">
+    <img src="https://i.ibb.co/XfrKjQz6/1000066820.jpg">
     <h3>Classic Black Coffee</h3>
     <p>₹119</p>
     <button onclick="buyNow('Classic Black Coffee',119)">Buy Now</button>
   </div>
 
-  <!-- PRODUCT 4 -->
   <div class="card">
-    <img src="https://i.imgur.com/zY6gG9R.png">
+    <img src="https://i.ibb.co/QjbVB7g8/1000066588.jpg">
     <h3>Zest Lemon Tea</h3>
     <p>₹169</p>
-    <button onclick="buyNow('Zest Lemon Tea',169)">Buy Now</button>
+    <button onclick="buyNow('Lemon Tea',169)">Buy Now</button>
   </div>
 
-  <!-- PRODUCT 5 -->
   <div class="card">
-    <img src="https://i.imgur.com/8U5pG6g.png">
+    <img src="https://i.ibb.co/8DybrV6L/1000066814.jpg">
     <h3>Royal Masala Milk</h3>
     <p>₹169</p>
-    <button onclick="buyNow('Royal Masala Milk',169)">Buy Now</button>
+    <button onclick="buyNow('Masala Milk',169)">Buy Now</button>
   </div>
 
-  <!-- PRODUCT 6 -->
   <div class="card">
-    <img src="https://i.imgur.com/1Q9Z1Zm.png">
+    <img src="https://i.ibb.co/Xx07dXpX/1000066817.jpg">
     <h3>Velvet Hot Chocolate</h3>
     <p>₹179</p>
-    <button onclick="buyNow('Velvet Hot Chocolate',179)">Buy Now</button>
+    <button onclick="buyNow('Hot Chocolate',179)">Buy Now</button>
   </div>
 
 </div>
 
-<!-- HOW TO MAKE -->
-<div style="text-align:center;padding:30px;">
+<!-- EXTRA SECTION -->
+<div class="section">
   <h2>How to Make</h2>
-  <img src="https://i.imgur.com/3ZQ3Z9L.png" width="300">
+  <img src="https://i.ibb.co/v481Qpxh/1000066832.jpg" width="300">
+</div>
+
+<div class="section">
+  <h2>About Product</h2>
+  <img src="https://i.ibb.co/hxcfYsM0/1000066878.jpg" width="300">
 </div>
 
 <!-- SCRIPT -->
