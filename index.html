@@ -1,109 +1,197 @@
-<!-- ================= INDEX.HTML ================= --><!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Akaruo</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#f8f8f8}
-.hero{height:100vh;background:url('https://images.unsplash.com/photo-1547592180-85f173990554') center/cover no-repeat;position:relative;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center}
-.hero::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7));}
-.hero-content{position:relative;z-index:2}
-h1{font-size:48px;margin:0}
-p{font-size:20px}
-.btn{padding:12px 20px;border:none;border-radius:25px;margin:10px;cursor:pointer}
-.primary{background:green;color:#fff}
-.secondary{background:gold;color:#000}
-.products{padding:40px;text-align:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#fff;padding:15px;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.card img{width:100%;border-radius:10px}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center}
-.modal-content{background:#fff;padding:20px;border-radius:10px;width:90%;max-width:400px}
-input,select{width:100%;padding:10px;margin:8px 0}
-.close{float:right;cursor:pointer}
-.why{padding:40px;background:#fff;text-align:center}
-</style>
-</head>
-<body><div class="hero">
-<div class="hero-content">
-<h1>Akaruo Instant Drink Mix</h1>
-<p>Premium in Every Sip</p>
-<button class="btn primary" onclick="scrollToProducts()">Shop Now</button>
-<a href="catalogue.html"><button class="btn secondary">View Catalogue</button></a>
-</div>
-</div><div class="products" id="products">
-<h2>Our Products</h2>
-<div class="grid">
-<div class="card">
-<img src="https://via.placeholder.com/200">
-<h3>Energy Mix</h3>
-<p>₹199</p>
-<button class="btn primary" onclick="buy('Energy Mix','199')">Buy Now</button>
-</div>
-<div class="card">
-<img src="https://via.placeholder.com/200">
-<h3>Protein Mix</h3>
-<p>₹249</p>
-<button class="btn primary" onclick="buy('Protein Mix','249')">Buy Now</button>
-</div>
-</div>
-</div><div class="why">
-<h2>Why Choose Akaruo</h2>
-<p>100% Green Certified | All-Natural Composition | Healthy Daily Use | Protein-Enhanced Formula</p>
-</div><div class="modal" id="modal">
-<div class="modal-content">
-<span class="close" onclick="closeModal()">&times;</span>
-<h3>Order Details</h3>
-<input id="name" placeholder="Full Name">
-<input id="mobile" placeholder="Mobile Number">
-<input id="address" placeholder="Address">
-<input id="city" placeholder="City">
-<input id="pincode" placeholder="Pincode">
-<select id="payment">
-<option value="UPI">UPI</option>
-<option value="COD">Cash on Delivery</option>
-</select>
-<div id="paymentInfo"></div>
-<button class="btn primary" onclick="submitOrder()">Place Order</button>
-</div>
-</div><script>
-let productName='',price='';
-function scrollToProducts(){document.getElementById('products').scrollIntoView({behavior:'smooth'})}
-function buy(name,p){productName=name;price=p;document.getElementById('modal').style.display='flex'}
-function closeModal(){document.getElementById('modal').style.display='none'}
+body{margin:0;font-family:Arial;background:#f4f4f4}
 
-document.getElementById('payment').addEventListener('change',function(){
-let val=this.value;
-let info=document.getElementById('paymentInfo');
-if(val==='UPI'){info.innerHTML='Pay via UPI: akaruo@upi'}
-else{info.innerHTML='Cash on Delivery selected'}
-})
-
-function submitOrder(){
-let name=document.getElementById('name').value;
-let mobile=document.getElementById('mobile').value;
-let address=document.getElementById('address').value;
-let city=document.getElementById('city').value;
-let pin=document.getElementById('pincode').value;
-let payment=document.getElementById('payment').value;
-
-let msg=`Order Details:%0AProduct: ${productName}%0APrice: ₹${price}%0AName: ${name}%0AMobile: ${mobile}%0AAddress: ${address}, ${city} - ${pin}%0APayment: ${payment}`;
-window.open(`https://wa.me/919608891170?text=${msg}`,'_blank');
+/* HERO FIX (NO BLUR) */
+.hero{
+  height:100vh;
+  background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+  url('https://i.ibb.co/TB95TLSB/1000066583.jpg') center/cover no-repeat;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  text-align:center;
 }
-</script></body>
-</html><!-- ================= CATALOGUE.HTML ================= --><!DOCTYPE html><html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catalogue</title>
-<style>
-body{font-family:Arial;margin:0;padding:20px;text-align:center;background:#f8f8f8}
-img{width:90%;max-width:600px;margin:20px auto;display:block;border-radius:10px}
+
+.hero h1{font-size:35px;}
+.hero p{font-size:18px;}
+
+.btn{
+  background:orange;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  color:white;
+  margin:5px;
+  cursor:pointer;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.card img{width:100%}
+
+/* CART */
+.cart-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:green;
+  color:#fff;
+  padding:15px;
+  border-radius:50%;
+}
+
+/* POPUP FORM */
+.popup{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+
+.form-box{
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  width:90%;
+  max-width:300px;
+}
+
+input,select{
+  width:100%;
+  padding:8px;
+  margin:5px 0;
+}
+
 </style>
 </head>
+
 <body>
-<h1>Akaruo Catalogue</h1>
-<img src="https://via.placeholder.com/600x800">
-<img src="https://via.placeholder.com/600x800">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Akaruo Instant Drink Mix</h1>
+  <p>Premium in Every Sip</p>
+
+  <button class="btn" onclick="scrollToProducts()">Shop Now</button>
+  <a href="catalogue.html"><button class="btn">View Catalogue</button></a>
+</div>
+
+<!-- PRODUCTS -->
+<h2 style="text-align:center">Our Products</h2>
+
+<div class="products" id="products">
+
+<div class="card">
+<img src="https://i.ibb.co/0jdSrmjs/1000066585.jpg">
+<h3>Instant Coffee</h3>
+<p>₹99</p>
+<button class="btn" onclick="addToCart('Instant Coffee',99)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/WvfKhLZ9/1000066807.jpg">
+<h3>Iced Coffee</h3>
+<p>₹129</p>
+<button class="btn" onclick="addToCart('Iced Coffee',129)">Add to Cart</button>
+</div>
+
+</div>
+
+<!-- CART BUTTON -->
+<button class="cart-btn" onclick="openForm()">🛒</button>
+
+<!-- ORDER FORM -->
+<div class="popup" id="popup">
+  <div class="form-box">
+    <h3>Order Details</h3>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="phone" placeholder="Mobile Number">
+    <input type="text" id="address" placeholder="Address">
+    <input type="text" id="city" placeholder="City">
+    <input type="text" id="pincode" placeholder="Pincode">
+
+    <select id="payment">
+      <option>UPI</option>
+      <option>Cash on Delivery</option>
+    </select>
+
+    <button class="btn" onclick="placeOrder()">Place Order</button>
+    <button onclick="closeForm()">Close</button>
+  </div>
+</div>
+
+<script>
+
+let cart=[];
+
+function scrollToProducts(){
+ document.getElementById("products").scrollIntoView({behavior:"smooth"});
+}
+
+function addToCart(name,price){
+ cart.push({name,price});
+ alert(name+" added to cart");
+}
+
+function openForm(){
+ if(cart.length==0){
+   alert("Cart is empty");
+   return;
+ }
+ document.getElementById("popup").style.display="flex";
+}
+
+function closeForm(){
+ document.getElementById("popup").style.display="none";
+}
+
+function placeOrder(){
+
+ let name=document.getElementById("name").value;
+ let phone=document.getElementById("phone").value;
+ let address=document.getElementById("address").value;
+ let city=document.getElementById("city").value;
+ let pincode=document.getElementById("pincode").value;
+ let payment=document.getElementById("payment").value;
+
+ let message="Order Details:%0A";
+
+ cart.forEach(item=>{
+   message+=item.name+" ₹"+item.price+"%0A";
+ });
+
+ message+=`Name: ${name}%0APhone: ${phone}%0AAddress: ${address}, ${city}, ${pincode}%0APayment: ${payment}`;
+
+ let url=`https://wa.me/919608891170?text=${message}`;
+ window.open(url,"_blank");
+}
+
+</script>
+
 </body>
 </html>
