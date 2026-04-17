@@ -3,149 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akaruo Instant Drink Mix</title>
+<title>Akaruo Store</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f4f4}
-nav{background:#111;color:#fff;padding:15px;text-align:center;font-size:20px}
+body{font-family:Arial;margin:0;background:#f4f4f4}
 
-.hero{height:90vh;background:url('https://images.unsplash.com/photo-1524594154908-eddc3e2c6e28') center/cover;
-display:flex;flex-direction:column;justify-content:center;align-items:center;color:white}
-
-.hero h1{font-size:40px}
-.hero button{padding:12px 25px;background:orange;border:none;color:#fff;border-radius:20px;cursor:pointer}
-
-.products{padding:30px;text-align:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
-
-.product{background:white;padding:15px;border-radius:10px}
-.product img{width:100%;border-radius:10px}
-
-button{margin:5px;padding:10px;border:none;border-radius:5px;cursor:pointer}
-.cart-btn{background:#28a745;color:white}
-.buy-btn{background:#ff5722;color:white}
-
-#cart{
-position:fixed;right:-100%;top:0;width:300px;height:100%;background:#fff;
-box-shadow:-2px 0 10px rgba(0,0,0,0.2);padding:20px;transition:0.3s;overflow:auto
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  padding:20px;
 }
 
-#cart.active{right:0}
-
-.cart-item{margin:10px 0;border-bottom:1px solid #ccc;padding:5px}
-
-.cart-toggle{
-position:fixed;top:20px;right:20px;background:black;color:white;padding:10px;border-radius:50%
+.card{
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
 }
 
-.form{padding:20px;background:white;margin:20px;border-radius:10px}
+.card img{width:100%;border-radius:10px}
 
-input{width:100%;padding:10px;margin:5px 0}
+button{
+  background:orange;
+  color:#fff;
+  border:none;
+  padding:10px;
+  margin:5px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.cart{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:300px;
+  height:100%;
+  background:#111;
+  color:#fff;
+  padding:20px;
+  transition:0.3s;
+  overflow:auto;
+}
+
+.cart.active{right:0}
 
 </style>
 </head>
 
 <body>
 
-<nav>Akaruo Instant Drink Mix</nav>
+<h2 style="text-align:center">Our Products</h2>
 
-<div class="cart-toggle" onclick="toggleCart()">🛒</div>
+<div class="products">
 
-<section class="hero">
-<h1>Premium in Every Sip</h1>
-<button onclick="scrollToProducts()">Shop Now</button>
-</section>
+  <div class="card">
+    <img src="https://via.placeholder.com/200">
+    <h3>Instant Coffee</h3>
+    <p>₹99</p>
+    <button onclick="addToCart('Instant Coffee',99)">Add to Cart</button>
+    <button onclick="buyNow('Instant Coffee',99)">Buy Now</button>
+  </div>
 
-<section class="products" id="products">
-
-<h2>Products</h2>
-
-<div class="grid">
-
-<div class="product">
-<img src="https://i.ibb.co/HfKr7nxc/1000066999.jpg">
-<button class="cart-btn" onclick="addToCart('Drink 1')">Add to Cart</button>
-<button class="buy-btn" onclick="buyNow('Drink 1')">Buy Now</button>
-</div>
-
-<div class="product">
-<img src="https://i.ibb.co/hxcfYsM0/1000066878.jpg">
-<button class="cart-btn" onclick="addToCart('Drink 2')">Add to Cart</button>
-<button class="buy-btn" onclick="buyNow('Drink 2')">Buy Now</button>
-</div>
-
-<div class="product">
-<img src="https://i.ibb.co/FkHRnwdg/1000067337.jpg">
-<button class="cart-btn" onclick="addToCart('Drink 3')">Add to Cart</button>
-<button class="buy-btn" onclick="buyNow('Drink 3')">Buy Now</button>
-</div>
+  <div class="card">
+    <img src="https://via.placeholder.com/200">
+    <h3>Lemon Tea</h3>
+    <p>₹169</p>
+    <button onclick="addToCart('Lemon Tea',169)">Add to Cart</button>
+    <button onclick="buyNow('Lemon Tea',169)">Buy Now</button>
+  </div>
 
 </div>
 
-</section>
+<button onclick="toggleCart()" style="position:fixed;bottom:20px;right:20px;">Cart</button>
 
-<!-- CART -->
-<div id="cart">
-<h3>Your Cart</h3>
-<div id="cart-items"></div>
-<button onclick="checkout()">Checkout</button>
-</div>
-
-<!-- FORM -->
-<div class="form">
-<h3>Order Form</h3>
-<input type="text" id="name" placeholder="Your Name">
-<input type="text" id="address" placeholder="Address">
-<input type="text" id="phone" placeholder="Phone">
-<button onclick="submitOrder()">Submit Order</button>
+<div class="cart" id="cart">
+  <h2>Cart</h2>
+  <div id="cartItems"></div>
+  <h3 id="total"></h3>
+  <button onclick="checkout()">Checkout</button>
 </div>
 
 <script>
 
 let cart = [];
 
-function addToCart(product){
-cart.push(product);
-displayCart();
-alert(product + " added to cart");
+function addToCart(name, price){
+  cart.push({name, price});
+  alert(name + " added to cart");
+  updateCart();
 }
 
-function displayCart(){
-let cartBox = document.getElementById("cart-items");
-cartBox.innerHTML="";
-cart.forEach(item=>{
-cartBox.innerHTML += "<div class='cart-item'>"+item+"</div>";
-});
+function updateCart(){
+  let items = document.getElementById("cartItems");
+  let total = 0;
+  items.innerHTML = "";
+
+  cart.forEach((item,i)=>{
+    total += item.price;
+    items.innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
+  });
+
+  document.getElementById("total").innerText = "Total: ₹" + total;
 }
 
 function toggleCart(){
-document.getElementById("cart").classList.toggle("active");
+  document.getElementById("cart").classList.toggle("active");
 }
 
-function scrollToProducts(){
-document.getElementById("products").scrollIntoView({behavior:"smooth"});
-}
-
-function buyNow(product){
-let number = "919608891170";
-let msg = "I want to buy " + product;
-window.open("https://wa.me/"+number+"?text="+encodeURIComponent(msg));
+function buyNow(name, price){
+  let phone = "919608891170";
+  let message = `Hello, I want to buy ${name} for ₹${price}`;
+  let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
 }
 
 function checkout(){
-toggleCart();
-alert("Fill the form to complete order");
-}
+  if(cart.length === 0){
+    alert("Cart empty");
+    return;
+  }
 
-function submitOrder(){
-let name=document.getElementById("name").value;
-let address=document.getElementById("address").value;
-let phone=document.getElementById("phone").value;
+  let message = "Hello, I want to order:\n";
 
-let number="919608891170";
-let msg="Order Details:\nName:"+name+"\nAddress:"+address+"\nPhone:"+phone+"\nItems:"+cart.join(", ");
+  cart.forEach(item=>{
+    message += `${item.name} - ₹${item.price}\n`;
+  });
 
-window.open("https://wa.me/"+number+"?text="+encodeURIComponent(msg));
+  let total = cart.reduce((sum,item)=>sum+item.price,0);
+  message += `Total: ₹${total}`;
+
+  let phone = "919608891170";
+  let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
 }
 
 </script>
