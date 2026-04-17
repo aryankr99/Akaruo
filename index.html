@@ -6,27 +6,65 @@
 <title>Akaruo Store</title>
 
 <style>
-body{font-family:Arial;margin:0;background:#f4f4f4}
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f4f4;
+}
 
+/* HERO SECTION */
+.hero{
+  height:100vh;
+  background:url('https://i.imgur.com/8Km9tLL.jpg') center/cover no-repeat;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:40px;
+}
+
+.hero p{
+  font-size:20px;
+  margin:10px 0;
+}
+
+.hero button{
+  padding:12px 25px;
+  background:orange;
+  border:none;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
+}
+
+/* PRODUCTS */
 .products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
   padding:20px;
 }
 
 .card{
-  background:#fff;
+  background:white;
   padding:15px;
   border-radius:10px;
   text-align:center;
 }
 
-.card img{width:100%;border-radius:10px}
+.card img{
+  width:100%;
+  border-radius:10px;
+}
 
 button{
   background:orange;
-  color:#fff;
+  color:white;
   border:none;
   padding:10px;
   margin:5px;
@@ -34,107 +72,88 @@ button{
   cursor:pointer;
 }
 
-.cart{
-  position:fixed;
-  top:0;
-  right:-100%;
-  width:300px;
-  height:100%;
-  background:#111;
-  color:#fff;
-  padding:20px;
-  transition:0.3s;
-  overflow:auto;
-}
-
-.cart.active{right:0}
-
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
+<div class="hero">
+  <h1>Akaruo Instant Drink Mix</h1>
+  <p>Premium in Every Sip</p>
+  <button onclick="scrollToProducts()">Shop Now</button>
+</div>
+
 <h2 style="text-align:center">Our Products</h2>
 
-<div class="products">
+<div class="products" id="products">
 
+  <!-- PRODUCT 1 -->
   <div class="card">
-    <img src="https://via.placeholder.com/200">
-    <h3>Instant Coffee</h3>
+    <img src="https://i.imgur.com/2DhmtJ4.png">
+    <h3>Instant Coffee Mix</h3>
     <p>₹99</p>
-    <button onclick="addToCart('Instant Coffee',99)">Add to Cart</button>
-    <button onclick="buyNow('Instant Coffee',99)">Buy Now</button>
+    <button onclick="buyNow('Instant Coffee Mix',99)">Buy Now</button>
   </div>
 
+  <!-- PRODUCT 2 -->
   <div class="card">
-    <img src="https://via.placeholder.com/200">
-    <h3>Lemon Tea</h3>
+    <img src="https://i.imgur.com/W6bXGJc.png">
+    <h3>Iced Coffee Mix</h3>
+    <p>₹129</p>
+    <button onclick="buyNow('Iced Coffee Mix',129)">Buy Now</button>
+  </div>
+
+  <!-- PRODUCT 3 -->
+  <div class="card">
+    <img src="https://i.imgur.com/cGZQx8R.png">
+    <h3>Classic Black Coffee</h3>
+    <p>₹119</p>
+    <button onclick="buyNow('Classic Black Coffee',119)">Buy Now</button>
+  </div>
+
+  <!-- PRODUCT 4 -->
+  <div class="card">
+    <img src="https://i.imgur.com/zY6gG9R.png">
+    <h3>Zest Lemon Tea</h3>
     <p>₹169</p>
-    <button onclick="addToCart('Lemon Tea',169)">Add to Cart</button>
-    <button onclick="buyNow('Lemon Tea',169)">Buy Now</button>
+    <button onclick="buyNow('Zest Lemon Tea',169)">Buy Now</button>
+  </div>
+
+  <!-- PRODUCT 5 -->
+  <div class="card">
+    <img src="https://i.imgur.com/8U5pG6g.png">
+    <h3>Royal Masala Milk</h3>
+    <p>₹169</p>
+    <button onclick="buyNow('Royal Masala Milk',169)">Buy Now</button>
+  </div>
+
+  <!-- PRODUCT 6 -->
+  <div class="card">
+    <img src="https://i.imgur.com/1Q9Z1Zm.png">
+    <h3>Velvet Hot Chocolate</h3>
+    <p>₹179</p>
+    <button onclick="buyNow('Velvet Hot Chocolate',179)">Buy Now</button>
   </div>
 
 </div>
 
-<button onclick="toggleCart()" style="position:fixed;bottom:20px;right:20px;">Cart</button>
-
-<div class="cart" id="cart">
-  <h2>Cart</h2>
-  <div id="cartItems"></div>
-  <h3 id="total"></h3>
-  <button onclick="checkout()">Checkout</button>
+<!-- HOW TO MAKE -->
+<div style="text-align:center;padding:30px;">
+  <h2>How to Make</h2>
+  <img src="https://i.imgur.com/3ZQ3Z9L.png" width="300">
 </div>
 
+<!-- SCRIPT -->
 <script>
 
-let cart = [];
-
-function addToCart(name, price){
-  cart.push({name, price});
-  alert(name + " added to cart");
-  updateCart();
-}
-
-function updateCart(){
-  let items = document.getElementById("cartItems");
-  let total = 0;
-  items.innerHTML = "";
-
-  cart.forEach((item,i)=>{
-    total += item.price;
-    items.innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
-  });
-
-  document.getElementById("total").innerText = "Total: ₹" + total;
-}
-
-function toggleCart(){
-  document.getElementById("cart").classList.toggle("active");
+function scrollToProducts(){
+  document.getElementById("products").scrollIntoView({behavior:"smooth"});
 }
 
 function buyNow(name, price){
   let phone = "919608891170";
   let message = `Hello, I want to buy ${name} for ₹${price}`;
-  let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-  window.open(url, "_blank");
-}
-
-function checkout(){
-  if(cart.length === 0){
-    alert("Cart empty");
-    return;
-  }
-
-  let message = "Hello, I want to order:\n";
-
-  cart.forEach(item=>{
-    message += `${item.name} - ₹${item.price}\n`;
-  });
-
-  let total = cart.reduce((sum,item)=>sum+item.price,0);
-  message += `Total: ₹${total}`;
-
-  let phone = "919608891170";
   let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   window.open(url, "_blank");
 }
