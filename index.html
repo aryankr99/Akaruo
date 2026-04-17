@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akaruo Instant Drink Mix</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f7f7f7;
+color:#222;
+}
+
+/* NAVBAR */
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:#111;
+color:white;
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+}
+
+nav h1{
+font-size:20px;
+letter-spacing:1px;
+}
+
+/* HERO SECTION */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:url("https://images.unsplash.com/photo-1524594154908-eddc3e2c6e28") center/cover no-repeat;
+color:white;
+padding:20px;
+}
+
+.hero h2{
+font-size:48px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:20px;
+opacity:0.9;
+margin-bottom:25px;
+}
+
+.hero button{
+padding:14px 28px;
+font-size:18px;
+border:none;
+background:#ff7a00;
+color:white;
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.hero button:hover{
+background:#ff5500;
+}
+
+/* PRODUCTS */
+
+.products{
+padding:80px 20px;
+text-align:center;
+}
+
+.products h2{
+font-size:34px;
+margin-bottom:30px;
+}
+
+.carousel{
+display:flex;
+overflow-x:auto;
+gap:20px;
+scroll-behavior:smooth;
+padding:20px;
+}
+
+.carousel::-webkit-scrollbar{
+display:none;
+}
+
+.product{
+min-width:220px;
+background:white;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+padding:15px;
+}
+
+.product img{
+width:100%;
+border-radius:10px;
+}
+
+/* CONTACT */
+
+.contact{
+background:#111;
+color:white;
+padding:60px 20px;
+text-align:center;
+}
+
+.contact h2{
+margin-bottom:10px;
+}
+
+footer{
+text-align:center;
+padding:20px;
+font-size:14px;
+background:#000;
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<h1>Akaruo Instant Drink Mix</h1>
+</nav>
+
+<section class="hero">
+
+<h2>Premium in Every Sip</h2>
+
+<p>Refreshing instant drink mix made for every moment</p>
+
+<button onclick="scrollToProducts()">Shop Now</button>
+
+</section>
+
+<section class="products" id="products">
+
+<h2>Our Products</h2>
+
+<div class="carousel" id="carousel">
+
+<div class="product">
+<img src="https://i.ibb.co/HfKr7nxc/1000066999.jpg">
+</div>
+
+<div class="product">
+<img src="https://i.ibb.co/hxcfYsM0/1000066878.jpg">
+</div>
+
+<div class="product">
+<img src="https://i.ibb.co/FkHRnwdg/1000067337.jpg">
+</div>
+
+<div class="product">
+<img src="https://i.ibb.co/qLHT3xKh/1000066877.jpg">
+</div>
+
+<div class="product">
+<img src="https://i.ibb.co/VccJLtLz/1000066880.jpg">
+</div>
+
+</div>
+
+</section>
+
+<section class="contact">
+
+<h2>Contact Owner</h2>
+
+<p>Email: aryankumar2007chy@gmail.com</p>
+
+</section>
+
+<footer>
+© 2026 Akaruo Instant Drink Mix
+</footer>
+
+<script>
+
+/* SCROLL BUTTON */
+
+function scrollToProducts(){
+document.getElementById("products").scrollIntoView({
+behavior:"smooth"
+});
+}
+
+/* AUTO SLIDE CAROUSEL */
+
+const carousel = document.getElementById("carousel");
+
+let scrollAmount = 0;
+
+setInterval(()=>{
+scrollAmount += 240;
+
+if(scrollAmount >= carousel.scrollWidth){
+scrollAmount = 0;
+}
+
+carousel.scrollTo({
+left: scrollAmount,
+behavior: "smooth"
+});
+
+},3000);
+
+</script>
+
+</body>
+</html>
