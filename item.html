@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Akaruo | Our Items</title>
+    <!-- Google Fonts: Playfair Display + Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, #0a0806 0%, #030201 100%);
+            color: #F5EDE1;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Premium Color Palette */
+        :root {
+            --gold: #C9A03D;
+            --gold-light: #E2BB6B;
+            --dark-brown: #3E2A1F;
+            --card-bg: rgba(25, 22, 19, 0.85);
+            --shadow-soft: 0 20px 35px -12px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 30px 45px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(201, 160, 61, 0.3);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            padding: 1rem 0 2rem;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            background: rgba(20, 18, 16, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(230, 180, 110, 0.5);
+            color: #EAD5B0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-btn:hover {
+            background: rgba(201, 160, 61, 0.2);
+            border-color: #E6A557;
+            color: #FFE8C8;
+            transform: translateX(-3px);
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #F8E3C2 0%, #E7BF8B 40%, #F5CD9E 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-underline {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #E6A557, #F5C28E, #E6A557, transparent);
+            margin: 0.8rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Premium Product Card */
+        .product-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(201, 160, 61, 0.2);
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        /* Staggered Animation */
+        .product-card:nth-child(1) { animation-delay: 0.05s; }
+        .product-card:nth-child(2) { animation-delay: 0.1s; }
+        .product-card:nth-child(3) { animation-delay: 0.15s; }
+        .product-card:nth-child(4) { animation-delay: 0.2s; }
+        .product-card:nth-child(5) { animation-delay: 0.25s; }
+        .product-card:nth-child(6) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(201, 160, 61, 0.5);
+        }
+
+        /* Image Wrapper */
+        .image-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.06);
+        }
+
+        /* Product Info */
+        .product-info {
+            padding: 1.3rem 1.2rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(0deg, rgba(20, 18, 16, 0.9), rgba(25, 22, 19, 0.7));
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #F5E6D0;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.2px;
+        }
+
+        .product-price {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin: 0.4rem 0 1rem 0;
+        }
+
+        .price-currency {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #D4A85C;
+        }
+
+        /* Buy Now Button */
+        .buy-btn {
+            background: transparent;
+            border: 1.5px solid var(--gold);
+            color: #F5E6D0;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 80%;
+            margin: 0 auto;
+            letter-spacing: 1px;
+            background: rgba(201, 160, 61, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .buy-btn:hover {
+            background: linear-gradient(95deg, #C9A03D, #B58C2E);
+            color: #1f1508;
+            border-color: #C9A03D;
+            transform: scale(1.02);
+            box-shadow: 0 6px 14px rgba(201, 160, 61, 0.3);
+        }
+
+        .buy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer */
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 160, 61, 0.2);
+            font-size: 0.7rem;
+            color: rgba(230, 200, 150, 0.5);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                padding: 1.5rem 1.5rem 3rem;
+            }
+            .products-grid {
+                gap: 1.5rem;
+            }
+            .page-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+            .page-title {
+                font-size: 2.2rem;
+            }
+            .back-btn {
+                position: static;
+                margin-bottom: 1.5rem;
+                display: inline-flex;
+            }
+            .header-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .product-name {
+                font-size: 1rem;
+            }
+            .product-price {
+                font-size: 1.1rem;
+            }
+            .buy-btn {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 1rem 1rem 2rem;
+            }
+            .products-grid {
+                gap: 1rem;
+            }
+            .product-info {
+                padding: 1rem 0.8rem 1.2rem;
+            }
+            .product-name {
+                font-size: 0.9rem;
+            }
+            .product-price {
+                font-size: 1rem;
+            }
+            .page-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-section">
+        <a href="home.html" class="back-btn">← Back</a>
+        <h1 class="page-title">Our Items</h1>
+        <div class="title-underline"></div>
+    </div>
+
+    <div class="products-grid">
+        <!-- Product 1 - Royal Masala Milk -->
+        <div class="product-card" data-name="Akaruo Royal Masala Milk" data-price="169">
+            <div class="image-wrapper">
+                <img class="product-img" src="https://i.ibb.co/3Y7TxxwJ/1000066807.jpg" alt="Akaruo Royal Masala Milk">
+            </div>
+            <div class="product-info">
+                <div class="product-name">Akaruo Royal Masala Milk</div>
+                <div class="product-price"><span class="price-currency">₹</span>169</div>
+                <button class="buy-btn">Buy Now →</button>
+            </div>
+        </div>
+
+        <!-- Product 2 - Instant Coffee Mix -->
+        <div class="product-card" data-name="Akaruo Instant Coffee Mix" data-price="99">
+            <div class="image-wrapper">
+                <img class="product-img" src="https://i.ibb.co/SCvjwcY/1000066814.jpg" alt="Akaruo Instant Coffee Mix">
+            </div>
+            <div class="product-info">
+                <div class="product-name">Akaruo Instant Coffee Mix</div>
+                <div class="product-price"><span class="price-currency">₹</span>99</div>
+                <button class="buy-btn">Buy Now →</button>
+            </div>
+        </div>
+
+        <!-- Product 3 - Iced Coffee Mix -->
+        <div class="product-card" data-name="Akaruo Iced Coffee Mix" data-price="129">
+            <div class="image-wrapper">
+                <img class="product-img" src="https://i.ibb.co/fzY1NccG/1000066817.jpg" alt="Akaruo Iced Coffee Mix">
+            </div>
+            <div class="product-info">
+                <div class="product-name">Akaruo Iced Coffee Mix</div>
+                <div class="product-price"><span class="price-currency">₹</span>129</div>
+                <button class="buy-btn">Buy Now →</button>
+            </div>
+        </div>
+
+        <!-- Product 4 - Zest Lemon Tea -->
+        <div class="product-card" data-name="Akaruo Zest Lemon Tea" data-price="169">
+            <div class="image-wrapper">
+                <img class="product-img" src="https://i.ibb.co/20kF3tGN/1000066820.jpg" alt="Akaruo Zest Lemon Tea">
+            </div>
+            <div class="product-info">
+                <div class="product-name">Akaruo Zest Lemon Tea</div>
+                <div class="product-price"><span class="price-currency">₹</span>169</div>
+                <button class="buy-btn">Buy Now →</button>
+            </div>
+        </div>
+
+        <!-- Product 5 - Premium Lemon Blend -->
+        <div class="product-card" data-name="Akaruo Premium Lemon Blend" data-price="149">
+            <div class="image-wrapper">
+                <img class="product-img" src="https://i.ibb.co/Dx5YrwS/1000066805.jpg" alt="Akaruo Premium Lemon Blend">
+            </div>
+            <div class="product-info">
+                <div class="product-name">Akaruo Premium Lemon Blend</div>
+                <div class="product-price"><span class="price-currency">₹</span>149</div>
+                <button class="buy-btn">Buy Now →</button>
+            </div>
+        </div>
+
+        <!-- Product 6 - Classic Black Coffee -->
+        <div class="product-card" data-name="Akaruo Classic Black Coffee" data-price="119">
+            <div class="image-wrapper">
+                <img class="product-img" src="https://i.ibb.co/fzgySN1r/1000066832.jpg" alt="Akaruo Classic Black Coffee">
+            </div>
+            <div class="product-info">
+                <div class="product-name">Akaruo Classic Black Coffee</div>
+                <div class="product-price"><span class="price-currency">₹</span>119</div>
+                <button class="buy-btn">Buy Now →</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        ✦ artisanal craft | pure indulgence ✦
+    </div>
+</div>
+
+<script>
+    // Get all Buy Now buttons
+    const buyButtons = document.querySelectorAll('.buy-btn');
+    
+    // Add click event to each button for redirect to order.html with product and price
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+            
+            // Find parent product-card
+            const productCard = this.closest('.product-card');
+            if (productCard) {
+                // Get product name and price from data attributes
+                let productName = productCard.getAttribute('data-name');
+                let productPrice = productCard.getAttribute('data-price');
+                
+                // Fallback: if data attributes missing, extract from DOM
+                if (!productName) {
+                    const nameElem = productCard.querySelector('.product-name');
+                    if (nameElem) productName = nameElem.innerText.trim();
+                }
+                if (!productPrice) {
+                    const priceElem = productCard.querySelector('.product-price');
+                    if (priceElem) {
+                        let priceText = priceElem.innerText.trim();
+                        let match = priceText.match(/[\d]+/);
+                        if (match) productPrice = match[0];
+                    }
+                }
+                
+                // Encode parameters for URL safety
+                const encodedProduct = encodeURIComponent(productName);
+                const encodedPrice = encodeURIComponent(productPrice);
+                
+                // Redirect to order.html with query parameters
+                window.location.href = `order.html?product=${encodedProduct}&price=${encodedPrice}`;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
