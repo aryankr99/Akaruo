@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akaruo</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+/* Background */
+.bg {
+    background: url('https://i.ibb.co/Zpdw3nPS/0fe62db976b9568aa4fdda50ec9c3614.jpg') no-repeat center center/cover;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    animation: zoom 40s infinite alternate;
+    z-index: -2;
+}
+
+@keyframes zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: -1;
+}
+
+/* Center content */
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    flex-direction: column;
+}
+
+/* Title */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin: 0;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+}
+
+/* Subtitle */
+p {
+    font-size: 1.2rem;
+    margin: 10px 0 30px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+}
+
+/* Button */
+.btn {
+    padding: 12px 35px;
+    border: none;
+    border-radius: 30px;
+    background: #ff8c00;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+}
+
+.btn:hover {
+    transform: scale(1.08);
+    background: #e67e22;
+}
+
+/* Animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile */
+@media(max-width:600px){
+    h1 { font-size: 2.5rem; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+
+<div class="container">
+    <h1>Welcome to Akaruo</h1>
+    <p>Premium in Every Sip</p>
+    <button class="btn" onclick="start()">Start</button>
+</div>
+
+<script>
+function start(){
+    window.location.href = "login.html"; // yaha tumhara login page
+}
+</script>
+
+</body>
+</html>
