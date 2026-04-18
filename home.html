@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Akaruo | Luxury in Every Sip</title>
-    <!-- Google Fonts: Playfair Display + Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (free icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Akaruo | Luxury Gallery</title>
+    <!-- Google Fonts: Poppins + Playfair Display for luxury feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- GSAP Core + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -16,552 +17,556 @@
         }
 
         body {
-            background-color: #fefaf5;  /* warm cream base */
             font-family: 'Poppins', sans-serif;
-            color: #2e241f;
+            background: radial-gradient(ellipse at 20% 30%, #0a0806 0%, #030201 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Custom cursor for luxury feel */
+        body {
+            cursor: default;
+        }
+
+        /* Smooth scrolling */
+        html {
             scroll-behavior: smooth;
         }
 
-        /* custom scrollbar for luxury vibe */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #e9dfd4;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #b87c4f;
-            border-radius: 12px;
-        }
-
+        /* Container */
         .container {
-            max-width: 1280px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 2rem;
         }
 
-        /* ========== HEADER SECTION (center, fade-in) ========== */
+        /* Hero Section */
         .hero {
-            text-align: center;
-            padding: 80px 20px 60px 20px;
-            animation: fadeInUp 1s ease-out;
-        }
-        .brand-name {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 700;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #3b2a22 0%, #6f4e2e 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 12px rgba(0,0,0,0.02);
-            margin-bottom: 16px;
-        }
-        .subtitle {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            font-weight: 400;
-            color: #aa7c58;
-            text-transform: uppercase;
-            border-top: 1px solid #e3d4c8;
-            display: inline-block;
-            padding-top: 12px;
-        }
-
-        /* section styling with gold accents */
-        .section-divider {
+            min-height: 70vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            gap: 20px;
-            margin: 40px 0 32px 0;
-        }
-        .divider-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #d4af7a, #d4af7a, #d4af7a, transparent);
-            flex: 1;
-        }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 600;
-            color: #3f2c1f;
-            letter-spacing: 1px;
-            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: #fefaf5;
-            padding: 0 20px;
-        }
-        .section-title i {
-            color: #c9a06c;
-            font-size: 1.7rem;
+            text-align: center;
+            position: relative;
+            margin-bottom: 3rem;
         }
 
-        /* product grid */
-        .product-grid {
+        .luxury-badge {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 215, 0, 0.7);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 40%, #FFE4A0 70%, #FFD700 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 245, 220, 0.7);
+            border-top: 1px solid rgba(255, 215, 0, 0.4);
+            padding-top: 1.2rem;
+            display: inline-block;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            padding: 4rem 0 8rem;
+        }
+
+        .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px 30px;
-            margin: 20px 0 60px 0;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        /* premium card design */
-        .product-card {
-            background: #ffffff;
-            border-radius: 28px;
+        /* Premium Card */
+        .card {
+            position: relative;
+            border-radius: 1.5rem;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
             cursor: pointer;
-            backdrop-filter: blur(0px);
-            border: 1px solid rgba(212, 175, 122, 0.2);
+            background: rgba(20, 18, 16, 0.4);
+            backdrop-filter: blur(2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transform: translateY(0);
+            will-change: transform;
         }
-        .product-card:hover {
-            transform: scale(1.02) translateY(-6px);
-            box-shadow: 0 30px 40px -15px rgba(107, 70, 39, 0.25);
-            border-color: rgba(212, 175, 122, 0.5);
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 1.5px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Image Wrapper for Parallax */
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
         }
 
         .card-img {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            height: 100%;
             object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-            border-radius: 24px 24px 0 0;
-        }
-        .product-card:hover .card-img {
-            transform: scale(1.03);
-        }
-        .card-content {
-            padding: 22px 20px 26px;
-            text-align: center;
-            background: #ffffff;
-        }
-        .product-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.45rem;
-            font-weight: 600;
-            color: #2c241e;
-            margin-bottom: 12px;
-            letter-spacing: -0.2px;
-        }
-        .product-price {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.7rem;
-            font-weight: 600;
-            color: #c7a05b;   /* premium gold */
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            display: inline-block;
-            border-bottom: 1px dashed #eedbbc;
-            padding-bottom: 4px;
-        }
-        .price-symbol {
-            font-size: 1.2rem;
-            font-weight: 500;
+            transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            will-change: transform;
         }
 
-        .buy-btn {
-            background: transparent;
-            border: 1.5px solid #dbb879;
-            padding: 12px 28px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            color: #7c5d3c;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #fffcf8;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .buy-btn i {
-            font-size: 0.9rem;
-            transition: transform 0.2s;
-        }
-        .buy-btn:hover {
-            background: #c7a05b;
-            border-color: #c7a05b;
-            color: white;
-            box-shadow: 0 8px 20px rgba(199, 160, 91, 0.4);
-            transform: translateY(-2px);
-        }
-        .buy-btn:hover i {
-            transform: translateX(4px);
-            color: white;
+        .card:hover .card-img {
+            transform: scale(1.08);
         }
 
-        /* fade-in on scroll utility */
-        .fade-scroll {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.8s ease, transform 0.7s ease;
-        }
-        .fade-scroll.appear {
-            opacity: 1;
+        /* Glassmorphism Overlay */
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
+            backdrop-filter: blur(8px);
+            padding: 2rem 1.5rem 1.5rem;
             transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            pointer-events: none;
         }
 
-        /* Responsive: tablet & mobile */
+        .card:hover .card-overlay {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFD700;
+            margin-bottom: 0.3rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease 0.05s;
+        }
+
+        .card-price {
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255, 245, 220, 0.9);
+            margin-bottom: 0.8rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease 0.1s;
+        }
+
+        .view-more {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #FFD700;
+            text-transform: uppercase;
+            border-bottom: 1px solid #FFD700;
+            padding-bottom: 3px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease 0.15s;
+            pointer-events: auto;
+        }
+
+        .card:hover .card-title,
+        .card:hover .card-price,
+        .card:hover .view-more {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Anchor link - entire card clickable */
+        .card-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            text-indent: -9999px;
+        }
+
+        /* Responsive */
         @media (max-width: 992px) {
-            .product-grid {
-                gap: 30px;
-            }
-            .container {
-                padding: 0 24px;
-            }
-        }
-        @media (max-width: 768px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 28px;
-            }
-            .hero {
-                padding: 60px 16px 40px;
-            }
-            .section-title {
-                font-size: 1.7rem;
-            }
-        }
-        @media (max-width: 540px) {
-            .product-grid {
-                grid-template-columns: 1fr;
-                max-width: 380px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .container {
-                padding: 0 20px;
-            }
-            .card-content {
-                padding: 18px 16px 22px;
-            }
-            .product-name {
-                font-size: 1.3rem;
-            }
+            .hero h1 { font-size: 3.8rem; }
+            .grid { gap: 1.5rem; }
         }
 
-        /* footer tiny note luxury */
+        @media (max-width: 768px) {
+            .container { padding: 0 1.5rem; }
+            .hero { min-height: 50vh; margin-bottom: 1rem; }
+            .hero h1 { font-size: 2.8rem; }
+            .subtitle { font-size: 0.8rem; letter-spacing: 2px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+            .card-title { font-size: 1rem; }
+        }
+
+        @media (max-width: 550px) {
+            .grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+            .hero h1 { font-size: 2.2rem; }
+            .luxury-badge { font-size: 0.6rem; }
+        }
+
+        /* Glow effect on card */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1.5rem;
+            pointer-events: none;
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0);
+            transition: box-shadow 0.4s ease;
+        }
+
+        .card:hover::after {
+            box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Footer */
         .footer-note {
             text-align: center;
-            padding: 48px 20px 40px;
-            font-size: 0.75rem;
-            color: #b69273;
+            padding: 3rem 0 4rem;
+            font-size: 0.8rem;
+            color: rgba(255, 235, 190, 0.4);
+            border-top: 1px solid rgba(255, 215, 0, 0.15);
             letter-spacing: 1px;
-            border-top: 1px solid #e9dbce;
-            margin-top: 20px;
-            font-family: 'Poppins', sans-serif;
-        }
-        .gold-accent {
-            color: #c7a05b;
         }
 
-        /* button active + general */
-        button {
-            background: none;
-            border: none;
-        }
-        img {
-            max-width: 100%;
-            display: block;
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- header fade-in -->
+    <!-- Hero Section -->
     <div class="hero">
-        <h1 class="brand-name">Akaruo</h1>
+        <div class="luxury-badge">✦ AKARUO ✦</div>
+        <h1>Artisanal Collection</h1>
         <div class="subtitle">Luxury in Every Sip</div>
+        <div class="scroll-hint">↓ SCROLL TO EXPLORE ↓</div>
     </div>
 
-    <!-- ☕ Coffee Range section -->
-    <div class="section-divider fade-scroll">
-        <div class="divider-line"></div>
-        <div class="section-title">
-            <i class="fas fa-mug-hot"></i> 
-            <span>Coffee Range</span>
-            <i class="fas fa-mug-hot"></i>
+    <!-- Gallery Grid -->
+    <div class="gallery">
+        <div class="grid" id="galleryGrid">
+            <!-- Card 1 - Iced Coffee Mix -->
+            <div class="card" data-gold="true">
+                <div class="image-wrapper">
+                    <img class="card-img" src="https://i.ibb.co/Rp9jjy1v/1000066817.jpg" alt="Akaruo Iced Coffee Mix">
+                </div>
+                <div class="card-overlay">
+                    <div class="card-title">Iced Coffee Mix</div>
+                    <div class="card-price">₹129</div>
+                    <div class="view-more">View More →</div>
+                </div>
+                <a href="#" class="card-link" onclick="alert('Experience luxury: Akaruo Iced Coffee Mix'); return false;"></a>
+            </div>
+            <!-- Card 2 - Classic Black Coffee -->
+            <div class="card" data-gold="true">
+                <div class="image-wrapper">
+                    <img class="card-img" src="https://i.ibb.co/Y7yNzkRX/1000066832.jpg" alt="Akaruo Classic Black Coffee">
+                </div>
+                <div class="card-overlay">
+                    <div class="card-title">Classic Black Coffee</div>
+                    <div class="card-price">₹119</div>
+                    <div class="view-more">View More →</div>
+                </div>
+                <a href="#" class="card-link" onclick="alert('Experience luxury: Akaruo Classic Black Coffee'); return false;"></a>
+            </div>
+            <!-- Card 3 - Zest Lemon Tea -->
+            <div class="card" data-gold="true">
+                <div class="image-wrapper">
+                    <img class="card-img" src="https://i.ibb.co/Xk4XRs8x/1000066820.jpg" alt="Akaruo Zest Lemon Tea">
+                </div>
+                <div class="card-overlay">
+                    <div class="card-title">Zest Lemon Tea</div>
+                    <div class="card-price">₹169</div>
+                    <div class="view-more">View More →</div>
+                </div>
+                <a href="#" class="card-link" onclick="alert('Experience luxury: Akaruo Zest Lemon Tea'); return false;"></a>
+            </div>
+            <!-- Card 4 - Royal Masala Milk -->
+            <div class="card" data-gold="true">
+                <div class="image-wrapper">
+                    <img class="card-img" src="https://i.ibb.co/3yT3fXDR/1000066807.jpg" alt="Akaruo Royal Masala Milk">
+                </div>
+                <div class="card-overlay">
+                    <div class="card-title">Royal Masala Milk</div>
+                    <div class="card-price">₹169</div>
+                    <div class="view-more">View More →</div>
+                </div>
+                <a href="#" class="card-link" onclick="alert('Experience luxury: Akaruo Royal Masala Milk'); return false;"></a>
+            </div>
+            <!-- Card 5 - Instant Coffee Mix -->
+            <div class="card" data-gold="true">
+                <div class="image-wrapper">
+                    <img class="card-img" src="https://i.ibb.co/4RK1whdN/1000066814.jpg" alt="Akaruo Instant Coffee Mix">
+                </div>
+                <div class="card-overlay">
+                    <div class="card-title">Instant Coffee Mix</div>
+                    <div class="card-price">₹99</div>
+                    <div class="view-more">View More →</div>
+                </div>
+                <a href="#" class="card-link" onclick="alert('Experience luxury: Akaruo Instant Coffee Mix'); return false;"></a>
+            </div>
+            <!-- Card 6 - Lemon Tea (alternate image) -->
+            <div class="card" data-gold="true">
+                <div class="image-wrapper">
+                    <img class="card-img" src="https://i.ibb.co/LzMjY1ZF/1000066805.jpg" alt="Akaruo Premium Blend">
+                </div>
+                <div class="card-overlay">
+                    <div class="card-title">Premium Blend</div>
+                    <div class="card-price">₹149</div>
+                    <div class="view-more">View More →</div>
+                </div>
+                <a href="#" class="card-link" onclick="alert('Experience luxury: Akaruo Premium Blend'); return false;"></a>
+            </div>
         </div>
-        <div class="divider-line"></div>
     </div>
-
-    <div class="product-grid" id="coffeeGrid">
-        <!-- coffee items will be dynamically injected via JS but also static for reliability? 
-        We'll generate from data array for consistency and maintainability -->
-    </div>
-
-    <!-- 🍵 Premium Beverages section -->
-    <div class="section-divider fade-scroll">
-        <div class="divider-line"></div>
-        <div class="section-title">
-            <i class="fas fa-leaf"></i> 
-            <span>Premium Beverages</span>
-            <i class="fas fa-leaf"></i>
-        </div>
-        <div class="divider-line"></div>
-    </div>
-
-    <div class="product-grid" id="beverageGrid">
-        <!-- beverage items injected -->
-    </div>
-    
     <div class="footer-note">
-        <span class="gold-accent">✦</span> Akaruo — Artisanal Craft & Elegance <span class="gold-accent">✦</span>
+        ✦ artisanal craft | pure indulgence ✦
     </div>
 </div>
 
 <script>
-    // ---------- PRODUCT DATA (exactly matching brief) ----------
-    const coffeeProducts = [
-        {
-            name: "Akaruo Iced Coffee Mix",
-            price: 129,
-            image: "https://i.ibb.co/Rp9jjy1v/1000066817.jpg",
-            category: "coffee"
-        },
-        {
-            name: "Akaruo Instant Coffee Mix",
-            price: 99,
-            image: "https://i.ibb.co/LzMjY1ZF/1000066805.jpg",
-            category: "coffee"
-        },
-        {
-            name: "Akaruo Classic Black Coffee",
-            price: 119,
-            image: "https://i.ibb.co/Y7yNzkRX/1000066832.jpg",
-            category: "coffee"
-        }
-    ];
+    // Initialize GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
 
-    const beverageProducts = [
-        {
-            name: "Akaruo Zest Lemon Tea",
-            price: 169,
-            image: "https://i.ibb.co/Xk4XRs8x/1000066820.jpg",
-            category: "beverage"
-        },
-        {
-            name: "Akaruo Royal Masala Milk",
-            price: 169,
-            image: "https://i.ibb.co/3yT3fXDR/1000066807.jpg",
-            category: "beverage"
-        },
-        {
-            name: "Akaruo Velvet Hot Chocolate",
-            price: 179,
-            image: "https://i.ibb.co/4RK1whdN/1000066814.jpg",
-            category: "beverage"
-        }
-    ];
-
-    // helper function to create product card HTML (with proper redirect)
-    function createProductCard(product) {
-        // construct order URL with encoded params
-        const orderUrl = `order.html?product=${encodeURIComponent(product.name)}&price=${product.price}`;
+    // Wait for DOM and images to be ready
+    window.addEventListener('load', () => {
         
-        // using button with onclick redirect, ensures clean click
-        return `
-            <div class="product-card fade-scroll">
-                <img class="card-img" src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Akaruo+Luxury'">
-                <div class="card-content">
-                    <h3 class="product-name">${product.name}</h3>
-                    <div class="product-price">
-                        <span class="price-symbol">₹</span>${product.price}
-                    </div>
-                    <button class="buy-btn" data-product="${product.name}" data-price="${product.price}">
-                        Buy Now <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-    }
-
-    // render function for grids
-    function renderProducts() {
-        const coffeeContainer = document.getElementById('coffeeGrid');
-        const beverageContainer = document.getElementById('beverageGrid');
+        // ------------------------------
+        // 1. PAGE LOAD ANIMATIONS (Fade-in + upward motion)
+        // ------------------------------
+        const heroTimeline = gsap.timeline();
         
-        if (coffeeContainer) {
-            coffeeContainer.innerHTML = '';
-            coffeeProducts.forEach(product => {
-                coffeeContainer.insertAdjacentHTML('beforeend', createProductCard(product));
-            });
-        }
+        heroTimeline
+            .from('.luxury-badge', {
+                duration: 0.8,
+                y: 30,
+                opacity: 0,
+                ease: "power3.out"
+            })
+            .from('.hero h1', {
+                duration: 1,
+                y: 40,
+                opacity: 0,
+                ease: "power3.out"
+            }, "-=0.4")
+            .from('.subtitle', {
+                duration: 0.8,
+                y: 30,
+                opacity: 0,
+                ease: "power3.out"
+            }, "-=0.6")
+            .from('.scroll-hint', {
+                duration: 0.6,
+                opacity: 0,
+                y: 15,
+                ease: "power2.out"
+            }, "-=0.2");
         
-        if (beverageContainer) {
-            beverageContainer.innerHTML = '';
-            beverageProducts.forEach(product => {
-                beverageContainer.insertAdjacentHTML('beforeend', createProductCard(product));
-            });
-        }
-
-        // attach event listeners to all buy buttons after DOM injection
-        attachBuyButtonEvents();
-    }
-
-    // Buy Now redirection logic with proper URL encoding and exact parameters
-    function attachBuyButtonEvents() {
-        const allBuyBtns = document.querySelectorAll('.buy-btn');
-        allBuyBtns.forEach(btn => {
-            // remove any existing listener to avoid duplicates, but we use fresh listeners
-            btn.removeEventListener('click', handleBuyClick);
-            btn.addEventListener('click', handleBuyClick);
-        });
-    }
-
-    function handleBuyClick(event) {
-        event.preventDefault();
-        const button = event.currentTarget;
-        // retrieve product name and price from data attributes or from nearby elements
-        // we can get product name from sibling .product-name text
-        const card = button.closest('.product-card');
-        if (card) {
-            const nameElem = card.querySelector('.product-name');
-            const priceElem = card.querySelector('.product-price');
-            let productName = '';
-            let productPrice = '';
-            if (nameElem) productName = nameElem.innerText.trim();
-            if (priceElem) {
-                // price text like "₹129" -> extract numeric
-                let priceText = priceElem.innerText.trim();
-                let match = priceText.match(/₹(\d+)/);
-                if (match) productPrice = match[1];
+        // Cards staggered fade-in + upward motion (stagger animation)
+        const cards = document.querySelectorAll('.card');
+        
+        gsap.fromTo(cards, 
+            {
+                y: 60,
+                opacity: 0,
+                scale: 0.95
+            },
+            {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.9,
+                stagger: 0.12,
+                ease: "power3.out",
+                clearProps: "all"
             }
-            // fallback to data attributes if defined (we also set data attributes to button for safety)
-            if (!productPrice && button.getAttribute('data-price')) productPrice = button.getAttribute('data-price');
-            if (!productName && button.getAttribute('data-product')) productName = button.getAttribute('data-product');
-            
-            if (productName && productPrice) {
-                const redirectUrl = `order.html?product=${encodeURIComponent(productName)}&price=${productPrice}`;
-                window.location.href = redirectUrl;
-            } else {
-                // extremely safe fallback: try to get from product data again
-                console.warn("fallback triggered");
-                // manually search in product arrays (edge)
-                const allProducts = [...coffeeProducts, ...beverageProducts];
-                const priceRaw = priceElem ? priceElem.innerText : '';
-                const numericPrice = priceRaw.replace(/[^0-9]/g, '');
-                const found = allProducts.find(p => p.price.toString() === numericPrice);
-                if(found) {
-                    window.location.href = `order.html?product=${encodeURIComponent(found.name)}&price=${found.price}`;
-                } else {
-                    // ultimate fallback: use button text fallback but should not happen
-                    alert("Product details loaded. Please try again.");
-                }
-            }
-        } else {
-            // legacy backup: read data attributes from button
-            const pName = button.getAttribute('data-product');
-            const pPrice = button.getAttribute('data-price');
-            if(pName && pPrice) {
-                window.location.href = `order.html?product=${encodeURIComponent(pName)}&price=${pPrice}`;
-            } else {
-                alert("Unable to process order. Refresh and try again.");
-            }
-        }
-    }
-
-    // ---- SCROLL FADE-IN OBSERVER (premium touch) ----
-    function initFadeOnScroll() {
-        const fadeElements = document.querySelectorAll('.fade-scroll');
-        if (fadeElements.length === 0) return;
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('appear');
-                    observer.unobserve(entry.target); // once appeared, no need to observe again
-                }
-            });
-        }, { threshold: 0.15, rootMargin: "0px 0px -20px 0px" });
+        );
         
-        fadeElements.forEach(el => observer.observe(el));
-    }
-
-    // slight zoom effect plus premium extra: run after render
-    function addExtraPremiumDetails() {
-        // smooth cursor luxury feeling: already done via css, but ensure any dynamic images get natural hover
-        // Additionally, we add small gold badges? but it's elegant
-        // set lazy loading for images already used.
-        const imgs = document.querySelectorAll('.card-img');
-        imgs.forEach(img => {
-            img.setAttribute('loading', 'lazy');
-        });
-    }
-
-    // also ensure that after any dynamic content, observer is re-called for newly added fade-scroll
-    function observeNewFadeElements() {
-        const newFade = document.querySelectorAll('.fade-scroll:not(.appear)');
-        if(newFade.length) {
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting) {
-                        entry.target.classList.add('appear');
-                        obs.unobserve(entry.target);
+        // ------------------------------
+        // 2. SCROLLTRIGGER ANIMATIONS (Cards animate into view)
+        // ------------------------------
+        cards.forEach((card, index) => {
+            gsap.fromTo(card, 
+                {
+                    y: 80,
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.9,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 60%",
+                        toggleActions: "play none none reverse",
+                        // smooth scrub not needed for entrance, but ensures play once
                     }
-                });
-            }, { threshold: 0.1 });
-            newFade.forEach(el => obs.observe(el));
-        }
-    }
-
-    // function to reinitialize scroll for dynamic cards
-    function reinitScroll() {
-        observeNewFadeElements();
-    }
-
-    // small simulation: we already have fade-scroll class on each card and section dividers.
-    // We'll call after render products
-    function loadComplete() {
-        renderProducts();           // builds grids and buttons
-        addExtraPremiumDetails();
-        // because cards are added after DOM load, we must call fade observer again for dynamic items
-        // also section dividers existed earlier but they are static, but cards need observation
-        setTimeout(() => {
-            initFadeOnScroll();     // observes all .fade-scroll (existing + new)
-            reinitScroll();
-        }, 80);
-        // make sure buttons get double safety
-        attachBuyButtonEvents();
-    }
-
-    // Additional smooth scrolling for any anchor (not needed but premium)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if(href !== "#" && href.length > 1) {
-                const target = document.querySelector(href);
-                if(target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth' });
                 }
+            );
+        });
+        
+        // Additional subtle fade for the whole gallery section on scroll
+        gsap.from('.gallery', {
+            opacity: 0,
+            y: 30,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: '.gallery',
+                start: "top 80%",
+                toggleActions: "play none none reverse"
             }
         });
+        
+        // ------------------------------
+        // 3. PARALLAX EFFECT ON IMAGES (mouse move)
+        // ------------------------------
+        cards.forEach(card => {
+            const imgWrapper = card.querySelector('.image-wrapper');
+            const img = card.querySelector('.card-img');
+            if (!imgWrapper || !img) return;
+            
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left; // mouse X relative to card
+                const mouseY = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const percentX = (mouseX - centerX) / centerX;
+                const percentY = (mouseY - centerY) / centerY;
+                const moveX = percentX * 12;
+                const moveY = percentY * 12;
+                
+                // Apply parallax to image (smooth movement)
+                gsap.to(img, {
+                    x: moveX,
+                    y: moveY,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    overwrite: true
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(img, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.5)"
+                });
+            });
+        });
+        
+        // ------------------------------
+        // 4. ADDITIONAL HOVER ENHANCEMENTS: GLOW + SCALE (already in CSS)
+        //    But we add a subtle GSAP timeline for extra smoothness on card hover (optional)
+        // ------------------------------
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    boxShadow: "0 35px 55px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,215,0,0.3)",
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    boxShadow: "0 15px 35px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.1)",
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+        });
+        
+        // Smooth gold glow on overlay text entrance (no extra needed)
+        
+        // ------------------------------
+        // 5. CREATE A MASTER TIMELINE FOR SEQUENCING (for smooth luxury feel)
+        // ------------------------------
+        const masterTimeline = gsap.timeline();
+        masterTimeline
+            .add(heroTimeline, 0)
+            .fromTo(cards, 
+                { y: 50, opacity: 0 },
+                { y: 0, opacity: 1, stagger: 0.1, duration: 0.7, ease: "expo.out" },
+                "-=0.2"
+            );
+        
+        // Add a subtle pulse animation on luxury badge after load
+        gsap.to('.luxury-badge', {
+            textShadow: "0 0 8px rgba(255,215,0,0.6)",
+            repeat: 2,
+            duration: 1.2,
+            yoyo: true,
+            ease: "power1.inOut",
+            delay: 1.2
+        });
+        
+        // Optional: parallax on hero background gradient? (Not needed but elegant)
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) / 80;
+            const moveY = (e.clientY - window.innerHeight / 2) / 80;
+            gsap.to('.hero h1', {
+                x: moveX * 0.5,
+                y: moveY * 0.3,
+                duration: 1,
+                ease: "power2.out",
+                overwrite: true
+            });
+        });
+        
+        // Make cards appear with a premium staggered effect (again ensuring on scroll)
+        // Refresh ScrollTrigger after images load
+        ScrollTrigger.refresh();
     });
     
-    // Execute load after DOM ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadComplete);
-    } else {
-        loadComplete();
-    }
-
-    // Re-run attach after potential dynamic UI changes (just to be extra safe)
-    window.addEventListener('load', function() {
-        attachBuyButtonEvents();
-        // tiny extra: ensure all cards have a slight animation and clean observer
-        const allCards = document.querySelectorAll('.product-card');
-        allCards.forEach(card => {
-            if(!card.classList.contains('fade-scroll')) {
-                card.classList.add('fade-scroll');
-            }
-        });
- 
+    // Preload images smoothness
+    window.onload = () => {
+        // tiny delay for smoothness
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 200);
+    };
+</script>
+</body>
+</html>
