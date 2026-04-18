@@ -325,19 +325,20 @@
         {
             name: "Akaruo Iced Coffee Mix",
             price: 129,
-            image: <a href="https://imgbb.com/"><img src="https:
+            image: "https://i.ibb.co/Rp9jjy1v/1000066817.jpg",
             category: "coffee"
         },
         {
             name: "Akaruo Instant Coffee Mix",
             price: 99,
-            image: <a href="https://imgbb.com/"><img src="https:
+            image: "https://i.ibb.co/LzMjY1ZF/1000066805.jpg",
             category: "coffee"
         },
         {
             name: "Akaruo Classic Black Coffee",
             price: 119,
-            image:    <a href="https://imgbb.com/"><img src="https:       category: "coffee"
+            image: "https://i.ibb.co/Y7yNzkRX/1000066832.jpg",
+            category: "coffee"
         }
     ];
 
@@ -345,19 +346,19 @@
         {
             name: "Akaruo Zest Lemon Tea",
             price: 169,
-            image: <a href="https://imgbb.com/"><img src="https:
+            image: "https://i.ibb.co/Xk4XRs8x/1000066820.jpg",
             category: "beverage"
         },
         {
             name: "Akaruo Royal Masala Milk",
             price: 169,
-            image: <a href="https://imgbb.com/"><img src="https:
+            image: "https://i.ibb.co/3yT3fXDR/1000066807.jpg",
             category: "beverage"
         },
         {
             name: "Akaruo Velvet Hot Chocolate",
             price: 179,
-            image: <a href="https://imgbb.com/"><img src="https:
+            image: "https://i.ibb.co/4RK1whdN/1000066814.jpg",
             category: "beverage"
         }
     ];
@@ -462,4 +463,105 @@
             const pName = button.getAttribute('data-product');
             const pPrice = button.getAttribute('data-price');
             if(pName && pPrice) {
-                window.locati
+                window.location.href = `order.html?product=${encodeURIComponent(pName)}&price=${pPrice}`;
+            } else {
+                alert("Unable to process order. Refresh and try again.");
+            }
+        }
+    }
+
+    // ---- SCROLL FADE-IN OBSERVER (premium touch) ----
+    function initFadeOnScroll() {
+        const fadeElements = document.querySelectorAll('.fade-scroll');
+        if (fadeElements.length === 0) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target); // once appeared, no need to observe again
+                }
+            });
+        }, { threshold: 0.15, rootMargin: "0px 0px -20px 0px" });
+        
+        fadeElements.forEach(el => observer.observe(el));
+    }
+
+    // slight zoom effect plus premium extra: run after render
+    function addExtraPremiumDetails() {
+        // smooth cursor luxury feeling: already done via css, but ensure any dynamic images get natural hover
+        // Additionally, we add small gold badges? but it's elegant
+        // set lazy loading for images already used.
+        const imgs = document.querySelectorAll('.card-img');
+        imgs.forEach(img => {
+            img.setAttribute('loading', 'lazy');
+        });
+    }
+
+    // also ensure that after any dynamic content, observer is re-called for newly added fade-scroll
+    function observeNewFadeElements() {
+        const newFade = document.querySelectorAll('.fade-scroll:not(.appear)');
+        if(newFade.length) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            newFade.forEach(el => obs.observe(el));
+        }
+    }
+
+    // function to reinitialize scroll for dynamic cards
+    function reinitScroll() {
+        observeNewFadeElements();
+    }
+
+    // small simulation: we already have fade-scroll class on each card and section dividers.
+    // We'll call after render products
+    function loadComplete() {
+        renderProducts();           // builds grids and buttons
+        addExtraPremiumDetails();
+        // because cards are added after DOM load, we must call fade observer again for dynamic items
+        // also section dividers existed earlier but they are static, but cards need observation
+        setTimeout(() => {
+            initFadeOnScroll();     // observes all .fade-scroll (existing + new)
+            reinitScroll();
+        }, 80);
+        // make sure buttons get double safety
+        attachBuyButtonEvents();
+    }
+
+    // Additional smooth scrolling for any anchor (not needed but premium)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href !== "#" && href.length > 1) {
+                const target = document.querySelector(href);
+                if(target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+    
+    // Execute load after DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadComplete);
+    } else {
+        loadComplete();
+    }
+
+    // Re-run attach after potential dynamic UI changes (just to be extra safe)
+    window.addEventListener('load', function() {
+        attachBuyButtonEvents();
+        // tiny extra: ensure all cards have a slight animation and clean observer
+        const allCards = document.querySelectorAll('.product-card');
+        allCards.forEach(card => {
+            if(!card.classList.contains('fade-scroll')) {
+                card.classList.add('fade-scroll');
+            }
+        });
+ 
