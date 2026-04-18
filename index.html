@@ -3,73 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Akaruo • Premium in Every Sip</title>
+  <title>Akaruo · Premium Login</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: system-ui, 'Segoe UI', 'Helvetica Neue', 'Inter', sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     }
 
     body {
-      background-color: #0b0a0a;
-      color: #f5f3f0;
-    }
-
-    /* ---------- FULLSCREEN HERO ---------- */
-    .hero {
-      position: relative;
       min-height: 100vh;
-      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      background-color: #0a0807;
+    }
+
+    /* ---------- FULLSCREEN BACKGROUND WITH ZOOM ---------- */
+    .login-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
       isolation: isolate;
     }
 
-    .hero-background {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
+    .background-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
     }
 
-    .hero-background img {
+    .background-layer img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      animation: smoothZoom 8s infinite alternate ease-in-out;
-      transform-origin: center center;
-      will-change: transform;
+      animation: elegantZoom 10s infinite alternate ease-in-out;
+      transform-origin: center;
     }
 
-    @keyframes smoothZoom {
+    @keyframes elegantZoom {
       0% { transform: scale(1); }
       100% { transform: scale(1.08); }
     }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45); /* dark overlay for readability */
-      backdrop-filter: brightness(0.9);
-      z-index: 1;
+    .dark-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(8, 6, 4, 0.55);
+      backdrop-filter: brightness(0.85);
+      z-index: -1;
     }
 
-    .hero-content {
-      position: relative;
+    /* ---------- MAIN CONTENT (ANIMATED) ---------- */
+    .login-content {
+      max-width: 480px;
+      width: 100%;
       z-index: 5;
-      text-align: center;
-      padding: 1.5rem;
-      max-width: 900px;
-      margin: 0 auto;
-      animation: fadeSlideUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation: fadeSlideUp 1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
     }
 
     @keyframes fadeSlideUp {
@@ -77,531 +79,372 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    .hero h1 {
-      font-size: clamp(3.2rem, 13vw, 5.8rem);
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      text-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    /* heading group */
+    .brand-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-heading h1 {
+      font-size: clamp(2.8rem, 12vw, 4.5rem);
+      font-weight: 400;
+      letter-spacing: 1px;
       color: #ffffff;
-      margin-bottom: 0.75rem;
+      text-shadow: 0 15px 30px rgba(0,0,0,0.6);
       line-height: 1.1;
-    }
-
-    .hero-sub {
-      font-size: clamp(1.2rem, 5vw, 2rem);
-      font-weight: 300;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: #f0e6dc;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      margin-bottom: 2.8rem;
-      word-spacing: 4px;
-    }
-
-    /* enter button */
-    .btn-enter {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(255, 215, 175, 0.6);
-      color: #fff5eb;
-      padding: 1rem 3.8rem;
-      font-size: 1.5rem;
-      font-weight: 400;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      border-radius: 60px;
-      cursor: pointer;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      transition: all 0.4s ease;
-      background-color: rgba(20, 15, 10, 0.3);
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-enter:hover {
-      background: rgba(255, 245, 235, 0.15);
-      border-color: #e7c8a0;
-      box-shadow: 0 0 30px rgba(230, 200, 160, 0.3);
-      transform: scale(1.02);
-      color: #ffffff;
-    }
-
-    /* ---------- SECOND SECTION (Cards) ---------- */
-    .nav-cards-section {
-      background: #12100e;
-      padding: 5rem 2rem;
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-    }
-
-    .cards-container {
-      max-width: 1300px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .section-title-sm {
-      text-align: center;
-      font-size: 1rem;
-      letter-spacing: 8px;
-      text-transform: uppercase;
-      color: #bc9b7c;
-      margin-bottom: 2.8rem;
-      font-weight: 300;
-    }
-
-    .two-card-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      justify-content: center;
-      align-items: stretch;
-    }
-
-    .premium-card {
-      flex: 1 1 320px;
-      max-width: 480px;
-      background: #1c1814;
-      border-radius: 36px;
-      padding: 3.5rem 2.5rem;
-      text-align: center;
-      box-shadow: 0 30px 40px -15px rgba(0,0,0,0.5);
-      border: 1px solid #3e3229;
-      backdrop-filter: blur(4px);
-      transition: all 0.35s ease;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      /* glassy effect */
-      background: rgba(28, 24, 20, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .premium-card:hover {
-      transform: translateY(-12px);
-      border-color: #c8aa8b;
-      box-shadow: 0 40px 50px -10px #0a0705, 0 0 0 1px rgba(210, 170, 130, 0.3);
-      background: rgba(35, 28, 22, 0.9);
-    }
-
-    .premium-card h2 {
-      font-size: 2.4rem;
-      font-weight: 400;
-      letter-spacing: 2px;
-      color: #f2e3d5;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-
-    .card-arrow {
-      font-size: 2.4rem;
-      opacity: 0.7;
-      margin-top: 1.2rem;
-      transition: transform 0.3s;
-      display: inline-block;
-    }
-
-    .premium-card:hover .card-arrow {
-      transform: translateX(6px);
-      opacity: 1;
-    }
-
-    /* ---------- SIGNATURE & ITEMS SECTIONS ---------- */
-    .section {
-      padding: 5rem 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
-
-    .section-header h2 {
-      font-size: 3rem;
-      font-weight: 400;
-      letter-spacing: 3px;
-      color: #ede0d6;
-      border-bottom: 2px solid #836e5b;
-      display: inline-block;
-      padding-bottom: 0.6rem;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2.5rem;
-    }
-
-    .product-card {
-      background: #1b1713;
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 20px 30px -8px black;
-      transition: all 0.3s ease;
-      border: 1px solid #3d322a;
-      backdrop-filter: blur(4px);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card:hover {
-      transform: scale(1.02) translateY(-6px);
-      border-color: #b39274;
-      box-shadow: 0 28px 36px -12px #000000;
-    }
-
-    .product-img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #2a231e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .product-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s;
-    }
-
-    .product-card:hover .product-img img {
-      transform: scale(1.06);
-    }
-
-    .product-info {
-      padding: 1.8rem 1.2rem 1.8rem;
-      text-align: center;
-    }
-
-    .product-name {
-      font-size: 1.6rem;
-      font-weight: 400;
-      color: #e5d5c4;
       margin-bottom: 0.5rem;
     }
 
-    .product-price {
-      font-size: 1.4rem;
+    .brand-sub {
+      font-size: 1.1rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #efe0d2;
+      text-shadow: 0 5px 12px rgba(0,0,0,0.5);
       font-weight: 300;
-      color: #cfb69b;
+      word-spacing: 6px;
+    }
+
+    /* ---------- GLASSMORPHISM LOGIN BOX ---------- */
+    .glass-card {
+      background: rgba(20, 16, 13, 0.4);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(220, 190, 160, 0.25);
+      border-radius: 36px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 35px 55px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(210, 170, 130, 0.1) inset;
+      transition: box-shadow 0.3s;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: #f0e2d6;
+      font-weight: 400;
       letter-spacing: 1px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
     }
 
-    /* signature specific extra */
-    .signature .product-name {
-      font-size: 1.8rem;
+    .input-group input {
+      width: 100%;
+      background: rgba(10, 8, 6, 0.5);
+      border: 1.5px solid #6b5b4e;
+      border-radius: 60px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      color: #fff3ea;
+      outline: none;
+      transition: all 0.25s;
+      backdrop-filter: blur(4px);
     }
 
-    /* background & utility */
-    .bg-dark {
-      background-color: #0e0c0a;
+    .input-group input:focus {
+      border-color: #dbb594;
+      background: rgba(20, 15, 10, 0.7);
+      box-shadow: 0 0 0 3px rgba(210, 160, 120, 0.2);
     }
 
-    .text-light-muted {
-      color: #b9a89a;
+    .input-group input::placeholder {
+      color: #bcab9b;
+      font-weight: 300;
+      font-size: 0.95rem;
     }
 
-    /* smooth scroll & responsiveness */
-    @media (max-width: 640px) {
-      .hero h1 {
-        font-size: 2.8rem;
+    /* error message */
+    .error-msg {
+      color: #ffae8e;
+      font-size: 0.9rem;
+      margin-top: -0.2rem;
+      margin-bottom: 1.2rem;
+      min-height: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      padding-left: 0.5rem;
+    }
+
+    /* buttons */
+    .btn-login {
+      width: 100%;
+      background: #c97e4c;
+      border: none;
+      border-radius: 60px;
+      padding: 1rem;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #fff8f2;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 20px rgba(180, 100, 40, 0.3);
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-bottom: 1.2rem;
+      border: 1px solid rgba(255, 215, 180, 0.5);
+      backdrop-filter: blur(5px);
+      background: linear-gradient(145deg, #d48a54, #b86b3a);
+    }
+
+    .btn-login:hover {
+      background: #da9a68;
+      box-shadow: 0 10px 24px rgba(210, 130, 70, 0.5);
+      transform: scale(1.01);
+      border-color: #efcdb0;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      color: #cbb7a8;
+      gap: 1rem;
+      margin: 1.5rem 0 1.2rem;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #a58e7c, transparent);
+    }
+
+    .btn-google {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      border: 1px solid #e4cfbe;
+      border-radius: 60px;
+      padding: 0.9rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #2b1e14;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-google:hover {
+      background: #ffffff;
+      box-shadow: 0 14px 24px rgba(0,0,0,0.2);
+      transform: translateY(-2px);
+      border-color: #c3a084;
+    }
+
+    .btn-google img {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* mobile fine-tune */
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 2rem 1.5rem;
+        border-radius: 32px;
       }
-      .hero-sub {
-        letter-spacing: 3px;
+      .brand-heading h1 {
+        font-size: 2.5rem;
       }
-      .btn-enter {
-        padding: 0.9rem 2.5rem;
-        font-size: 1.3rem;
+      .brand-sub {
+        letter-spacing: 4px;
       }
-      .premium-card h2 {
-        font-size: 1.8rem;
-      }
-      .section-header h2 {
-        font-size: 2.2rem;
+      .btn-login {
+        font-size: 1.1rem;
       }
     }
 
-    /* No blurred text — crisp */
-    h1, h2, .hero-sub, .btn-enter, .product-name {
+    /* prevent text blur */
+    h1, .brand-sub, .btn-login, .btn-google, input {
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
-    /* ensure sections have id offset for fixed header (none) but smooth */
-    .section[id] {
-      scroll-margin-top: 20px;
-    }
-
-    /* little extra polish */
-    .footer-note {
-      text-align: center;
-      padding: 2rem;
-      color: #7a6a5d;
-      font-size: 0.9rem;
+    /* additional premium touches */
+    .glass-card {
+      transition: transform 0.3s ease;
     }
   </style>
+  <!-- Google icon (inline SVG fallback not needed, we use standard image from trusted CDN) -->
 </head>
 <body>
-
-<!-- HERO SECTION (full screen) -->
-<section class="hero" id="home">
-  <div class="hero-background">
-    <img src="https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg" 
-         alt="Akaruo premium background" 
-         crossorigin="anonymous" />
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1>Welcome to Akaruo</h1>
-    <div class="hero-sub">Premium in Every Sip</div>
-    <!-- Enter Button with smooth scroll to second section -->
-    <button class="btn-enter" id="enterBtn" aria-label="Enter Akaruo">Enter</button>
-  </div>
-</section>
-
-<!-- SECOND SECTION (after enter) — two big cards -->
-<section id="navSection" class="nav-cards-section">
-  <div class="cards-container">
-    <div class="section-title-sm">— Discover —</div>
-    <div class="two-card-grid">
-      <!-- Card 1: Signature Collection (click scrolls to #signature) -->
-      <div class="premium-card" id="cardSignature" role="button" tabindex="0">
-        <h2>Akaruo Signature<br>Collection</h2>
-        <div class="card-arrow">↘</div>
-      </div>
-      <!-- Card 2: Our Items (click scrolls to #items) -->
-      <div class="premium-card" id="cardItems" role="button" tabindex="0">
-        <h2>Our Items</h2>
-        <div class="card-arrow">↘</div>
-      </div>
+  <div class="login-wrapper">
+    <!-- background image + zoom -->
+    <div class="background-layer">
+      <img src="https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg" 
+           alt="Akaruo premium background" 
+           crossorigin="anonymous">
     </div>
-  </div>
-</section>
+    <div class="dark-overlay"></div>
 
-<!-- SIGNATURE SECTION -->
-<section id="signature" class="section signature bg-dark">
-  <div class="section-header">
-    <h2>Signature Collection</h2>
-  </div>
-  <div class="product-grid">
-    <!-- product 1 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/2Y0tN5nL/premium-tea1.jpg" alt="Midnight Oak Blend" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';this.style.objectFit='cover';">
+    <!-- animated content -->
+    <div class="login-content">
+      <div class="brand-heading">
+        <h1>Welcome to Akaruo</h1>
+        <div class="brand-sub">Premium in Every Sip</div>
       </div>
-      <div class="product-info">
-        <div class="product-name">Midnight Oak</div>
-        <div class="product-price">— aged barrel —</div>
+
+      <!-- glass login box -->
+      <div class="glass-card">
+        <!-- Email -->
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="morgan@akaruo.com" autocomplete="email">
+        </div>
+        <!-- Password -->
+        <div class="input-group">
+          <label for="pass">Password</label>
+          <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
+        </div>
+
+        <!-- Error message container -->
+        <div id="errorMsg" class="error-msg"></div>
+
+        <!-- LOGIN BUTTON (orange) -->
+        <button class="btn-login" id="loginBtn">Log in</button>
+
+        <!-- Divider -->
+        <div class="divider">OR</div>
+
+        <!-- GOOGLE LOGIN BUTTON -->
+        <button class="btn-google" id="googleBtn">
+          <!-- Google G icon (simple, clean) -->
+          <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" 
+               alt="Google logo" 
+               style="width: 22px; height: 22px;">
+          <span>Continue with Google</span>
+        </button>
       </div>
-    </div>
-    <!-- product 2 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/7t6ZKhV/whiskey-glass.jpg" alt="Velvet Ember" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';this.style.objectFit='cover';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Velvet Ember</div>
-        <div class="product-price">— small batch —</div>
-      </div>
-    </div>
-    <!-- product 3 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/d4QK2hx/coffee-premium.jpg" alt="Golden Hour" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';this.style.objectFit='cover';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Golden Hour</div>
-        <div class="product-price">— reserve —</div>
-      </div>
+      <p style="text-align: center; margin-top: 1.2rem; color: #cdbcae; font-size: 0.85rem; opacity: 0.9;">
+        Akaruo · Refined taste
+      </p>
     </div>
   </div>
-</section>
 
-<!-- ITEMS SECTION (all products with price) -->
-<section id="items" class="section items bg-dark">
-  <div class="section-header">
-    <h2>Our Items</h2>
-  </div>
-  <div class="product-grid">
-    <!-- item 1 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/2Y0tN5nL/premium-tea1.jpg" alt="Midnight Oak" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Midnight Oak</div>
-        <div class="product-price">$79.00</div>
-      </div>
-    </div>
-    <!-- item 2 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/7t6ZKhV/whiskey-glass.jpg" alt="Velvet Ember" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Velvet Ember</div>
-        <div class="product-price">$94.00</div>
-      </div>
-    </div>
-    <!-- item 3 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/d4QK2hx/coffee-premium.jpg" alt="Golden Hour" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Golden Hour</div>
-        <div class="product-price">$89.00</div>
-      </div>
-    </div>
-    <!-- item 4: additional product -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/PZZGvQy/cocktail-glass.jpg" alt="Amber Dusk" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Amber Dusk</div>
-        <div class="product-price">$69.00</div>
-      </div>
-    </div>
-    <!-- item 5 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/BzKxK2f/caramel-bottle.jpg" alt="Sienna Spirit" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Sienna Spirit</div>
-        <div class="product-price">$112.00</div>
-      </div>
-    </div>
-    <!-- item 6 -->
-    <div class="product-card">
-      <div class="product-img">
-        <img src="https://i.ibb.co/CK4J0hn/barrel-aged.jpg" alt="Oak & Honey" 
-             onerror="this.src='https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg';">
-      </div>
-      <div class="product-info">
-        <div class="product-name">Oak & Honey</div>
-        <div class="product-price">$84.00</div>
-      </div>
-    </div>
-  </div>
-</section>
+  <script>
+    (function() {
+      "use strict";
 
-<div class="footer-note">
-  Akaruo — Premium in Every Sip
-</div>
+      // ---------- DOM elements ----------
+      const emailInput = document.getElementById('email');
+      const passInput = document.getElementById('pass');
+      const errorMsgEl = document.getElementById('errorMsg');
+      const loginBtn = document.getElementById('loginBtn');
+      const googleBtn = document.getElementById('googleBtn');
 
-<script>
-  (function(){
-    "use strict";
-
-    // Ensure all elements exist
-    const enterBtn = document.getElementById('enterBtn');
-    const navSection = document.getElementById('navSection');
-    
-    // Card buttons
-    const cardSignature = document.getElementById('cardSignature');
-    const cardItems = document.getElementById('cardItems');
-    
-    // Sections
-    const signatureSection = document.getElementById('signature');
-    const itemsSection = document.getElementById('items');
-
-    // ---------- SMOOTH SCROLL FUNCTION (cross-browser) ----------
-    function smoothScrollToElement(targetElement) {
-      if (!targetElement) return;
-      
-      // Use native smooth scroll, but we also add a fallback for older browsers (not needed but fine)
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest'
-      });
-    }
-
-    // 1) Enter button → scroll to second section (cards)
-    if (enterBtn) {
-      enterBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (navSection) {
-          smoothScrollToElement(navSection);
+      // ---------- HELPER: show error ----------
+      function setError(message) {
+        if (errorMsgEl) {
+          errorMsgEl.textContent = message;
         }
-      });
-    }
+      }
 
-    // 2) Signature card → #signature
-    if (cardSignature) {
-      cardSignature.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (signatureSection) {
-          smoothScrollToElement(signatureSection);
+      function clearError() {
+        if (errorMsgEl) {
+          errorMsgEl.textContent = '';
         }
-      });
-      // keyboard accessibility
-      cardSignature.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
+      }
+
+      // ---------- VALIDATE & LOGIN (standard) ----------
+      function validateAndLogin() {
+        const email = emailInput.value.trim();
+        const password = passInput.value;  // password can contain spaces? usually not trimmed fully, but we check length.
+
+        // check if empty
+        if (email === '' || password === '') {
+          setError('Please fill all fields');
+          return false;
+        }
+
+        // Basic email format check (optional but nice)
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          setError('Please enter a valid email address');
+          return false;
+        }
+
+        // If we reach here: success
+        clearError();
+        
+        // Show alert: Login Successful
+        alert('Login Successful');
+        
+        // Redirect to home.html
+        window.location.href = 'home.html';
+        return true;
+      }
+
+      // ---------- GOOGLE LOGIN ----------
+      function googleLoginHandler() {
+        // Show success alert
+        alert('Google Login Successful');
+        // Redirect to home.html
+        window.location.href = 'home.html';
+      }
+
+      // ---------- EVENT LISTENERS (onclick) ----------
+      if (loginBtn) {
+        loginBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          smoothScrollToElement(signatureSection);
-        }
-      });
-    }
+          validateAndLogin();
+        });
+      }
 
-    // 3) Our Items card → #items
-    if (cardItems) {
-      cardItems.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (itemsSection) {
-          smoothScrollToElement(itemsSection);
-        }
-      });
-      cardItems.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
+      if (googleBtn) {
+        googleBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          smoothScrollToElement(itemsSection);
+          googleLoginHandler();
+        });
+      }
+
+      // Also allow pressing Enter in password field to trigger login
+      if (passInput) {
+        passInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            validateAndLogin();
+          }
+        });
+      }
+      if (emailInput) {
+        emailInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            validateAndLogin();
+          }
+        });
+      }
+
+      // Clear error when user starts typing
+      [emailInput, passInput].forEach(input => {
+        if (input) {
+          input.addEventListener('input', function() {
+            clearError();
+          });
         }
       });
-    }
 
-    // Additional: ensure any # links also scroll smoothly (just in case)
-    // but we are using only button/card clicks. No broken links.
+      // Expose functions globally for any inline usage (though we use event listeners)
+      window.login = validateAndLogin;
+      window.googleLogin = googleLoginHandler;
 
-    // Background image zoom already in CSS.
-    // Enter button on hero: check if we can preload image, but it's fine.
-    
-    // Minor fallback for product images if some fail to load (they use fallback to main background)
-    // Already in onerror attribute.
-    
-    // guarantee that text is crisp and overlay works
-    // also handle any edge: if someone clicks 'Enter' multiple times.
-    
-    // Bonus: to keep animation smooth, ensure hero overlay doesn't block clicks.
-    console.log('Akaruo — premium landing ready');
-    
-    // Fix for very small devices: keep all cards functional
-    // Also if any product image fails to load from external placeholder, we set a local fallback
-    // Already included inline onerror.
-  })();
-</script>
+      // Additional check: if home.html doesn't exist, the redirect will happen anyway.
+      // But the requirement says: "Ensure redirect works (no 404 if home.html exists)"
+      // We can assume home.html is present. In a real scenario it's fine.
 
-<!-- Additional tiny fix: If the main background fails (unlikely), we could add fallback, but it's fine -->
-<!-- Everything is self-contained, mobile responsive, premium, smooth -->
+      // ensure smoothness
+      console.log('✨ Akaruo login — premium, ready.');
+    })();
+  </script>
+
+  <!-- small fallback for older browsers: smooth zoom and glass work anyway -->
 </body>
 </html>
