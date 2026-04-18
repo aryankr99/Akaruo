@@ -1,418 +1,277 @@
-This is a complete, premium HTML login page for the "Akaruo" brand. It features a full-screen animated background, a glassmorphism login card, and integrates with EmailJS to send only the email address and timestamp upon submission.
-
+This is a single-file solution designed with a luxury, premium aesthetic. It utilizes glassmorphism for the login card, smooth CSS animations for the background and text, and integrates the EmailJS logic as requested.
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Akaruo · Premium Login</title>
-  <!-- Premium Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akaruo | Premium Login</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-orange: #d4833b;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-light: #ffffff;
+        }
 
-    body {
-      width: 100%;
-      min-height: 100vh;
-      font-family: 'Poppins', sans-serif;
-      background-color: #0e0a07; /* deep coffee fallback */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow-x: hidden;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Full screen background with smooth zoom animation */
-    .bg-zoom {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background-image: url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg');
-      background-position: center 30%;
-      background-size: cover;
-      background-repeat: no-repeat;
-      animation: slowZoom 18s infinite alternate ease-in-out;
-      will-change: transform;
-    }
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            background-color: #000;
+        }
 
-    /* Dark overlay for luxury readability */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: rgba(10, 5, 2, 0.55); /* rich coffee darkness */
-      backdrop-filter: blur(2px);
-    }
+        /* Background Animation */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
 
-    @keyframes slowZoom {
-      0% {
-        transform: scale(1);
-      }
-      100% {
-        transform: scale(1.08);
-      }
-    }
+        .bg-image {
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: slowZoom 20s infinite alternate ease-in-out;
+        }
 
-    /* Main container — centers everything */
-    .login-wrapper {
-      width: 100%;
-      max-width: 520px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
 
-    /* Welcome section — fade-in + slide-up */
-    .welcome-text {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      animation: fadeSlideUp 1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-      opacity: 0;
-      transform: translateY(24px);
-    }
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
 
-    .welcome-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 600;
-      font-size: clamp(2.6rem, 12vw, 4rem);
-      letter-spacing: 1px;
-      color: #FEF6E8;
-      text-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      line-height: 1.2;
-      margin-bottom: 0.3rem;
-    }
+        /* Main Wrapper */
+        .wrapper {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .welcome-text .subtitle {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 300;
-      font-size: 1.2rem;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: #f5dbb1;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      word-spacing: 6px;
-    }
+        /* Welcome Section */
+        .welcome-section {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards ease-out;
+        }
 
-    @keyframes fadeSlideUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+        .welcome-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
 
-    /* Glassmorphism card */
-    .glass-card {
-      width: 100%;
-      background: rgba(22, 15, 10, 0.3);
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
-      border-radius: 40px;
-      padding: 2.8rem 2rem 2.8rem;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(230, 190, 140, 0.12);
-      border: 1px solid rgba(235, 195, 135, 0.2);
-      transition: transform 0.2s ease;
-      animation: cardReveal 0.9s ease-out;
-    }
+        .welcome-section p {
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-    @keyframes cardReveal {
-      0% { opacity: 0; transform: scale(0.96); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+        /* Glassmorphism Card */
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards ease-out 0.3s;
+        }
 
-    /* Input fields styling */
-    .input-group {
-      margin-bottom: 2rem;
-      position: relative;
-    }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .input-group label {
-      display: block;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 400;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #ecdcc0;
-      margin-bottom: 0.5rem;
-      margin-left: 0.3rem;
-    }
+        .input-group {
+            margin-bottom: 20px;
+        }
 
-    .premium-input {
-      width: 100%;
-      background: rgba(245, 235, 220, 0.1);
-      border: 1.5px solid rgba(245, 215, 170, 0.3);
-      border-radius: 60px;
-      padding: 1rem 1.5rem;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.05rem;
-      color: #fff7eb;
-      outline: none;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(4px);
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-    }
+        .input-group label {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            margin-left: 5px;
+        }
 
-    .premium-input::placeholder {
-      color: rgba(245, 235, 210, 0.55);
-      font-weight: 300;
-      font-size: 0.95rem;
-    }
+        input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
 
-    .premium-input:focus {
-      border-color: #d99e5e;
-      background: rgba(40, 25, 15, 0.25);
-      box-shadow: 0 0 0 3px rgba(217, 158, 94, 0.25), inset 0 1px 8px rgba(0,0,0,0.2);
-    }
+        input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-orange);
+        }
 
-    /* Orange premium button */
-    .btn-luxury {
-      width: 100%;
-      background: linear-gradient(145deg, #d97c2e 0%, #b85e1a 100%);
-      border: none;
-      border-radius: 60px;
-      padding: 1.1rem 1.8rem;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      font-size: 1.4rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #fdf3e5;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-      box-shadow: 0 16px 30px -8px rgba(180, 90, 20, 0.4), 0 4px 0 0 #6e3a0e, 0 0 0 1px rgba(255, 215, 150, 0.3);
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
-      margin-top: 0.8rem;
-      border: 1px solid rgba(255, 215, 140, 0.3);
-    }
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-orange);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .btn-luxury:hover {
-      transform: scale(1.02);
-      background: linear-gradient(145deg, #e98d3e 0%, #c96a22 100%);
-      box-shadow: 0 20px 35px -6px rgba(200, 110, 20, 0.6), 0 3px 0 0 #7a4214, 0 0 0 1px rgba(255, 235, 180, 0.5);
-    }
+        .login-btn:hover {
+            transform: scale(1.03);
+            background: #e6914a;
+        }
 
-    .btn-luxury:active {
-      transform: scale(0.98);
-      box-shadow: 0 8px 18px -4px rgba(150, 70, 10, 0.5), 0 2px 0 0 #6e3a0e;
-    }
+        .login-btn:active {
+            transform: scale(0.98);
+        }
 
-    /* subtle accent line */
-    .luxury-divider {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin: 1.8rem 0 0.5rem;
-      opacity: 0.7;
-    }
+        /* Footer Decoration */
+        .footer-text {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
 
-    .luxury-divider span {
-      height: 1px;
-      flex: 1;
-      background: linear-gradient(90deg, transparent, #eec9a0, transparent);
-    }
-
-    /* footnote — not necessary but adds luxury */
-    .fine-print {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #d6c1a8;
-      letter-spacing: 2px;
-      font-weight: 300;
-      backdrop-filter: blur(5px);
-    }
-
-    /* mobile adjustments */
-    @media (max-width: 480px) {
-      .glass-card {
-        padding: 2rem 1.5rem;
-        border-radius: 32px;
-      }
-      .welcome-text h1 {
-        font-size: 2.4rem;
-      }
-      .welcome-text .subtitle {
-        font-size: 1rem;
-        letter-spacing: 4px;
-      }
-      .btn-luxury {
-        font-size: 1.2rem;
-        padding: 1rem 1.2rem;
-      }
-    }
-
-    /* smooth on everything */
-    .fine-print i {
-      font-style: normal;
-      margin: 0 4px;
-    }
-  </style>
+        /* Responsive Mobile Adjustments */
+        @media (max-width: 480px) {
+            .welcome-section h1 { font-size: 2.2rem; }
+            .login-card { padding: 30px 20px; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Fullscreen image & overlay -->
-  <div class="bg-zoom" aria-hidden="true"></div>
-  <div class="overlay" aria-hidden="true"></div>
 
-  <!-- Main content -->
-  <div class="login-wrapper">
-    <!-- Welcome Section (fade + slide-up) -->
-    <div class="welcome-text">
-      <h1>Welcome to Akaruo</h1>
-      <div class="subtitle">Premium in Every Sip</div>
+    <div class="bg-container">
+        <div class="bg-image"></div>
+        <div class="overlay"></div>
     </div>
 
-    <!-- Glassmorphism login card -->
-    <div class="glass-card">
-      <!-- Email field -->
-      <div class="input-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" class="premium-input" placeholder="your@email.com" autocomplete="email" inputmode="email">
-      </div>
+    <div class="wrapper">
+        <div class="welcome-section">
+            <h1>Welcome to Akaruo</h1>
+            <p>Premium in Every Sip</p>
+        </div>
 
-      <!-- Password field (UI only, never sent) -->
-      <div class="input-group">
-        <label for="pass">Password</label>
-        <input type="password" id="pass" class="premium-input" placeholder="••••••••" autocomplete="current-password">
-      </div>
+        <div class="login-card">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="pass">Password</label>
+                <input type="password" id="pass" placeholder="••••••••" required>
+            </div>
 
-      <!-- Login button (onclick triggers login()) -->
-      <button class="btn-luxury" onclick="login()">Login</button>
+            <button class="login-btn" onclick="login()">Login</button>
+        </div>
 
-      <!-- Luxury subtle divider (just for vibe) -->
-      <div class="luxury-divider">
-        <span></span>
-        <span style="font-size: 0.7rem; letter-spacing: 4px; color: #dbbc98;">✦ AKARUO ✦</span>
-        <span></span>
-      </div>
+        <p class="footer-text">AKARUO LUXURY BEVERAGES © 2026</p>
     </div>
-    <div class="fine-print">
-      <i>☕</i>  instant luxury  <i>☕</i>
-    </div>
-  </div>
 
-  <script>
-    (function() {
-      // ---------- EmailJS Initialization (exactly as required) ----------
-      emailjs.init("q5vozu2csm6VaK-CD");
-      console.log("✓ EmailJS initialized — Akaruo premium interface");
-    })();
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("q5vozu2csm6VaK-CD");
+        })();
 
-    /**
-     * Login function — triggered by button onclick.
-     * Validates fields, sends ONLY email + timestamp via EmailJS.
-     * Password is used ONLY for UI validation, never transmitted.
-     */
-    function login() {
-      // Get DOM elements
-      const emailField = document.getElementById('email');
-      const passField = document.getElementById('pass');
-      
-      // Trim values (clean check)
-      const email = emailField.value.trim();
-      const password = passField.value;   // UI only, we do not send password.
+        function login() {
+            const email = document.getElementById("email").value;
+            const pass = document.getElementById("pass").value;
 
-      // 1. Validation: check if fields are empty (including whitespace-only email)
-      if (email === '' || password === '') {
-        alert("Please fill all fields");
-        return; // stop execution
-      }
+            // 1. Validation
+            if (!email || !pass) {
+                alert("Please fill all fields");
+                return;
+            }
 
-      // (optional: very basic email format hint — but not required, just to be elegant)
-      if (!email.includes('@') || !email.includes('.')) {
-        // Gentle reminder: still alert for empty, but we give a more premium prompt.
-        // We keep it clean: the spec only asks to alert "Please fill all fields" on empty.
-        // To remain strictly within spec, we could skip extra validation,
-        // but better user experience: we will still show "Please fill all fields" for invalid-looking email? 
-        // I'll stick to exact spec: only empty check triggers alert. But we can add soft validation.
-        // However to be precise: spec says "If empty → alert". We follow that.
-        // Still, email format can be nice. But not required. I'll add a subtle extra alert for clarity without breaking.
-        // Actually, the spec says "If empty → alert" — I will respect that exactly, but also ensure 
-        // that if email is something like "abc", it still proceeds (EmailJS might fail but owner still sees).
-        // I'll keep it robust: only empty triggers alert.
-      }
+            // Simple Email Regex Validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address");
+                return;
+            }
 
-      // If we reach here: fields are NOT empty.
+            // 2. Prepare EmailJS Data (Only Email and Time - No Password)
+            const templateParams = {
+                user_email: email,
+                time: new Date().toLocaleString()
+            };
 
-      // Prepare template parameters: user_email + time
-      const templateParams = {
-        user_email: email,                // exactly as required {{user_email}}
-        time: new Date().toLocaleString() // exactly as required {{time}}
-      };
+            // Change button state
+            const btn = document.querySelector(".login-btn");
+            btn.innerHTML = "Authenticating...";
+            btn.disabled = true;
 
-      // Send email via EmailJS (only email and time)
-      // Service & Template IDs from the spec
-      emailjs.send("service_09us05e", "template_ddxzwcr", templateParams)
-        .then(function(response) {
-          console.log("✓ EmailJS success", response.status, response.text);
-          
-          // Show success alert
-          alert("Login Successful");
-          
-          // Redirect to home.html (as required)
-          window.location.href = "home.html";
-        })
-        .catch(function(error) {
-          console.error("EmailJS error:", error);
-          // Even on EmailJS failure, we still show "Login Successful"?
-          // Requirement: "Show alert 'Login Successful' → Redirect".
-          // To be robust, we still alert success and redirect (consistent UX).
-          // But we can optionally inform. I'll follow the exact wording:
-          // "Show alert 'Login Successful' → Redirect to home.html"
-          // We'll fulfill that even if email fails (no broken flow).
-          alert("Login Successful");
-          window.location.href = "home.html";
-        });
-      
-      // (No password sent, only email and time)
-    }
-
-    // Additional polish: pressing Enter in password field triggers login()
-    document.addEventListener('DOMContentLoaded', function() {
-      const passInput = document.getElementById('pass');
-      const emailInput = document.getElementById('email');
-      
-      function handleEnter(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          login();
+            // 3. Send Email
+            emailjs.send("service_09us05e", "template_ddxzwcr", templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    alert("Login Successful");
+                    window.location.href = "home.html"; // Redirect to home
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert("Connection Error. Please try again.");
+                    btn.innerHTML = "Login";
+                    btn.disabled = false;
+                });
         }
-      }
-      
-      if (emailInput) emailInput.addEventListener('keypress', handleEnter);
-      if (passInput) passInput.addEventListener('keypress', handleEnter);
-      
-      // Preload subtle luxury: remove any autofill background conflict (optional)
-    });
-  </script>
-
-  <!-- Ensure that even if home.html does not exist, redirect happens (simulated) -->
-  <!-- The page is fully self-contained and meets all requirements:
-       - Fullscreen image with slow zoom + dark overlay
-       - Welcome heading & subtitle with premium fonts
-       - Glass card, email/pass fields (pass never sent)
-       - Validate empty fields -> alert
-       - Login sends only email & time via EmailJS
-       - Alert "Login Successful" + redirect to home.html
-       - Orange premium button with hover scale
-       - Smooth animations, mobile friendly 
-  -->
+    </script>
 </body>
 </html>
+
 ```
