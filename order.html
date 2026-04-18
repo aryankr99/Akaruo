@@ -2,96 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Akaruo • Our Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Akaruo • Order</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #0d0b09; color: #ede0d2;
-            min-height: 100vh; padding: 20px 16px 40px;
+            background: #0e0c09; min-height: 100vh;
+            padding: 24px 16px; color: #ede2d4;
         }
-        .page-title {
+        .container {
+            max-width: 680px; margin: 0 auto;
+            background: #1c1812; border-radius: 48px;
+            padding: 2.2rem 1.8rem; box-shadow: 0 30px 50px #00000080;
+            border: 1px solid #524b40;
+        }
+        h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem; text-align: center; margin: 30px 0 40px;
-            letter-spacing: 6px; font-weight: 500;
-            animation: fadeIn 1s;
+            font-size: 2.6rem; margin-bottom: 1.5rem; letter-spacing: 2px;
         }
-        .grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 22px; max-width: 1200px; margin: 0 auto;
+        .summary {
+            background: #2b241d; border-radius: 28px; padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem; border-left: 8px solid #c6a173;
         }
-        @media (min-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-        .card {
-            background: #1a1612; border-radius: 32px;
-            overflow: hidden; box-shadow: 0 20px 30px #00000060;
-            transition: all 0.3s; border: 1px solid #3f362b;
-            animation: cardFade 0.8s backwards;
-            display: flex; flex-direction: column;
+        .prod-name { font-size: 1.6rem; font-weight: 600; }
+        .prod-price { font-size: 2rem; font-weight: 700; color: #e2bc91; }
+        .qty-select { margin: 15px 0; display: flex; align-items: center; gap: 12px; }
+        .qty-select select { padding: 0.6rem 1.8rem 0.6rem 1rem; border-radius: 40px; background: #362e26; color: white; border:1px solid #a5835e; }
+        .form-group { margin-bottom: 1.3rem; }
+        label { display: block; margin-bottom: 5px; font-weight: 400; }
+        input {
+            width: 100%; padding: 1rem 1.2rem; background: #282018;
+            border: 1.5px solid #7a6850; border-radius: 50px;
+            color: #f2e3d2; font-size: 1rem;
         }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 25px 40px #000000b0, 0 0 15px #b39264; }
-        .card img {
-            width: 100%; aspect-ratio: 1/1.1; object-fit: cover;
-            display: block; background: #2a221c;
+        input:focus { border-color: #d4af7a; outline: none; }
+        .payment-opt { margin: 20px 0; display: flex; gap: 30px; }
+        .order-btn {
+            width: 100%; background: #c6a173; border: none;
+            padding: 1.2rem; border-radius: 60px; font-size: 1.3rem;
+            font-weight: 600; color: #0a0806; cursor: pointer;
+            box-shadow: 0 10px 25px #000; transition: 0.3s;
         }
-        .card-info { padding: 1.5rem 1.2rem; }
-        .product-name {
-            font-size: 1.4rem; font-weight: 600; font-family: 'Cormorant Garamond', serif;
-            margin-bottom: 6px; color: #e7cfb2;
-        }
-        .product-price {
-            font-size: 1.7rem; font-weight: 700; color: #cbae89;
-            margin: 0.5rem 0 1.2rem;
-        }
-        .buy-btn {
-            background: #a5835e; border: none; color: #0b0907;
-            padding: 0.9rem; width: 100%; border-radius: 50px;
-            font-weight: 600; font-size: 1rem; cursor: pointer;
-            transition: 0.25s; border: 1px solid #dbbd98;
-        }
-        .buy-btn:hover { background: #c8a87c; transform: scale(1.01); }
-        .back-btn {
-            display: inline-block; margin: 20px 0 0 20px;
-            color: #dac2a6; text-decoration: none; font-weight: 500;
-        }
-        @keyframes fadeIn { 0% { opacity:0; transform: translateY(15px); } 100% { opacity:1; transform:translateY(0); } }
-        @keyframes cardFade { from { opacity:0; transform: translateY(25px); } to { opacity:1; transform: translateY(0); } }
+        .order-btn:hover { background: #ddbc94; }
+        .back-link { margin-top: 20px; display: inline-block; color: #cbad87; }
     </style>
 </head>
 <body>
-    <a href="home.html" class="back-btn">← HOME</a>
-    <h1 class="page-title">OUR ITEMS</h1>
-    <div class="grid" id="productGrid"></div>
-    <script>
-        const products = [
-            { name: 'Iced Coffee Mix', price: '₹129', img: 'https://i.ibb.co/3y411ypW/1000066817.jpg' },
-            { name: 'Instant Coffee Mix', price: '₹99', img: 'https://i.ibb.co/zVxvWzrD/1000066832.jpg' },
-            { name: 'Classic Black Coffee', price: '₹119', img: 'https://i.ibb.co/DDDCrR8B/1000066879.jpg' },
-            { name: 'Zest Lemon Tea', price: '₹169', img: 'https://i.ibb.co/JwGNRSv6/1000066820.jpg' },
-            { name: 'Royal Masala Milk', price: '₹169', img: 'https://i.ibb.co/TB8sMskZ/1000066807.jpg' },
-            { name: 'Velvet Hot Chocolate', price: '₹179', img: 'https://i.ibb.co/7xMSNtCB/1000066755.jpg' }
-        ];
-        const grid = document.getElementById('productGrid');
-        products.forEach((p,i) => {
-            const card = document.createElement('div'); card.className = 'card';
-            card.style.animationDelay = `${i*0.08}s`;
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.name}" loading="lazy">
-                <div class="card-info">
-                    <div class="product-name">Akaruō ${p.name}</div>
-                    <div class="product-price">${p.price}</div>
-                    <button class="buy-btn" data-name="Akaruō ${p.name}" data-price="${p.price}">BUY NOW</button>
-                </div>`;
-            grid.appendChild(card);
+<div class="container">
+    <h2>COMPLETE ORDER</h2>
+    <div class="summary" id="summaryBox"></div>
+    <div class="qty-select"><label>Quantity:</label>
+        <select id="qty"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+    </div>
+    <form id="orderForm">
+        <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" placeholder="Your name" required></div>
+        <div class="form-group"><label>Mobile *</label><input type="tel" id="mobile" placeholder="10-digit" required></div>
+        <div class="form-group"><label>Address *</label><input type="text" id="address" placeholder="Street" required></div>
+        <div class="form-group"><label>City *</label><input type="text" id="city" placeholder="City" required></div>
+        <div class="form-group"><label>Pincode *</label><input type="text" id="pincode" placeholder="6-digit" required></div>
+        <div class="payment-opt"><label><input type="radio" name="payment" value="COD" checked> Cash on Delivery</label></div>
+        <button type="button" class="order-btn" id="placeOrder">PLACE ORDER</button>
+    </form>
+    <a href="items.html" class="back-link">← Back to items</a>
+</div>
+<script>
+    (function(){
+        const params = new URLSearchParams(window.location.search);
+        let prod = decodeURIComponent(params.get('product') || 'Akaruo Beverage');
+        let price = decodeURIComponent(params.get('price') || '₹129');
+        document.getElementById('summaryBox').innerHTML = `<div class="prod-name">${prod}</div><div class="prod-price">${price}</div>`;
+
+        document.getElementById('placeOrder').addEventListener('click', ()=>{
+            const name = document.getElementById('fullName').value.trim();
+            const mob = document.getElementById('mobile').value.trim();
+            const addr = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const pin = document.getElementById('pincode').value.trim();
+            const qty = document.getElementById('qty').value;
+            if(!name||!mob||!addr||!city||!pin) { alert('Please fill all fields'); return; }
+            alert('Order Placed Successfully');
+            const msg = `*AKARUO ORDER*\nName: ${name}\nPhone: ${mob}\nAddress: ${addr}, ${city} - ${pin}\nProduct: ${prod}\nPrice: ${price}\nQuantity: ${qty}`;
+            window.location.href = `https://wa.me/919608891170?text=${encodeURIComponent(msg)}`;
         });
-        document.querySelectorAll('.buy-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const name = encodeURIComponent(btn.dataset.name);
-                const price = encodeURIComponent(btn.dataset.price);
-                window.location.href = `order.html?product=${name}&price=${price}`;
-            });
-        });
-    </script>
+    })();
+</script>
 </body>
 </html>
