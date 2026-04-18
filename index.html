@@ -1,168 +1,167 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
-<title>Akaruo Home</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;text-align:center;background:#f4f4f4}
-h1{margin-top:50px}
-</style>
-</head>
+<title>Akaruo Login</title><!-- Firebase --><script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
 
-<body>
+body{
+height:100vh;
+overflow:hidden;
+}
 
-<h1>Welcome to Akaruo 🎉</h1>
-<p>Login Successful</p>
-
-</body>
-</html><!DOCTYPE html>
-<html>
-<head>
-<title>Akaruo Home</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;text-align:center;background:#f4f4f4}
-h1{margin-top:50px}
-</style>
-</head>
-
-<body>
-
-<h1>Welcome to Akaruo 🎉</h1>
-<p>Login Successful</p>
-
-</body>
-</html>
-<
-
-/* BACKGROUND IMAGE ANIMATION */
+/* Background */
 .bg{
- position:fixed;
- width:100%;
- height:100%;
- background:url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg') center/cover no-repeat;
- animation:zoom 12s infinite alternate;
- z-index:-1;
+position:fixed;
+width:100%;
+height:100%;
+background:url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg') center/cover no-repeat;
+animation:zoom 20s infinite alternate ease-in-out;
+}
+
+.bg::after{
+content:'';
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
 }
 
 @keyframes zoom{
- from{transform:scale(1);}
- to{transform:scale(1.1);}
+from{transform:scale(1);} 
+to{transform:scale(1.1);} 
 }
 
-/* DARK OVERLAY */
-.overlay{
- position:absolute;
- width:100%;
- height:100%;
- background:rgba(0,0,0,0.6);
- display:flex;
- justify-content:center;
- align-items:center;
+/* Center Box */
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+width:90%;
+max-width:380px;
 }
 
-/* LOGIN BOX */
-.box{
- background:rgba(255,255,255,0.1);
- backdrop-filter:blur(10px);
- padding:25px;
- border-radius:12px;
- width:300px;
- text-align:center;
- color:white;
+.login-box{
+background:rgba(255,255,255,0.08);
+padding:30px;
+border-radius:16px;
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.2);
+color:#fff;
+animation:fadeIn 1s ease;
 }
 
-.box h2{
- margin-bottom:15px;
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);} 
+to{opacity:1;transform:translateY(0);} 
 }
 
-/* INPUT */
+h2{
+text-align:center;
+margin-bottom:20px;
+font-weight:600;
+}
+
 input{
- width:100%;
- padding:10px;
- margin:8px 0;
- border:none;
- border-radius:6px;
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+outline:none;
 }
 
-/* BUTTON */
-.btn{
- width:100%;
- padding:10px;
- margin-top:10px;
- border:none;
- border-radius:20px;
- cursor:pointer;
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+margin-top:10px;
+cursor:pointer;
+font-weight:bold;
 }
 
-/* NORMAL LOGIN */
 .login-btn{
- background:orange;
- color:white;
+background:#ff7a18;
+color:#fff;
 }
 
-/* GOOGLE BUTTON */
 .google-btn{
- background:white;
- color:black;
- display:flex;
- align-items:center;
- justify-content:center;
- gap:10px;
- font-weight:bold;
+background:#fff;
+color:#333;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
 }
 
 .google-btn img{
- width:20px;
+width:18px;
 }
-</style>
-</head>
 
-<body>
+.error{
+color:#ff6b6b;
+font-size:14px;
+margin-top:10px;
+text-align:center;
+}
 
-<div class="bg"></div>
+@media(max-width:480px){
+.login-box{padding:20px;}
+}
+</style></head>
+<body><div class="bg"></div><div class="container">
+<div class="login-box">
+<h2>Akaruo</h2><input type="email" id="email" placeholder="Email" required>
+<input type="password" id="password" placeholder="Password" required><button class="login-btn" onclick="login()">Login</button>
 
-<div class="overlay">
-  <div class="box">
-    <h2>Akaruo Login</h2>
+<button class="google-btn" onclick="googleLogin()">
+<img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png">
+Continue with Google
+</button><div class="error" id="error"></div></div>
+</div><script>
+// TODO: Replace with your Firebase config
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
+};
 
-    <input type="email" placeholder="Enter Email" id="email">
-    <input type="password" placeholder="Password" id="pass">
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-    <button class="btn login-btn" onclick="login()">Login</button>
-
-    <p>OR</p>
-
-    <button class="btn google-btn" onclick="googleLogin()">
-      <img src="https://img.icons8.com/color/48/google-logo.png">
-      Continue with Google
-    </button>
-  </div>
-</div>
-
-<script>
 function login(){
- let email=document.getElementById("email").value;
- let pass=document.getElementById("pass").value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const errorDiv = document.getElementById('error');
 
- if(email && pass){
-   window.location.href="home.html";
- }else{
-   alert("Please fill details");
- }
+  if(!email || !password){
+    errorDiv.innerText = "Please fill all fields";
+    return;
+  }
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(()=>{
+      window.location.href = "home.html";
+    })
+    .catch(err=>{
+      errorDiv.innerText = err.message;
+    });
 }
 
-/*  GOOGLE LOGIN (UI only) */
 function googleLogin(){
- alertfunction googleLogin(){
- window.location.href="home.html";
- }
- // redirect for now
- function googleLogin(){
- alert("Login Successful");
-}
-}
-</script>
+  const provider = new firebase.auth.GoogleAuthProvider();
+  const errorDiv = document.getElementById('error');
 
-</body>
+  auth.signInWithPopup(provider)
+    .then(()=>{
+      window.location.href = "home.html";
+    })
+    .catch(err=>{
+      errorDiv.innerText = err.message;
+    });
+}
+</script></body>
 </html>
