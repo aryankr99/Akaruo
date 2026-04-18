@@ -1,194 +1,465 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luxury Gallery</title><!-- Google Font --><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"><!-- GSAP --><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Akaruo | Luxury in Every Sip</title>
+    <!-- Google Fonts: Playfair Display + Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body{
-  background: radial-gradient(circle at top, #111, #000);
-  color:#fff;
-  overflow-x:hidden;
-}
+        body {
+            background-color: #fefaf5;  /* warm cream base */
+            font-family: 'Poppins', sans-serif;
+            color: #2e241f;
+            scroll-behavior: smooth;
+        }
 
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:80px 20px;
-  text-align:center;
-}
+        /* custom scrollbar for luxury vibe */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e9dfd4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b87c4f;
+            border-radius: 12px;
+        }
 
-h1{
-  font-size:48px;
-  font-weight:700;
-  background:linear-gradient(45deg,#FFD700,#fff3b0);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
 
-.subtitle{
-  margin-top:15px;
-  color:#aaa;
-  font-size:16px;
-}
+        /* ========== HEADER SECTION (center, fade-in) ========== */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #3b2a22 0%, #6f4e2e 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.02);
+            margin-bottom: 16px;
+        }
+        .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            font-weight: 400;
+            color: #aa7c58;
+            text-transform: uppercase;
+            border-top: 1px solid #e3d4c8;
+            display: inline-block;
+            padding-top: 12px;
+        }
 
-.gallery{
-  margin-top:60px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
-}
+        /* section styling with gold accents */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0 32px 0;
+        }
+        .divider-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af7a, #d4af7a, #d4af7a, transparent);
+            flex: 1;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #3f2c1f;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #fefaf5;
+            padding: 0 20px;
+        }
+        .section-title i {
+            color: #c9a06c;
+            font-size: 1.7rem;
+        }
 
-.card{
-  position:relative;
-  border-radius:18px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:all 0.4s ease;
-}
+        /* product grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px 30px;
+            margin: 20px 0 60px 0;
+        }
 
-.card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform 0.6s ease;
-}
+        /* premium card design */
+        .product-card {
+            background: #ffffff;
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+            cursor: pointer;
+            backdrop-filter: blur(0px);
+            border: 1px solid rgba(212, 175, 122, 0.2);
+        }
+        .product-card:hover {
+            transform: scale(1.02) translateY(-6px);
+            box-shadow: 0 30px 40px -15px rgba(107, 70, 39, 0.25);
+            border-color: rgba(212, 175, 122, 0.5);
+        }
 
-.overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(12px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  opacity:0;
-  transition:all 0.4s ease;
-}
+        .card-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+            border-radius: 24px 24px 0 0;
+        }
+        .product-card:hover .card-img {
+            transform: scale(1.03);
+        }
+        .card-content {
+            padding: 22px 20px 26px;
+            text-align: center;
+            background: #ffffff;
+        }
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: #2c241e;
+            margin-bottom: 12px;
+            letter-spacing: -0.2px;
+        }
+        .product-price {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #c7a05b;   /* premium gold */
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: inline-block;
+            border-bottom: 1px dashed #eedbbc;
+            padding-bottom: 4px;
+        }
+        .price-symbol {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
 
-.overlay h3{
-  color:#FFD700;
-  transform:translateY(20px);
-  opacity:0;
-}
+        .buy-btn {
+            background: transparent;
+            border: 1.5px solid #dbb879;
+            padding: 12px 28px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: #7c5d3c;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fffcf8;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .buy-btn i {
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        .buy-btn:hover {
+            background: #c7a05b;
+            border-color: #c7a05b;
+            color: white;
+            box-shadow: 0 8px 20px rgba(199, 160, 91, 0.4);
+            transform: translateY(-2px);
+        }
+        .buy-btn:hover i {
+            transform: translateX(4px);
+            color: white;
+        }
 
-.overlay span{
-  margin-top:10px;
-  font-size:14px;
-  color:#fff;
-  transform:translateY(20px);
-  opacity:0;
-}
+        /* fade-in on scroll utility */
+        .fade-scroll {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s ease, transform 0.7s ease;
+        }
+        .fade-scroll.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-.card:hover img{
-  transform:scale(1.1);
-}
+        /* Responsive: tablet & mobile */
+        @media (max-width: 992px) {
+            .product-grid {
+                gap: 30px;
+            }
+            .container {
+                padding: 0 24px;
+            }
+        }
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 28px;
+            }
+            .hero {
+                padding: 60px 16px 40px;
+            }
+            .section-title {
+                font-size: 1.7rem;
+            }
+        }
+        @media (max-width: 540px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                max-width: 380px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .card-content {
+                padding: 18px 16px 22px;
+            }
+            .product-name {
+                font-size: 1.3rem;
+            }
+        }
 
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 20px 40px rgba(255,215,0,0.15);
-}
+        /* footer tiny note luxury */
+        .footer-note {
+            text-align: center;
+            padding: 48px 20px 40px;
+            font-size: 0.75rem;
+            color: #b69273;
+            letter-spacing: 1px;
+            border-top: 1px solid #e9dbce;
+            margin-top: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .gold-accent {
+            color: #c7a05b;
+        }
 
-.card:hover .overlay{
-  opacity:1;
-}
+        /* button active + general */
+        button {
+            background: none;
+            border: none;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
 
-.card:hover .overlay h3,
-.card:hover .overlay span{
-  transform:translateY(0);
-  opacity:1;
-}
+<div class="container">
+    <!-- header fade-in -->
+    <div class="hero">
+        <h1 class="brand-name">Akaruo</h1>
+        <div class="subtitle">Luxury in Every Sip</div>
+    </div>
 
-</style></head><body><div class="container">
-  <h1 class="title">Luxury Collection</h1>
-  <p class="subtitle">Experience elegance through curated visuals</p>  <div class="gallery"><a href="#" class="card"><img src="https://i.ibb.co/Rp9jjy1v/1000066817.jpg"><div class="overlay"><h3>View More</h3><span>Explore</span></div></a>
+    <!-- ☕ Coffee Range section -->
+    <div class="section-divider fade-scroll">
+        <div class="divider-line"></div>
+        <div class="section-title">
+            <i class="fas fa-mug-hot"></i> 
+            <span>Coffee Range</span>
+            <i class="fas fa-mug-hot"></i>
+        </div>
+        <div class="divider-line"></div>
+    </div>
 
-<a href="#" class="card"><img src="https://i.ibb.co/Y7yNzkRX/1000066832.jpg"><div class="overlay"><h3>View More</h3><span>Explore</span></div></a>
+    <div class="product-grid" id="coffeeGrid">
+        <!-- coffee items will be dynamically injected via JS but also static for reliability? 
+        We'll generate from data array for consistency and maintainability -->
+    </div>
 
-<a href="#" class="card"><img src="https://i.ibb.co/Xk4XRs8x/1000066820.jpg"><div class="overlay"><h3>View More</h3><span>Explore</span></div></a>
+    <!-- 🍵 Premium Beverages section -->
+    <div class="section-divider fade-scroll">
+        <div class="divider-line"></div>
+        <div class="section-title">
+            <i class="fas fa-leaf"></i> 
+            <span>Premium Beverages</span>
+            <i class="fas fa-leaf"></i>
+        </div>
+        <div class="divider-line"></div>
+    </div>
 
-<a href="#" class="card"><img src="https://i.ibb.co/3yT3fXDR/1000066807.jpg"><div class="overlay"><h3>View More</h3><span>Explore</span></div></a>
+    <div class="product-grid" id="beverageGrid">
+        <!-- beverage items injected -->
+    </div>
+    
+    <div class="footer-note">
+        <span class="gold-accent">✦</span> Akaruo — Artisanal Craft & Elegance <span class="gold-accent">✦</span>
+    </div>
+</div>
 
-<a href="#" class="card"><img src="https://i.ibb.co/4RK1whdN/1000066814.jpg"><div class="overlay"><h3>View More</h3><span>Explore</span></div></a>
+<script>
+    // ---------- PRODUCT DATA (exactly matching brief) ----------
+    const coffeeProducts = [
+        {
+            name: "Akaruo Iced Coffee Mix",
+            price: 129,
+            image: <a href="https://imgbb.com/"><img src="https:
+            category: "coffee"
+        },
+        {
+            name: "Akaruo Instant Coffee Mix",
+            price: 99,
+            image: <a href="https://imgbb.com/"><img src="https:
+            category: "coffee"
+        },
+        {
+            name: "Akaruo Classic Black Coffee",
+            price: 119,
+            image:    <a href="https://imgbb.com/"><img src="https:       category: "coffee"
+        }
+    ];
 
-<a href="#" class="card"><img src="https://i.ibb.co/LzMjY1ZF/1000066805.jpg"><div class="overlay"><h3>View More</h3><span>Explore</span></div></a>
+    const beverageProducts = [
+        {
+            name: "Akaruo Zest Lemon Tea",
+            price: 169,
+            image: <a href="https://imgbb.com/"><img src="https:
+            category: "beverage"
+        },
+        {
+            name: "Akaruo Royal Masala Milk",
+            price: 169,
+            image: <a href="https://imgbb.com/"><img src="https:
+            category: "beverage"
+        },
+        {
+            name: "Akaruo Velvet Hot Chocolate",
+            price: 179,
+            image: <a href="https://imgbb.com/"><img src="https:
+            category: "beverage"
+        }
+    ];
 
-  </div>
-</div><script>
+    // helper function to create product card HTML (with proper redirect)
+    function createProductCard(product) {
+        // construct order URL with encoded params
+        const orderUrl = `order.html?product=${encodeURIComponent(product.name)}&price=${product.price}`;
+        
+        // using button with onclick redirect, ensures clean click
+        return `
+            <div class="product-card fade-scroll">
+                <img class="card-img" src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Akaruo+Luxury'">
+                <div class="card-content">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price">
+                        <span class="price-symbol">₹</span>${product.price}
+                    </div>
+                    <button class="buy-btn" data-product="${product.name}" data-price="${product.price}">
+                        Buy Now <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
 
-// Register plugin
- gsap.registerPlugin(ScrollTrigger);
+    // render function for grids
+    function renderProducts() {
+        const coffeeContainer = document.getElementById('coffeeGrid');
+        const beverageContainer = document.getElementById('beverageGrid');
+        
+        if (coffeeContainer) {
+            coffeeContainer.innerHTML = '';
+            coffeeProducts.forEach(product => {
+                coffeeContainer.insertAdjacentHTML('beforeend', createProductCard(product));
+            });
+        }
+        
+        if (beverageContainer) {
+            beverageContainer.innerHTML = '';
+            beverageProducts.forEach(product => {
+                beverageContainer.insertAdjacentHTML('beforeend', createProductCard(product));
+            });
+        }
 
-// Page load animation
-const tl = gsap.timeline();
+        // attach event listeners to all buy buttons after DOM injection
+        attachBuyButtonEvents();
+    }
 
-tl.from(".title", {
-  y:50,
-  opacity:0,
-  duration:1,
-  ease:"power3.out"
-})
-.from(".subtitle", {
-  y:30,
-  opacity:0,
-  duration:1,
-  ease:"power3.out"
-}, "-=0.6")
-.from(".card", {
-  y:60,
-  opacity:0,
-  stagger:0.15,
-  duration:1,
-  ease:"power3.out"
-}, "-=0.6");
+    // Buy Now redirection logic with proper URL encoding and exact parameters
+    function attachBuyButtonEvents() {
+        const allBuyBtns = document.querySelectorAll('.buy-btn');
+        allBuyBtns.forEach(btn => {
+            // remove any existing listener to avoid duplicates, but we use fresh listeners
+            btn.removeEventListener('click', handleBuyClick);
+            btn.addEventListener('click', handleBuyClick);
+        });
+    }
 
-// Scroll animation
- gsap.utils.toArray(".card").forEach((card) => {
-  gsap.from(card, {
-    scrollTrigger:{
-      trigger:card,
-      start:"top 85%"
-    },
-    y:80,
-    opacity:0,
-    duration:1,
-    ease:"power3.out"
-  });
-});
-
-// Parallax effect
- document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("mousemove", e => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const moveX = (x - rect.width/2) / 20;
-    const moveY = (y - rect.height/2) / 20;
-
-    gsap.to(card.querySelector("img"), {
-      x: moveX,
-      y: moveY,
-      duration:0.5,
-      ease:"power3.out"
-    });
-  });
-
-  card.addEventListener("mouseleave", () => {
-    gsap.to(card.querySelector("img"), {
-      x:0,
-      y:0,
-      duration:0.7,
-      ease:"expo.out"
-    });
-  });
-});
-
-</script></body>
-</html>
+    function handleBuyClick(event) {
+        event.preventDefault();
+        const button = event.currentTarget;
+        // retrieve product name and price from data attributes or from nearby elements
+        // we can get product name from sibling .product-name text
+        const card = button.closest('.product-card');
+        if (card) {
+            const nameElem = card.querySelector('.product-name');
+            const priceElem = card.querySelector('.product-price');
+            let productName = '';
+            let productPrice = '';
+            if (nameElem) productName = nameElem.innerText.trim();
+            if (priceElem) {
+                // price text like "₹129" -> extract numeric
+                let priceText = priceElem.innerText.trim();
+                let match = priceText.match(/₹(\d+)/);
+                if (match) productPrice = match[1];
+            }
+            // fallback to data attributes if defined (we also set data attributes to button for safety)
+            if (!productPrice && button.getAttribute('data-price')) productPrice = button.getAttribute('data-price');
+            if (!productName && button.getAttribute('data-product')) productName = button.getAttribute('data-product');
+            
+            if (productName && productPrice) {
+                const redirectUrl = `order.html?product=${encodeURIComponent(productName)}&price=${productPrice}`;
+                window.location.href = redirectUrl;
+            } else {
+                // extremely safe fallback: try to get from product data again
+                console.warn("fallback triggered");
+                // manually search in product arrays (edge)
+                const allProducts = [...coffeeProducts, ...beverageProducts];
+                const priceRaw = priceElem ? priceElem.innerText : '';
+                const numericPrice = priceRaw.replace(/[^0-9]/g, '');
+                const found = allProducts.find(p => p.price.toString() === numericPrice);
+                if(found) {
+                    window.location.href = `order.html?product=${encodeURIComponent(found.name)}&price=${found.price}`;
+                } else {
+                    // ultimate fallback: use button text fallback but should not happen
+                    alert("Product details loaded. Please try again.");
+                }
+            }
+        } else {
+            // legacy backup: read data attributes from button
+            const pName = button.getAttribute('data-product');
+            const pPrice = button.getAttribute('data-price');
+            if(pName && pPrice) {
+                window.locati
