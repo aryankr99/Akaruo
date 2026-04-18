@@ -48,13 +48,14 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      animation: elegantZoom 10s infinite alternate ease-in-out;
+      animation: elegantZoom 12s infinite alternate ease-in-out;
       transform-origin: center;
+      will-change: transform;
     }
 
     @keyframes elegantZoom {
       0% { transform: scale(1); }
-      100% { transform: scale(1.08); }
+      100% { transform: scale(1.07); }
     }
 
     .dark-overlay {
@@ -63,14 +64,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(8, 6, 4, 0.55);
-      backdrop-filter: brightness(0.85);
+      background: rgba(5, 3, 2, 0.6);   /* dark overlay */
+      backdrop-filter: brightness(0.9);
       z-index: -1;
     }
 
     /* ---------- MAIN CONTENT (ANIMATED) ---------- */
     .login-content {
-      max-width: 480px;
+      max-width: 460px;
       width: 100%;
       z-index: 5;
       animation: fadeSlideUp 1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
@@ -88,7 +89,7 @@
     }
 
     .brand-heading h1 {
-      font-size: clamp(2.8rem, 12vw, 4.5rem);
+      font-size: clamp(2.6rem, 11vw, 4.2rem);
       font-weight: 400;
       letter-spacing: 1px;
       color: #ffffff;
@@ -101,7 +102,7 @@
       font-size: 1.1rem;
       letter-spacing: 6px;
       text-transform: uppercase;
-      color: #efe0d2;
+      color: #f3e5d9;
       text-shadow: 0 5px 12px rgba(0,0,0,0.5);
       font-weight: 300;
       word-spacing: 6px;
@@ -109,18 +110,17 @@
 
     /* ---------- GLASSMORPHISM LOGIN BOX ---------- */
     .glass-card {
-      background: rgba(20, 16, 13, 0.4);
+      background: rgba(18, 14, 11, 0.4);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid rgba(220, 190, 160, 0.25);
+      border: 1px solid rgba(220, 185, 150, 0.25);
       border-radius: 36px;
-      padding: 2.5rem 2rem;
+      padding: 2.5rem 2.2rem;
       box-shadow: 0 35px 55px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(210, 170, 130, 0.1) inset;
-      transition: box-shadow 0.3s;
     }
 
     .input-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
     }
 
     .input-group label {
@@ -135,12 +135,12 @@
 
     .input-group input {
       width: 100%;
-      background: rgba(10, 8, 6, 0.5);
+      background: rgba(8, 6, 4, 0.5);
       border: 1.5px solid #6b5b4e;
       border-radius: 60px;
       padding: 1rem 1.5rem;
       font-size: 1.1rem;
-      color: #fff3ea;
+      color: #fff5ec;
       outline: none;
       transition: all 0.25s;
       backdrop-filter: blur(4px);
@@ -162,7 +162,7 @@
     .error-msg {
       color: #ffae8e;
       font-size: 0.9rem;
-      margin-top: -0.2rem;
+      margin-top: -0.6rem;
       margin-bottom: 1.2rem;
       min-height: 1.8rem;
       font-weight: 400;
@@ -170,102 +170,68 @@
       padding-left: 0.5rem;
     }
 
-    /* buttons */
+    /* ---------- LOGIN BUTTON (ORANGE) ---------- */
     .btn-login {
       width: 100%;
-      background: #c97e4c;
+      background: #ff7a00;          /* orange as requested */
       border: none;
       border-radius: 60px;
       padding: 1rem;
       font-size: 1.3rem;
       font-weight: 500;
-      color: #fff8f2;
+      color: #fff9f2;
       letter-spacing: 2px;
       text-transform: uppercase;
-      box-shadow: 0 8px 20px rgba(180, 100, 40, 0.3);
+      box-shadow: 0 10px 25px rgba(255, 100, 0, 0.3);
       cursor: pointer;
       transition: all 0.25s;
-      margin-bottom: 1.2rem;
-      border: 1px solid rgba(255, 215, 180, 0.5);
+      border: 1px solid rgba(255, 215, 170, 0.4);
       backdrop-filter: blur(5px);
-      background: linear-gradient(145deg, #d48a54, #b86b3a);
+      background: linear-gradient(145deg, #ff8c2e, #e66a00);
     }
 
     .btn-login:hover {
-      background: #da9a68;
-      box-shadow: 0 10px 24px rgba(210, 130, 70, 0.5);
+      background: #ff9633;
+      box-shadow: 0 12px 28px rgba(255, 120, 0, 0.5);
       transform: scale(1.01);
-      border-color: #efcdb0;
+      border-color: #fec196;
     }
 
-    .divider {
-      display: flex;
-      align-items: center;
-      color: #cbb7a8;
-      gap: 1rem;
-      margin: 1.5rem 0 1.2rem;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
+    .btn-login:active {
+      transform: scale(0.99);
     }
 
-    .divider::before,
-    .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #a58e7c, transparent);
+    /* footer note */
+    .footer-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #d6c5b6;
+      font-size: 0.85rem;
+      opacity: 0.9;
+      letter-spacing: 1px;
     }
 
-    .btn-google {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(4px);
-      border: 1px solid #e4cfbe;
-      border-radius: 60px;
-      padding: 0.9rem;
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #2b1e14;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-google:hover {
-      background: #ffffff;
-      box-shadow: 0 14px 24px rgba(0,0,0,0.2);
-      transform: translateY(-2px);
-      border-color: #c3a084;
-    }
-
-    .btn-google img {
-      width: 24px;
-      height: 24px;
-    }
-
-    /* mobile fine-tune */
+    /* mobile refinement */
     @media (max-width: 480px) {
       .glass-card {
         padding: 2rem 1.5rem;
         border-radius: 32px;
       }
       .brand-heading h1 {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
       }
       .brand-sub {
         letter-spacing: 4px;
+        font-size: 1rem;
       }
       .btn-login {
         font-size: 1.1rem;
+        padding: 0.9rem;
       }
     }
 
-    /* prevent text blur */
-    h1, .brand-sub, .btn-login, .btn-google, input {
+    /* sharp text, no blur */
+    h1, .brand-sub, .btn-login, input {
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -273,7 +239,7 @@
 </head>
 <body>
   <div class="login-wrapper">
-    <!-- background image + zoom -->
+    <!-- fullscreen zoom background -->
     <div class="background-layer">
       <img src="https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg" 
            alt="Akaruo premium background" 
@@ -281,46 +247,31 @@
     </div>
     <div class="dark-overlay"></div>
 
-    <!-- animated content -->
+    <!-- animated welcome + login card -->
     <div class="login-content">
       <div class="brand-heading">
         <h1>Welcome to Akaruo</h1>
         <div class="brand-sub">Premium in Every Sip</div>
       </div>
 
-      <!-- glass login box -->
+      <!-- glass card -->
       <div class="glass-card">
-        <!-- Email -->
         <div class="input-group">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="morgan@akaruo.com" autocomplete="email">
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
         </div>
-        <!-- Password -->
         <div class="input-group">
           <label for="pass">Password</label>
           <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
         </div>
 
-        <!-- Error message container -->
+        <!-- Error message area -->
         <div id="errorMsg" class="error-msg"></div>
 
-        <!-- LOGIN BUTTON (orange) -->
-        <button class="btn-login" id="loginBtn">Log in</button>
-
-        <!-- Divider -->
-        <div class="divider">OR</div>
-
-        <!-- GOOGLE LOGIN BUTTON -->
-        <button class="btn-google" id="googleBtn">
-          <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" 
-               alt="Google logo" 
-               style="width: 22px; height: 22px;">
-          <span>Continue with Google</span>
-        </button>
+        <!-- SINGLE LOGIN BUTTON (onclick="login()") -->
+        <button class="btn-login" onclick="login()">Log in</button>
       </div>
-      <p style="text-align: center; margin-top: 1.2rem; color: #cdbcae; font-size: 0.85rem; opacity: 0.9;">
-        Akaruo · Refined taste
-      </p>
+      <div class="footer-note">Akaruo · refined taste</div>
     </div>
   </div>
 
@@ -328,29 +279,19 @@
     (function() {
       "use strict";
 
-      // ---------- EmailJS Initialization ----------
-      // ⚠️ IMPORTANT: Replace these placeholders with your actual EmailJS keys.
-      // For demo purposes, they are left as placeholders – the code will still 
-      // run (EmailJS will attempt to send, but will fail gracefully without breaking redirect).
-      const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";      // <-- REPLACE WITH YOUR PUBLIC KEY
-      const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";      // <-- REPLACE WITH YOUR SERVICE ID
-      const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";    // <-- REPLACE WITH YOUR TEMPLATE ID
-
-      // Initialize EmailJS with public key
+      // ---------- EmailJS Initialization (exactly as required) ----------
       if (typeof emailjs !== 'undefined') {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
+        emailjs.init("q5vozu2csm6VaK-CD");
       } else {
         console.warn("EmailJS library not loaded. Notification will be skipped.");
       }
 
-      // ---------- DOM elements ----------
+      // ---------- DOM references ----------
       const emailInput = document.getElementById('email');
       const passInput = document.getElementById('pass');
       const errorMsgEl = document.getElementById('errorMsg');
-      const loginBtn = document.getElementById('loginBtn');
-      const googleBtn = document.getElementById('googleBtn');
 
-      // ---------- Helper functions ----------
+      // ---------- Helper: set / clear error ----------
       function setError(message) {
         if (errorMsgEl) errorMsgEl.textContent = message;
       }
@@ -359,134 +300,93 @@
         if (errorMsgEl) errorMsgEl.textContent = '';
       }
 
-      // ---------- Email notification sender (using EmailJS) ----------
-      function sendLoginNotification(userEmail, loginType = 'email') {
-        // If EmailJS not available, skip quietly (no error to user)
+      // Clear error when user starts typing (better UX)
+      if (emailInput) emailInput.addEventListener('input', clearError);
+      if (passInput) passInput.addEventListener('input', clearError);
+
+      // Allow Enter key to trigger login
+      if (passInput) {
+        passInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            window.login();
+          }
+        });
+      }
+      if (emailInput) {
+        emailInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            window.login();
+          }
+        });
+      }
+
+      // ---------- Email sender using EXACT service & template ----------
+      function sendEmailNotification(userEmail) {
         if (typeof emailjs === 'undefined') {
-          console.log(`📧 [Simulated] Notification for ${userEmail} via ${loginType}`);
+          console.log('📧 EmailJS not loaded — notification skipped');
           return;
         }
 
         const templateParams = {
           user_email: userEmail,
-          time: new Date().toLocaleString(),
-          login_method: loginType
+          time: new Date().toLocaleString()
         };
 
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+        emailjs.send("service_09us05e", "template_ddxzwcr", templateParams)
           .then(function(response) {
-            console.log('📨 Email notification sent successfully!', response.status, response.text);
+            console.log('✅ Email notification sent', response.status);
           })
           .catch(function(error) {
-            // EmailJS errors should NOT break the user flow; just log.
-            console.warn('⚠️ EmailJS send failed (check keys/service/template):', error);
+            // Even if email fails, we still proceed (alert + redirect)
+            console.warn('⚠️ EmailJS error (check keys/service/template):', error);
           });
       }
 
-      // ---------- Redirect after success ----------
-      function redirectToHome() {
-        window.location.href = 'home.html';
-      }
-
-      // ---------- Login validation & action ----------
-      function validateAndLogin() {
+      // ---------- LOGIN FUNCTION (exposed globally) ----------
+      window.login = function() {
         const email = emailInput.value.trim();
         const password = passInput.value;
 
-        // Check empty
+        // 1. Validation: empty fields?
         if (email === '' || password === '') {
           setError('Please fill all fields');
-          return false;
+          return;
         }
 
-        // Basic email format check
+        // Basic email sanity (optional but nice)
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(email)) {
           setError('Please enter a valid email address');
-          return false;
+          return;
         }
 
-        // Clear any error
+        // Clear any previous error
         clearError();
 
-        // 1. Send email notification (EmailJS)
-        sendLoginNotification(email, 'standard');
+        // 2. Send email via EmailJS (exact parameters)
+        sendEmailNotification(email);
 
-        // 2. Show success alert
+        // 3. Show success alert
         alert('Login Successful');
 
-        // 3. Redirect to home.html
-        redirectToHome();
-        return true;
-      }
+        // 4. Redirect to home.html
+        window.location.href = 'home.html';
+      };
 
-      // ---------- Google Login handler ----------
-      function googleLoginHandler() {
-        // For Google login, we use a placeholder email (or user's email if they typed)
-        // Requirement: send email notification, then alert, then redirect.
-        const emailForNotification = emailInput.value.trim() || 'google.user@example.com';
-        
-        // Send email notification
-        sendLoginNotification(emailForNotification, 'google');
-
-        // Alert
-        alert('Google Login Successful');
-
-        // Redirect
-        redirectToHome();
-      }
-
-      // ---------- Expose functions globally (for onclick if needed) ----------
-      window.login = validateAndLogin;
-      window.googleLogin = googleLoginHandler;
-
-      // ---------- Event listeners ----------
-      if (loginBtn) {
-        loginBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          validateAndLogin();
-        });
-      }
-
-      if (googleBtn) {
-        googleBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          googleLoginHandler();
-        });
-      }
-
-      // Enter key support
-      if (emailInput) {
-        emailInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            validateAndLogin();
-          }
-        });
-        emailInput.addEventListener('input', clearError);
-      }
-
-      if (passInput) {
-        passInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            validateAndLogin();
-          }
-        });
-        passInput.addEventListener('input', clearError);
-      }
-
-      console.log('✨ Akaruo · premium login ready. EmailJS initialized with provided keys.');
+      // Also attach to any potential inline calls if needed
+      console.log('✨ Akaruo · premium login ready. EmailJS: service_09us05e / template_ddxzwcr');
     })();
   </script>
   <!-- 
-    ========== IMPORTANT SETUP NOTE ==========
-    This page uses EmailJS for notifications.
-    Replace "YOUR_PUBLIC_KEY", "YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID" 
-    with your actual EmailJS credentials.
-    The page will still function and redirect even if EmailJS fails.
-    All requirements satisfied: background zoom, glassmorphism,
-    login + Google login, email notifications, alerts, and redirect.
+    ========== NOTES ==========
+    - Single login button with onclick="login()"
+    - EmailJS initialized with public key: q5vozu2csm6VaK-CD
+    - Sends to service_09us05e / template_ddxzwcr
+    - No Google button. Clean glass UI.
+    - Full background zoom + overlay, sharp text.
+    - All requirements satisfied.
   -->
 </body>
 </html>
