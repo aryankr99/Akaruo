@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akaruo · Luxury Coffee Experience</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ==================== LOGIN PAGE ==================== -->
+    <div id="loginPage" class="page active">
+        <div class="overlay"></div>
+        <div class="content login-content">
+            <div class="login-container">
+                <div class="glass-card">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h1 style="font-size: 3rem; font-family: 'Playfair Display', serif; color: #d4af37; margin-bottom: 0.5rem;">AKARUO</h1>
+                        <p style="color: #f5e7b2; letter-spacing: 3px;">LUXURY COFFEE</p>
+                    </div>
+                    
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" id="email" placeholder="connoisseur@akaruo.com" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" id="password" placeholder="••••••••" required>
+                        </div>
+                        
+                        <button type="submit" class="btn-lux" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-crown" style="margin-right: 8px;"></i> LOG IN
+                        </button>
+                    </form>
+                    
+                    <p style="text-align: center; margin-top: 1.5rem; color: #b8a88a; font-size: 0.85rem;">
+                        Exclusive Access · Members Only
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== WELCOME PAGE ==================== -->
+    <div id="welcomePage" class="page">
+        <div class="overlay"></div>
+        <div class="content welcome-content">
+            <div class="welcome-text">
+                <h1>Welcome to Akaruo</h1>
+                <p>Luxury in Every Sip</p>
+                
+                <div class="button-group">
+                    <button class="btn-lux" onclick="navigateTo('floating')">
+                        <i class="fas fa-star"></i> Signature Collection
+                    </button>
+                    <button class="btn-lux" onclick="navigateTo('items')">
+                        <i class="fas fa-coffee"></i> Our Items
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FLOATING PRODUCT SHOWCASE ==================== -->
+    <div id="floatingPage" class="page">
+        <div class="content floating-content">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; color: #1c1b17; margin-bottom: 1rem;">
+                The Art of Coffee
+            </h2>
+            
+            <div class="floating-grid">
+                <div class="float-item">
+                    <img src="https://i.ibb.co/bjr4Yb5h/1000066584.jpg" alt="Akaruo Premium">
+                </div>
+                <div class="float-item">
+                    <img src="https://i.ibb.co/Rpy3Hk5D/1000066585.jpg" alt="Akaruo Signature">
+                </div>
+                <div class="float-item">
+                    <img src="https://i.ibb.co/Swzzwj71/1000066588.jpg" alt="Akaruo Classic">
+                </div>
+            </div>
+            
+            <div class="center-enter" style="text-align: center;">
+                <button class="btn-lux btn-gold" onclick="navigateTo('signature')" style="font-size: 1.2rem; padding: 1rem 3.5rem;">
+                    ENTER <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SIGNATURE COLLECTION ==================== -->
+    <div id="signaturePage" class="page">
+        <div class="content">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #d4af37; text-align: center; margin-bottom: 2rem;">
+                Signature Collection
+            </h2>
+            
+            <div class="product-grid" id="signatureProducts">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ITEMS PAGE ==================== -->
+    <div id="itemsPage" class="page">
+        <div class="content">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; text-align: center; color: #1c1b17; margin-bottom: 2rem;">
+                Our Premium Items
+            </h2>
+            
+            <div class="items-grid" id="itemsProducts">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ORDER PAGE ==================== -->
+    <div id="orderPage" class="page">
+        <div class="overlay" style="background: rgba(0,0,0,0.6);"></div>
+        <div class="content">
+            <div class="checkout-form">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #d4af37; margin-bottom: 2rem; text-align: center;">
+                    Complete Your Order
+                </h3>
+                
+                <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="fullName" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="mobile" placeholder="Mobile Number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="address" placeholder="Full Address" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="city" placeholder="City" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="state" placeholder="State" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="pincode" placeholder="PIN Code" required>
+                    </div>
+                    
+                    <div class="payment-option">
+                        <label style="display: flex; align-items: center; color: #f5e7b2;">
+                            <input type="radio" name="payment" value="COD" checked style="margin-right: 10px;">
+                            <i class="fas fa-money-bill-wave"></i> Cash on Delivery
+                        </label>
+                    </div>
+                    
+                    <input type="hidden" id="selectedProduct" value="">
+                    
+                    <button type="submit" class="btn-lux btn-gold" style="width: 100%; margin-top: 2rem; font-size: 1.2rem;">
+                        <i class="fas fa-whatsapp"></i> PLACE ORDER
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="script.js"></script>
+</body>
+</html>
