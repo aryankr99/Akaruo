@@ -15,21 +15,21 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #FCF8F0 0%, #F5EDE1 100%);
+            background: linear-gradient(145deg, #FCF9F4 0%, #F5EDE1 100%);
             color: #2C1D12;
             overflow-x: hidden;
         }
 
-        /* Premium color palette */
+        /* Premium Color Palette */
         :root {
             --gold: #C9A03D;
             --gold-light: #E2BB6B;
             --dark-brown: #3E2A1F;
             --deep-espresso: #2C1A0E;
             --beige-warm: #FFF9F0;
-            --card-bg: rgba(255, 252, 245, 0.92);
+            --card-bg: rgba(255, 253, 250, 0.95);
             --shadow-soft: 0 20px 35px -12px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 30px 45px -15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(201, 160, 61, 0.2);
+            --shadow-hover: 0 30px 45px -15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(201, 160, 61, 0.25);
         }
 
         .container {
@@ -38,18 +38,18 @@
             padding: 1.8rem 2rem 3rem;
         }
 
-        /* ========== PREMIUM HEADER ========== */
+        /* ========== PREMIUM HEADER - CLEAN, NO EXTRA TEXT ========== */
         .luxury-header {
             text-align: center;
-            padding: 1.2rem 0 2rem 0;
-            margin-bottom: 1.5rem;
+            padding: 1rem 0 1.8rem 0;
+            margin-bottom: 1rem;
             position: relative;
-            border-bottom: 2px solid rgba(201, 160, 61, 0.3);
+            border-bottom: 2px solid rgba(201, 160, 61, 0.25);
         }
 
         .brand-name {
             font-family: 'Playfair Display', serif;
-            font-size: 4.2rem;
+            font-size: 4rem;
             font-weight: 800;
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, #3E2A1F 0%, #C9A03D 55%, #A87F2E 100%);
@@ -57,25 +57,25 @@
             background-clip: text;
             color: transparent;
             margin-bottom: 0.5rem;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .brand-subtitle {
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             font-weight: 400;
-            letter-spacing: 6px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             color: #8B6946;
             border-top: 1px solid rgba(201, 160, 61, 0.5);
             display: inline-block;
-            padding-top: 0.8rem;
+            padding-top: 0.7rem;
         }
 
-        /* gold decorative accent */
+        /* Gold decorative line accent */
         .luxury-header::after {
             content: "✦";
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--gold);
             position: absolute;
             bottom: -0.7rem;
@@ -87,7 +87,7 @@
 
         /* Section Titles */
         .category-wrapper {
-            margin-top: 2.5rem;
+            margin-top: 2.8rem;
             margin-bottom: 1rem;
         }
 
@@ -122,15 +122,15 @@
             border-radius: 2px;
         }
 
-        /* Responsive Grid */
+        /* Product Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
-        /* Premium Glassmorphism / Soft Shadow Cards with Smooth Fade Animation */
+        /* Premium Card Design */
         .product-card {
             background: var(--card-bg);
             backdrop-filter: blur(2px);
@@ -144,7 +144,7 @@
             transform: translateY(20px);
         }
 
-        /* Staggered animation delay */
+        /* Staggered animation */
         .product-card:nth-child(1) { animation-delay: 0.05s; }
         .product-card:nth-child(2) { animation-delay: 0.1s; }
         .product-card:nth-child(3) { animation-delay: 0.15s; }
@@ -160,7 +160,7 @@
         }
 
         .product-card:hover {
-            transform: translateY(-10px) scale(1.01);
+            transform: translateY(-8px) scale(1.01);
             box-shadow: var(--shadow-hover);
             border-color: rgba(201, 160, 61, 0.5);
         }
@@ -174,22 +174,23 @@
         }
 
         .product-card:hover .product-img {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
 
         .product-info {
             padding: 1.4rem 1.2rem 1.6rem;
             text-align: center;
-            background: linear-gradient(0deg, #FFFFFF, #FFFCF7);
+            background: linear-gradient(0deg, #FFFFFF, #FFFCF8);
         }
 
         .product-name {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: var(--deep-espresso);
             margin-bottom: 0.4rem;
             letter-spacing: -0.2px;
+            line-height: 1.3;
         }
 
         .product-price {
@@ -221,11 +222,11 @@
             width: 80%;
             margin: 0 auto;
             letter-spacing: 1px;
-            background: rgba(201, 160, 61, 0.06);
+            background: rgba(201, 160, 61, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .buy-now-btn:hover {
@@ -238,6 +239,18 @@
 
         .buy-now-btn:active {
             transform: scale(0.98);
+        }
+
+        /* Footer */
+        .elegant-footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid rgba(201, 160, 61, 0.25);
+            font-size: 0.75rem;
+            color: #A27D55;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
         }
 
         /* Responsive Design */
@@ -284,30 +297,21 @@
                 font-size: 2.3rem;
             }
             .product-name {
-                font-size: 1.2rem;
+                font-size: 1.15rem;
             }
             .product-price {
                 font-size: 1.2rem;
             }
-        }
-
-        /* footer elegance */
-        .elegant-footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1.8rem;
-            border-top: 1px solid rgba(201, 160, 61, 0.25);
-            font-size: 0.75rem;
-            color: #A27D55;
-            letter-spacing: 1px;
-            font-family: 'Poppins', sans-serif;
+            .buy-now-btn {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Header: brand name + subtitle, no extra text -->
+    <!-- Header: ONLY brand name and subtitle - clean, no extra text -->
     <div class="luxury-header">
         <div class="brand-name">Akaruo</div>
         <div class="brand-subtitle">Luxury in Every Sip</div>
@@ -320,25 +324,25 @@
             <h2>Coffee Range</h2>
         </div>
         <div class="products-grid">
-            <!-- 1. Akaruo Iced Coffee Mix -->
+            <!-- 1. Akaruo Iced Coffee Mix - ₹129 -->
             <div class="product-card" data-name="Akaruo Iced Coffee Mix" data-price="129">
-                <img class="product-img" src="https://i.ibb.co/3yT3fXDR/1000066807.jpg" alt="Akaruo Iced Coffee Mix">
+                <img class="product-img" src="https://i.ibb.co/Rp9jjy1v/1000066817.jpg" alt="Akaruo Iced Coffee Mix">
                 <div class="product-info">
                     <div class="product-name">Akaruo Iced Coffee Mix</div>
                     <div class="product-price"><span class="price-currency">₹</span>129</div>
                     <button class="buy-now-btn">Buy Now →</button>
                 </div>
             </div>
-            <!-- 2. Akaruo Instant Coffee Mix -->
+            <!-- 2. Akaruo Instant Coffee Mix - ₹99 -->
             <div class="product-card" data-name="Akaruo Instant Coffee Mix" data-price="99">
-                <img class="product-img" src="https://i.ibb.co/4RK1whdN/1000066814.jpg" alt="Akaruo Instant Coffee Mix">
+                <img class="product-img" src="https://i.ibb.co/LzMjY1ZF/1000066805.jpg" alt="Akaruo Instant Coffee Mix">
                 <div class="product-info">
                     <div class="product-name">Akaruo Instant Coffee Mix</div>
                     <div class="product-price"><span class="price-currency">₹</span>99</div>
                     <button class="buy-now-btn">Buy Now →</button>
                 </div>
             </div>
-            <!-- 3. Akaruo Classic Black Coffee -->
+            <!-- 3. Akaruo Classic Black Coffee - ₹119 -->
             <div class="product-card" data-name="Akaruo Classic Black Coffee" data-price="119">
                 <img class="product-img" src="https://i.ibb.co/Rp9jjy1v/1000066817.jpg" alt="Akaruo Classic Black Coffee">
                 <div class="product-info">
@@ -357,27 +361,27 @@
             <h2>Premium Beverages</h2>
         </div>
         <div class="products-grid">
-            <!-- 4. Akaruo Zest Lemon Tea -->
+            <!-- 4. Akaruo Zest Lemon Tea - ₹169 -->
             <div class="product-card" data-name="Akaruo Zest Lemon Tea" data-price="169">
-                <img class="product-img" src="https://i.ibb.co/LzMjY1ZF/1000066805.jpg" alt="Akaruo Zest Lemon Tea">
+                <img class="product-img" src="https://i.ibb.co/Xk4XRs8x/1000066820.jpg" alt="Akaruo Zest Lemon Tea">
                 <div class="product-info">
                     <div class="product-name">Akaruo Zest Lemon Tea</div>
                     <div class="product-price"><span class="price-currency">₹</span>169</div>
                     <button class="buy-now-btn">Buy Now →</button>
                 </div>
             </div>
-            <!-- 5. Akaruo Royal Masala Milk -->
+            <!-- 5. Akaruo Royal Masala Milk - ₹169 -->
             <div class="product-card" data-name="Akaruo Royal Masala Milk" data-price="169">
-                <img class="product-img" src="https://i.ibb.co/Xk4XRs8x/1000066820.jpg" alt="Akaruo Royal Masala Milk">
+                <img class="product-img" src="https://i.ibb.co/3yT3fXDR/1000066807.jpg" alt="Akaruo Royal Masala Milk">
                 <div class="product-info">
                     <div class="product-name">Akaruo Royal Masala Milk</div>
                     <div class="product-price"><span class="price-currency">₹</span>169</div>
                     <button class="buy-now-btn">Buy Now →</button>
                 </div>
             </div>
-            <!-- 6. Akaruo Velvet Hot Chocolate -->
+            <!-- 6. Akaruo Velvet Hot Chocolate - ₹179 -->
             <div class="product-card" data-name="Akaruo Velvet Hot Chocolate" data-price="179">
-                <img class="product-img" src="https://i.ibb.co/jPMn5xvZ/1000066878.jpg" alt="Akaruo Velvet Hot Chocolate">
+                <img class="product-img" src="https://i.ibb.co/4RK1whdN/1000066814.jpg" alt="Akaruo Velvet Hot Chocolate">
                 <div class="product-info">
                     <div class="product-name">Akaruo Velvet Hot Chocolate</div>
                     <div class="product-price"><span class="price-currency">₹</span>179</div>
@@ -392,24 +396,22 @@
 </div>
 
 <script>
-    // Functionality: On "Buy Now" click, redirect to checkout.html with product name and price as query parameters
-    // Format: checkout.html?product=PRODUCT_NAME&price=PRICE
     // Get all Buy Now buttons
     const buyButtons = document.querySelectorAll('.buy-now-btn');
     
+    // Add click event to each button for redirect to checkout with product and price parameters
     buyButtons.forEach(button => {
         button.addEventListener('click', function(event) {
-            // Prevent any accidental bubbling
             event.stopPropagation();
             
-            // Find parent product-card to get data-name and data-price
+            // Find parent product-card
             const productCard = this.closest('.product-card');
             if (productCard) {
-                // Get product details from data attributes or from elements inside
+                // Get product name and price from data attributes
                 let productName = productCard.getAttribute('data-name');
                 let productPrice = productCard.getAttribute('data-price');
                 
-                // Fallback: if data attributes not set, extract from DOM (just in case)
+                // Fallback: if data attributes missing, extract from DOM
                 if (!productName) {
                     const nameElem = productCard.querySelector('.product-name');
                     if (nameElem) productName = nameElem.innerText.trim();
@@ -430,21 +432,11 @@
                 // Redirect to checkout.html with query parameters
                 window.location.href = `checkout.html?product=${encodedProduct}&price=${encodedPrice}`;
             } else {
-                // fallback if structure changes (safety)
                 console.warn("Product card not found");
             }
         });
     });
-    
-    // Additional tiny detail: ensure that all images load gracefully and no broken code.
-    // Fully premium luxury feel: beige, dark brown, gold tones, Playfair Display + Poppins.
-    // Header only shows "Akaruo" and "Luxury in Every Sip", no extra text.
-    // Product categories exactly as described (Coffee Range 3 items, Premium Beverages 3 items)
-    // Each card shows image, name, price, Buy Now button.
-    // Button redirects to checkout with product name and price as query string.
-    // UI: rounded corners, glass effect / soft shadow, hover scaling and shadow, smooth fade animations.
-    // Responsive: 3 columns desktop, 1 column mobile (also 2 columns tablet).
-    // Single HTML file: home.html ready to use.
 </script>
+
 </body>
 </html>
