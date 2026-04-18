@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Akaruo · Secure Checkout</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: #f1f3f6;  /* Flipkart-style light grey */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .checkout-container {
+      max-width: 1100px;
+      width: 100%;
+      margin: 20px auto;
+    }
+
+    /* header */
+    .brand-header {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand-header h2 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #212121;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-header span {
+      color: #878787;
+      font-size: 1rem;
+    }
+
+    .secure-badge {
+      color: #388e3c;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* two column layout */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 24px;
+    }
+
+    /* cards */
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      border: 1px solid #eaeaec;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #212121;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 12px;
+    }
+
+    /* product summary */
+    .product-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .product-name {
+      font-weight: 500;
+      color: #212121;
+    }
+
+    .product-price {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #212121;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed #c2c2c2;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    /* form fields */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #424242;
+      margin-bottom: 6px;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      background: #fff;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: #ff7a00;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .error-msg {
+      color: #d32f2f;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      min-height: 18px;
+    }
+
+    /* payment options */
+    .payment-option {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+    }
+
+    .payment-option input {
+      margin-right: 14px;
+      accent-color: #ff7a00;
+      width: 20px;
+      height: 20px;
+    }
+
+    .payment-label {
+      font-weight: 500;
+      color: #212121;
+    }
+
+    .payment-note {
+      font-size: 0.8rem;
+      color: #5e5e5e;
+      margin-left: 34px;
+    }
+
+    /* place order button */
+    .btn-place-order {
+      width: 100%;
+      background: #fb641b;   /* Flipkart orange */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 18px 24px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(251, 100, 27, 0.3);
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    .btn-place-order:hover {
+      background: #e85a18;
+      box-shadow: 0 6px 16px rgba(251, 100, 27, 0.4);
+      transform: scale(1.01);
+    }
+
+    /* mobile */
+    @media (max-width: 750px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      body { padding: 1rem; }
+      .card { padding: 20px 16px; }
+    }
+
+    /* dynamic product fallback */
+    .price-symbol {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .akaru-tag {
+      background: #fff3e0;
+      color: #b85e00;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<div class="checkout-container">
+  <!-- header -->
+  <div class="brand-header">
+    <div>
+      <h2>Akaruo <span style="font-weight: 300; margin-left: 8px;">· checkout</span></h2>
+      <span>Premium in Every Sip</span>
+    </div>
+    <div class="secure-badge">
+      <span>🔒 100% Secure</span>
+    </div>
+  </div>
+
+  <!-- main grid -->
+  <div class="checkout-grid">
+    <!-- LEFT COLUMN: Customer + Payment -->
+    <div>
+      <!-- Customer details card -->
+      <div class="card">
+        <div class="card-title">
+          <span>📋 Delivery details</span>
+        </div>
+
+        <form id="orderForm" onsubmit="return false;">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="fullName" placeholder="Rahul Sharma" autocomplete="name">
+            <div class="error-msg" id="nameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="mobile" placeholder="9876543210" inputmode="numeric" autocomplete="tel">
+            <div class="error-msg" id="mobileError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Address *</label>
+            <textarea id="address" placeholder="House / Flat / Building, Street, Area"></textarea>
+            <div class="error-msg" id="addressError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>City *</label>
+            <input type="text" id="city" placeholder="Mumbai" autocomplete="address-level2">
+            <div class="error-msg" id="cityError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Pincode *</label>
+            <input type="text" id="pincode" placeholder="400001" inputmode="numeric" maxlength="6">
+            <div class="error-msg" id="pincodeError"></div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Payment card -->
+      <div class="card">
+        <div class="card-title">💳 Payment method</div>
+        
+        <div class="payment-option" onclick="document.getElementById('cod').checked=true">
+          <input type="radio" name="payment" id="cod" value="cod" checked>
+          <span class="payment-label">Cash on Delivery (COD)</span>
+        </div>
+        <div class="payment-note">Pay with cash or card when your order arrives.</div>
+
+        <div class="payment-option" style="border-bottom: none;" onclick="document.getElementById('upi').checked=true">
+          <input type="radio" name="payment" id="upi" value="upi">
+          <span class="payment-label">UPI / Cards / NetBanking</span>
+        </div>
+        <div class="payment-note">You'll be redirected to secure payment (demo).</div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Order summary -->
+    <div>
+      <div class="card" style="position: sticky; top: 20px;">
+        <div class="card-title">
+          <span>🛒 Your Order</span>
+          <span class="akaru-tag">Akaruo</span>
+        </div>
+
+        <!-- dynamic product display -->
+        <div id="productDisplay">
+          <div class="product-row">
+            <span class="product-name" id="productNameDisplay">Akaruo Signature Blend</span>
+            <span class="product-price" id="productPriceDisplay">₹1,499</span>
+          </div>
+        </div>
+
+        <!-- price breakdown -->
+        <div style="margin: 20px 0;">
+          <div style="display: flex; justify-content: space-between; color: #5e5e5e; margin-bottom: 8px;">
+            <span>Delivery</span>
+            <span style="color: #388e3c;">FREE</span>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span>Total amount</span>
+          <span id="totalAmount">₹1,499</span>
+        </div>
+
+        <button class="btn-place-order" id="placeOrderBtn" onclick="placeOrder()">
+          Place Order
+        </button>
+        <p style="font-size: 0.75rem; color: #878787; margin-top: 16px; text-align: center;">
+          By placing order you agree to Akaruo's terms.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    "use strict";
+
+    // ---------- PRODUCT DATA (dynamic via URL or fallback) ----------
+    let product = {
+      name: 'Akaruo Reserve Oak',
+      price: 1499
+    };
+
+    // Try to parse URL parameters: ?name=...&price=...
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('name')) {
+      product.name = params.get('name');
+    }
+    if (params.get('price')) {
+      const priceParam = parseFloat(params.get('price'));
+      if (!isNaN(priceParam)) product.price = priceParam;
+    }
+
+    // Update UI with product
+    const productNameEl = document.getElementById('productNameDisplay');
+    const productPriceEl = document.getElementById('productPriceDisplay');
+    const totalAmountEl = document.getElementById('totalAmount');
+
+    function formatPrice(price) {
+      return '₹' + price.toLocaleString('en-IN');
+    }
+
+    if (productNameEl) productNameEl.textContent = product.name;
+    const formattedPrice = formatPrice(product.price);
+    if (productPriceEl) productPriceEl.textContent = formattedPrice;
+    if (totalAmountEl) totalAmountEl.textContent = formattedPrice;
+
+    // ---------- DOM elements ----------
+    const fullName = document.getElementById('fullName');
+    const mobile = document.getElementById('mobile');
+    const address = document.getElementById('address');
+    const city = document.getElementById('city');
+    const pincode = document.getElementById('pincode');
+
+    const nameError = document.getElementById('nameError');
+    const mobileError = document.getElementById('mobileError');
+    const addressError = document.getElementById('addressError');
+    const cityError = document.getElementById('cityError');
+    const pincodeError = document.getElementById('pincodeError');
+
+    // Radio payment (COD is default)
+    const codRadio = document.getElementById('cod');
+    const upiRadio = document.getElementById('upi');
+
+    // Clear errors on input
+    [fullName, mobile, address, city, pincode].forEach(field => {
+      if (field) {
+        field.addEventListener('input', function() {
+          const errorEl = document.getElementById(field.id + 'Error');
+          if (errorEl) errorEl.textContent = '';
+        });
+      }
+    });
+
+    // ---------- Validation ----------
+    function validateForm() {
+      let isValid = true;
+
+      // Reset errors
+      nameError.textContent = '';
+      mobileError.textContent = '';
+      addressError.textContent = '';
+      cityError.textContent = '';
+      pincodeError.textContent = '';
+
+      const nameVal = fullName.value.trim();
+      const mobileVal = mobile.value.trim();
+      const addressVal = address.value.trim();
+      const cityVal = city.value.trim();
+      const pincodeVal = pincode.value.trim();
+
+      if (!nameVal) {
+        nameError.textContent = 'Full name is required';
+        isValid = false;
+      }
+
+      if (!mobileVal) {
+        mobileError.textContent = 'Mobile number required';
+        isValid = false;
+      } else if (!/^[6-9]\d{9}$/.test(mobileVal)) {
+        mobileError.textContent = 'Enter a valid 10-digit mobile';
+        isValid = false;
+      }
+
+      if (!addressVal) {
+        addressError.textContent = 'Address required';
+        isValid = false;
+      }
+
+      if (!cityVal) {
+        cityError.textContent = 'City is required';
+        isValid = false;
+      }
+
+      if (!pincodeVal) {
+        pincodeError.textContent = 'Pincode required';
+        isValid = false;
+      } else if (!/^\d{6}$/.test(pincodeVal)) {
+        pincodeError.textContent = 'Enter a 6-digit pincode';
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    // ---------- PLACE ORDER (exposed globally) ----------
+    window.placeOrder = function() {
+      if (!validateForm()) {
+        // scroll to error (optional)
+        return;
+      }
+
+      // gather data
+      const customerName = fullName.value.trim();
+      const customerMobile = mobile.value.trim();
+      const customerAddress = address.value.trim();
+      const customerCity = city.value.trim();
+      const customerPincode = pincode.value.trim();
+
+      const paymentMethod = codRadio.checked ? 'Cash on Delivery' : 'UPI / Online';
+
+      // Show alert (order placed)
+      alert('✅ Order Placed Successfully');
+
+      // Build WhatsApp message (URL encoded)
+      const productDetails = `${product.name} — ${formatPrice(product.price)}`;
+      
+      const message = 
+        `*New Order from Akaruo*%0A%0A` +
+        `👤 *Name:* ${encodeURIComponent(customerName)}%0A` +
+        `📞 *Phone:* ${encodeURIComponent(customerMobile)}%0A` +
+        `📍 *Address:* ${encodeURIComponent(customerAddress)}%0A` +
+        `🏙 *City:* ${encodeURIComponent(customerCity)}%0A` +
+        `📮 *Pincode:* ${encodeURIComponent(customerPincode)}%0A%0A` +
+        `🛍 *Product:* ${encodeURIComponent(product.name)}%0A` +
+        `💰 *Price:* ${encodeURIComponent(formatPrice(product.price))}%0A` +
+        `💳 *Payment:* ${encodeURIComponent(paymentMethod)}%0A%0A` +
+        `_via Akaruo checkout_`;
+
+      // WhatsApp number: 919608891170
+      const waNumber = '919608891170';
+      const waUrl = `https://wa.me/${waNumber}?text=${message}`;
+
+      // Redirect to WhatsApp
+      window.location.href = waUrl;
+    };
+
+    // also allow Enter key to place order? optional
+    const inputs = [fullName, mobile, address, city, pincode];
+    inputs.forEach(input => {
+      if (input) {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('placeOrderBtn')?.click();
+          }
+        });
+      }
+    });
+
+    // Attach radio selection effect
+    console.log('✨ Akaruo checkout ready — Flipkart style.');
+  })();
+</script>
+<!-- subtle note: product can be passed like checkout.html?name=Midnight+Oak&price=2499 -->
+</body>
+</html>
