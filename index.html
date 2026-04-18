@@ -5,185 +5,280 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Akaruo Login</title>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
 
+/* BACKGROUND */
 body{
-height:100vh;
-overflow:hidden;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg') no-repeat center/cover;
+  animation:zoomBg 10s infinite alternate;
 }
 
-/* Background */
-.bg{
-position:fixed;
-width:100%;
-height:100%;
-background:url('https://i.ibb.co/pvtWqhg4/9a6b0b3fee7d1bb5a3d835db58c37514.jpg') center/cover no-repeat;
-animation:zoom 20s infinite alternate ease-in-out;
+/* DARK OVERLAY */
+body::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  z-index:0;
 }
 
-.bg::after{
-content:'';
-position:absolute;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.55);
+/* ZOOM ANIMATION */
+@keyframes zoomBg{
+  from{background-size:100%;}
+  to{background-size:110%;}
 }
 
-@keyframes zoom{
-from{transform:scale(1);} 
-to{transform:scale(1.1);} 
-}
-
-/* Center Box */
-.container{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%, -50%);
-width:90%;
-max-width:380px;
-}
-
+/* LOGIN BOX */
 .login-box{
-background:rgba(255,255,255,0.08);
-padding:30px;
-border-radius:16px;
-backdrop-filter:blur(12px);
-border:1px solid rgba(255,255,255,0.2);
-color:#fff;
-animation:fadeIn 1s ease;
+  position:relative;
+  z-index:1;
+  width:90%;
+  max-width:350px;
+  padding:25px;
+  border-radius:15px;
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.1);
+  text-align:center;
+  color:#fff;
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);} 
-to{opacity:1;transform:translateY(0);} 
+/* TITLE */
+.login-box h1{
+  margin-bottom:20px;
 }
 
-h2{
-text-align:center;
-margin-bottom:20px;
-font-weight:600;
+/* INPUTS */
+.login-box input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:8px;
+  outline:none;
+  font-size:16px;
 }
 
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:8px;
-outline:none;
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  margin-top:10px;
+  font-size:16px;
+  cursor:pointer;
 }
 
-button{
-width:100%;
-padding:12px;
-border:none;
-border-radius:8px;
-margin-top:10px;
-cursor:pointer;
-font-weight:bold;
-}
-
+/* LOGIN BUTTON */
 .login-btn{
-background:#ff7a18;
-color:#fff;
+  background:orange;
+  color:white;
 }
 
+/* GOOGLE BUTTON */
 .google-btn{
-background:#fff;
-color:#333;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
+  background:white;
+  color:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
 }
 
-.google-btn img{
-width:18px;
-}
-
-.error{
-color:#ff6b6b;
-font-size:14px;
-margin-top:10px;
-text-align:center;
-}
-
-@media(max-width:480px){
-.login-box{padding:20px;}
+/* ERROR */
+#error{
+  color:#ff4d4d;
+  margin-top:10px;
+  font-size:14px;
 }
 </style>
 </head>
+
 <body>
 
-<div class="bg"></div>
-
-<div class="container">
 <div class="login-box">
-<h2>Akaruo</h2>
+  <h1>Akaruo</h1>
 
-<input type="email" id="email" placeholder="Email" required>
-<input type="password" id="password" placeholder="Password" required>
+  <input type="email" id="email" placeholder="Enter Email">
+  <input type="password" id="pass" placeholder="Enter Password">
 
-<button class="login-btn" onclick="login()">Login</button>
+  <button class="btn login-btn" onclick="login()">Login</button>
 
-<button class="google-btn" onclick="googleLogin()">
-<img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png">
-Continue with Google
-</button>
+  <button class="btn google-btn" onclick="googleLogin()">
+    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" width="20">
+    Continue with Google
+  </button>
 
-<div class="error" id="error"></div>
-
-</div>
+  <p id="error"></p>
 </div>
 
 <script>
-// TODO: Replace with your Firebase config
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  appId: "YOUR_APP_ID"
-};
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
+/* LOGIN FUNCTION */
 function login(){
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const errorDiv = document.getElementById('error');
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("pass").value;
 
-  if(!email || !password){
-    errorDiv.innerText = "Please fill all fields";
-    return;
+  if(email === "" || pass === ""){
+    document.getElementById("error").innerText = "Please fill all fields";
+  } else {
+    alert("Login Successful");
+    window.location.href = "home.html"; // redirect
   }
-
-  auth.signInWithEmailAndPassword(email, password)
-    .then(()=>{
-      window.location.href = "home.html";
-    })
-    .catch(err=>{
-      errorDiv.innerText = err.message;
-    });
 }
 
+/* GOOGLE LOGIN */
 function googleLogin(){
-  const provider = new firebase.auth.GoogleAuthProvider();
-  const errorDiv = document.getElementById('error');
+  alert("Google Login Successful");
+  window.location.href = "home.html"; // redirect
+}
 
-  auth.signInWithPopup(provider)
-    .then(()=>{
-      window.location.href = "home.html";
-    })
-    .catch(err=>{
-      errorDiv.innerText = err.message;
-    });
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akaruo</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  scroll-behavior:smooth;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  background:url('https://i.ibb.co/TB95TLSB/1000066583.jpg') center/cover no-repeat;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-align:center;
+  background-blend-mode:darken;
+  background-color:rgba(0,0,0,0.5);
+}
+
+.hero h1{font-size:32px;}
+.hero p{font-size:18px;}
+
+.btn{
+  padding:10px 20px;
+  margin:8px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.primary{background:orange;color:white;}
+.secondary{background:white;color:black;}
+
+/* SECTIONS */
+.section{
+  padding:30px;
+  text-align:center;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
+}
+
+.card{
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.card img{width:100%;}
+</style>
+
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Akaruo Instant Drink Mix</h1>
+  <p>Premium in Every Sip</p>
+
+  <button class="btn primary" onclick="goSignature()">Signature Collection</button>
+  <button class="btn secondary" onclick="goProducts()">View Items</button>
+</div>
+
+<!-- SIGNATURE -->
+<div class="section" id="signature">
+  <h2>Akaruo Signature Collection</h2>
+
+  <div class="products">
+    <div class="card">
+      <img src="https://i.ibb.co/Xx07dXpX/1000066817.jpg">
+      <h3>Velvet Hot Chocolate</h3>
+      <p>₹179</p>
+    </div>
+
+    <div class="card">
+      <img src="https://i.ibb.co/v481Qpxh/1000066832.jpg">
+      <h3>Royal Masala Milk</h3>
+      <p>₹169</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section" id="products">
+  <h2>All Items</h2>
+
+  <div class="products">
+
+    <div class="card">
+      <img src="https://i.ibb.co/0jdSrmjs/1000066585.jpg">
+      <h3>Instant Coffee</h3>
+      <p>₹99</p>
+    </div>
+
+    <div class="card">
+      <img src="https://i.ibb.co/WvfKhLZ9/1000066807.jpg">
+      <h3>Iced Coffee</h3>
+      <p>₹129</p>
+    </div>
+
+    <div class="card">
+      <img src="https://i.ibb.co/QjbVB7g8/1000066588.jpg">
+      <h3>Lemon Tea</h3>
+      <p>₹169</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function goSignature(){
+  document.getElementById("signature").scrollIntoView();
+}
+
+function goProducts(){
+  document.getElementById("products").scrollIntoView();
 }
 </script>
 
