@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Akaruo · Signature</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .signature-wrapper {
+      position: fixed;
+      inset: 0;
+      background-image: url('https://i.ibb.co/WvGY2kx7/1000066583.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signature-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 7, 5, 0.5);
+      backdrop-filter: brightness(0.85);
+    }
+
+    .content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 2rem;
+      animation: softFade 1.4s ease-out;
+    }
+
+    @keyframes softFade {
+      0% { opacity: 0; transform: translateY(25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 12vw, 5rem);
+      font-weight: 400;
+      color: #fff6ed;
+      text-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #c9a47c;
+      display: inline-block;
+      padding-bottom: 1rem;
+    }
+
+    .back-link {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 20;
+      color: #eedbcb;
+      text-decoration: none;
+      font-size: 1rem;
+      background: rgba(0,0,0,0.2);
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+      border: 1px solid #ab8b72;
+      transition: 0.2s;
+    }
+
+    .back-link:hover {
+      background: rgba(180, 120, 70, 0.3);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; letter-spacing: 3px; }
+    }
+  </style>
+</head>
+<body>
+<div class="signature-wrapper">
+  <div class="content">
+    <h1>Akaruo Signature<br>Collection</h1>
+  </div>
+  <a href="home.html" class="back-link">← Back</a>
+</div>
+</body>
+</html>
