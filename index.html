@@ -2,183 +2,607 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akaruo · Luxury Coffee Experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Akaruo · Luxury Login</title>
     
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDkFQpD8X9jXKjX8X9jXKjX8X9jXKjX8X9",
+            authDomain: "akaruo-login-demo.firebaseapp.com",
+            projectId: "akaruo-login-demo",
+            storageBucket: "akaruo-login-demo.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456ghi789"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        
+        // Make auth available globally
+        window.firebaseAuth = { auth, provider, signInWithEmailAndPassword, signInWithPopup };
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f5e7b2;
+            --orange-primary: #ff6b35;
+            --orange-dark: #e85a2a;
+            --orange-light: #ff8c5a;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background with smooth zoom animation */
+        .background-zoom {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/4ZjSXgDQ/9a6b0b3fee7d1bb5a3d835db58c37514.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: smoothZoom 20s ease-in-out infinite alternate;
+            z-index: -2;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        @keyframes smoothZoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* Dark overlay for readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            z-index: -1;
+        }
+
+        /* Main container */
+        .login-wrapper {
+            width: 100%;
+            max-width: 440px;
+            margin: 1.5rem;
+            padding: 1rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Glassmorphism Card */
+        .login-card {
+            background: rgba(20, 18, 18, 0.35);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 36px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Brand Header */
+        .brand {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.25rem;
+        }
+
+        .brand p {
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* Form Styles */
+        .input-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: rgba(10, 8, 6, 0.4);
+            border: 1.5px solid rgba(212, 175, 55, 0.25);
+            border-radius: 50px;
+            padding: 1rem 1.4rem;
+            font-size: 1rem;
+            color: #f5efe8;
+            font-family: 'Poppins', sans-serif;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--orange-primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+            background: rgba(20, 15, 10, 0.6);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(245, 239, 232, 0.5);
+            font-weight: 300;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: -1rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            min-height: 24px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #e85a2a 0%, #ff7a45 100%);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-google {
+            background: white;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .btn-google:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            background: #fafafa;
+        }
+
+        .btn-google i {
+            color: #4285f4;
+            font-size: 1.2rem;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: rgba(212, 175, 55, 0.6);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Loading state */
+        .btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .btn.loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: rgba(245, 231, 178, 0.7);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-wrapper {
+                margin: 1rem;
+                padding: 0.5rem;
+            }
+            
+            .login-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .brand h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Smooth transitions for all interactive elements */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Disable text selection on buttons */
+        .btn {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Success state */
+        .input-group input.success {
+            border-color: #4CAF50;
+        }
+
+        .input-group input.error {
+            border-color: #ff6b6b;
+        }
+    </style>
 </head>
 <body>
-    <!-- ==================== LOGIN PAGE ==================== -->
-    <div id="loginPage" class="page active">
-        <div class="overlay"></div>
-        <div class="content login-content">
-            <div class="login-container">
-                <div class="glass-card">
-                    <div style="text-align: center; margin-bottom: 2rem;">
-                        <h1 style="font-size: 3rem; font-family: 'Playfair Display', serif; color: #d4af37; margin-bottom: 0.5rem;">AKARUO</h1>
-                        <p style="color: #f5e7b2; letter-spacing: 3px;">LUXURY COFFEE</p>
-                    </div>
-                    
-                    <form id="loginForm" onsubmit="handleLogin(event)">
-                        <div class="input-group">
-                            <label>Email Address</label>
-                            <input type="email" id="email" placeholder="connoisseur@akaruo.com" required>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label>Password</label>
-                            <input type="password" id="password" placeholder="••••••••" required>
-                        </div>
-                        
-                        <button type="submit" class="btn-lux" style="width: 100%; margin-top: 1rem;">
-                            <i class="fas fa-crown" style="margin-right: 8px;"></i> LOG IN
-                        </button>
-                    </form>
-                    
-                    <p style="text-align: center; margin-top: 1.5rem; color: #b8a88a; font-size: 0.85rem;">
-                        Exclusive Access · Members Only
-                    </p>
-                </div>
+    <div class="background-zoom"></div>
+    <div class="overlay"></div>
+    
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="brand">
+                <h1>AKARUO</h1>
+                <p>Luxury Coffee</p>
             </div>
-        </div>
-    </div>
-
-    <!-- ==================== WELCOME PAGE ==================== -->
-    <div id="welcomePage" class="page">
-        <div class="overlay"></div>
-        <div class="content welcome-content">
-            <div class="welcome-text">
-                <h1>Welcome to Akaruo</h1>
-                <p>Luxury in Every Sip</p>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="connoisseur@akaruo.com" required autocomplete="email">
+                </div>
                 
-                <div class="button-group">
-                    <button class="btn-lux" onclick="navigateTo('floating')">
-                        <i class="fas fa-star"></i> Signature Collection
-                    </button>
-                    <button class="btn-lux" onclick="navigateTo('items')">
-                        <i class="fas fa-coffee"></i> Our Items
-                    </button>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== FLOATING PRODUCT SHOWCASE ==================== -->
-    <div id="floatingPage" class="page">
-        <div class="content floating-content">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; color: #1c1b17; margin-bottom: 1rem;">
-                The Art of Coffee
-            </h2>
-            
-            <div class="floating-grid">
-                <div class="float-item">
-                    <img src="https://i.ibb.co/bjr4Yb5h/1000066584.jpg" alt="Akaruo Premium">
-                </div>
-                <div class="float-item">
-                    <img src="https://i.ibb.co/Rpy3Hk5D/1000066585.jpg" alt="Akaruo Signature">
-                </div>
-                <div class="float-item">
-                    <img src="https://i.ibb.co/Swzzwj71/1000066588.jpg" alt="Akaruo Classic">
-                </div>
-            </div>
-            
-            <div class="center-enter" style="text-align: center;">
-                <button class="btn-lux btn-gold" onclick="navigateTo('signature')" style="font-size: 1.2rem; padding: 1rem 3.5rem;">
-                    ENTER <i class="fas fa-arrow-right"></i>
+                
+                <div class="error-message" id="errorMessage"></div>
+                
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    <i class="fas fa-crown"></i>
+                    <span>Sign In</span>
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== SIGNATURE COLLECTION ==================== -->
-    <div id="signaturePage" class="page">
-        <div class="content">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #d4af37; text-align: center; margin-bottom: 2rem;">
-                Signature Collection
-            </h2>
+            </form>
             
-            <div class="product-grid" id="signatureProducts">
-                <!-- Products will be populated by JavaScript -->
+            <div class="divider">
+                <span>or continue with</span>
             </div>
-        </div>
-    </div>
-
-    <!-- ==================== ITEMS PAGE ==================== -->
-    <div id="itemsPage" class="page">
-        <div class="content">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; text-align: center; color: #1c1b17; margin-bottom: 2rem;">
-                Our Premium Items
-            </h2>
             
-            <div class="items-grid" id="itemsProducts">
-                <!-- Products will be populated by JavaScript -->
+            <button class="btn btn-google" id="googleLoginBtn">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+            </button>
+            
+            <div class="login-footer">
+                <p>Exclusive Access · Members Only</p>
             </div>
         </div>
     </div>
 
-    <!-- ==================== ORDER PAGE ==================== -->
-    <div id="orderPage" class="page">
-        <div class="overlay" style="background: rgba(0,0,0,0.6);"></div>
-        <div class="content">
-            <div class="checkout-form">
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #d4af37; margin-bottom: 2rem; text-align: center;">
-                    Complete Your Order
-                </h3>
+    <script type="module">
+        // Import Firebase functions
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        
+        // Firebase configuration - REPLACE WITH YOUR OWN CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyDkFQpD8X9jXKjX8X9jXKjX8X9jXKjX8X9",
+            authDomain: "akaruo-login-demo.firebaseapp.com",
+            projectId: "akaruo-login-demo",
+            storageBucket: "akaruo-login-demo.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456ghi789"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginBtn = document.getElementById('loginBtn');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        
+        // Helper function to show errors
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.opacity = '1';
+            
+            // Add error class to inputs
+            emailInput.classList.add('error');
+            passwordInput.classList.add('error');
+            
+            // Remove error class after 3 seconds
+            setTimeout(() => {
+                emailInput.classList.remove('error');
+                passwordInput.classList.remove('error');
+            }, 3000);
+        }
+        
+        // Helper function to clear errors
+        function clearError() {
+            errorMessage.textContent = '';
+            errorMessage.style.opacity = '0';
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+        }
+        
+        // Set loading state
+        function setLoading(button, isLoading) {
+            const btn = button;
+            const icon = btn.querySelector('i');
+            const span = btn.querySelector('span');
+            
+            if (isLoading) {
+                btn.classList.add('loading');
+                icon.className = 'fas fa-spinner';
+                span.textContent = 'Signing in...';
+                btn.disabled = true;
+            } else {
+                btn.classList.remove('loading');
+                if (btn.id === 'loginBtn') {
+                    icon.className = 'fas fa-crown';
+                    span.textContent = 'Sign In';
+                } else {
+                    icon.className = 'fab fa-google';
+                    span.textContent = 'Google';
+                }
+                btn.disabled = false;
+            }
+        }
+        
+        // Redirect to home page
+        function redirectToHome() {
+            // Add smooth exit animation
+            document.querySelector('.login-wrapper').style.animation = 'fadeInUp 0.5s ease reverse forwards';
+            
+            setTimeout(() => {
+                // Check if home.html exists, if not create it or redirect
+                window.location.href = 'home.html';
+            }, 400);
+        }
+        
+        // Handle Email/Password Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearError();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            // Validation
+            if (!email) {
+                showError('Please enter your email address');
+                emailInput.focus();
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showError('Please enter a valid email address');
+                emailInput.focus();
+                return;
+            }
+            
+            if (!password) {
+                showError('Please enter your password');
+                passwordInput.focus();
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters');
+                passwordInput.focus();
+                return;
+            }
+            
+            // Set loading state
+            setLoading(loginBtn, true);
+            
+            try {
+                // Attempt to sign in
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
                 
-                <form id="orderForm" onsubmit="handleOrderSubmit(event)">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" id="fullName" placeholder="Full Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="mobile" placeholder="Mobile Number" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <textarea id="address" placeholder="Full Address" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" id="city" placeholder="City" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="state" placeholder="State" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="text" id="pincode" placeholder="PIN Code" required>
-                    </div>
-                    
-                    <div class="payment-option">
-                        <label style="display: flex; align-items: center; color: #f5e7b2;">
-                            <input type="radio" name="payment" value="COD" checked style="margin-right: 10px;">
-                            <i class="fas fa-money-bill-wave"></i> Cash on Delivery
-                        </label>
-                    </div>
-                    
-                    <input type="hidden" id="selectedProduct" value="">
-                    
-                    <button type="submit" class="btn-lux btn-gold" style="width: 100%; margin-top: 2rem; font-size: 1.2rem;">
-                        <i class="fas fa-whatsapp"></i> PLACE ORDER
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Files -->
-    <script src="script.js"></script>
-</body>
-</html>
+                console.log('Login successful:', user.email);
+                
+                // Add success class
+                emailInput.classList.add('success');
+                passwordInput.classList.add('success');
+                
+                // Redirect to home
+                redirectToHome();
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                // Handle specific Firebase errors
+                let errorMsg = 'Login failed. Please try again.';
+                
+                switch (error.code) {
+                    case 'auth/invalid-email':
+                        errorMsg = 'Invalid email address format';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMsg = 'This account has been disabled';
+                        break;
+                    case 'auth/user-not-found':
+                        errorMsg = 'No account found with this email';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMsg = 'Incorrect password';
+                        break;
+                    case 'auth/invalid-credential':
+                        errorMsg = 'Invalid email or password';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMsg = 'Too many failed attempts. Please try later';
+                        break;
+                    case 'auth/network-request-failed':
+                        errorMsg = 'Network error. Check your connection';
+                        break;
+                    default:
+                        errorMsg = error.message || 'Login failed. Please try again.';
+                }
+                
+                showError(errorMsg);
+                setLoading(loginBtn, false);
+            }
+        });
+        
+        // Handle Google Login
+        googleLoginBtn.addEventListener('click', async () => {
+            clearError();
+            setLoading(googleLoginBtn, true);
+            
+            try {
+                // Configure Google provider
+                provider.setCustomParameters({
+                    prompt: 'select_account'
+                });
+                
+                // Sign in with popup
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                console.log('Google login successful:', user.email);
+                
+                // Redirect to home
+                redirectToHome();
+                
+            } catch (error) {
+                console.error('Google login error:', error);
+                
+                let errorMsg = 'Google sign-in failed. Please try again.';
+                
+                switch (error.code) {
+                    case 'auth/popup-closed-by-user':
+                        errorMsg = 'Sign-in popup was closed';
+                        break;
+                    case 'auth/popup-blocked':
+                        errorMsg = 'Popup was blocked. Please allow popups'
