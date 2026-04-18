@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Akaruo | Place Your Order</title>
+    <!-- Google Fonts: Playfair Display + Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, #FCF9F4 0%, #F5EDE1 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Premium Color Palette */
+        :root {
+            --gold: #C9A03D;
+            --gold-dark: #B68B2E;
+            --dark-brown: #3E2A1F;
+            --deep-espresso: #2C1A0E;
+            --shadow-premium: 0 25px 45px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Main Container */
+        .order-container {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Centered Form Card */
+        .order-card {
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: var(--shadow-premium);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .card-header {
+            background: linear-gradient(115deg, #FFF9EF, #FFF5E8);
+            padding: 1.8rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(201, 160, 61, 0.25);
+        }
+
+        .brand-icon {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+            letter-spacing: -0.3px;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-header p {
+            font-size: 0.85rem;
+            color: #9B7B5C;
+        }
+
+        /* Form Styling */
+        .form-container {
+            padding: 2rem 2rem 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.3rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5C4330;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            background: #FEFCF8;
+            border: 1.5px solid #EADABC;
+            border-radius: 1rem;
+            transition: all 0.25s ease;
+            outline: none;
+            color: #2C1D12;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 160, 61, 0.15);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* Row for City + State */
+        .row-2cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Payment Info Box */
+        .payment-info {
+            background: linear-gradient(135deg, #FFF9F0, #FFF5EA);
+            border-radius: 1rem;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0 1.2rem;
+            border-left: 3px solid var(--gold);
+        }
+
+        .payment-method {
+            font-weight: 700;
+            color: var(--deep-espresso);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.3rem;
+        }
+
+        .payment-method span {
+            background: var(--gold);
+            color: #2C1A0E;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .payment-note {
+            font-size: 0.7rem;
+            color: #A27D55;
+            margin-top: 0.3rem;
+        }
+
+        /* Place Order Button */
+        .place-order-btn {
+            width: 100%;
+            background: linear-gradient(105deg, #C9A03D, #B58C2E);
+            border: none;
+            border-radius: 3rem;
+            padding: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            color: #2C1A0E;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            box-shadow: 0 6px 14px rgba(185, 140, 55, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .place-order-btn:hover {
+            transform: scale(1.01);
+            background: linear-gradient(105deg, #D4AE4A, #C49B38);
+            box-shadow: 0 10px 22px rgba(185, 140, 55, 0.35);
+        }
+
+        .place-order-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Back link */
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-bottom: 1rem;
+        }
+
+        .back-link a {
+            font-size: 0.8rem;
+            color: #A27D55;
+            text-decoration: none;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-link a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 550px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1.4rem 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.6rem;
+            }
+            .form-container {
+                padding: 1.5rem 1.2rem 1.5rem;
+            }
+            .row-2cols {
+                gap: 0.8rem;
+            }
+            .input-group input,
+            .input-group textarea,
+            .input-group select {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+            .payment-method {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="order-container">
+    <div class="order-card">
+        <div class="card-header">
+            <div class="brand-icon">✦ Akaruo ✦</div>
+            <h1>Place Your Order</h1>
+            <p>Fill your details to complete purchase</p>
+        </div>
+
+        <div class="form-container">
+            <form id="orderForm" onsubmit="return false;">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="e.g., Arjun Mehta" autocomplete="name">
+                </div>
+
+                <div class="input-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" id="mobile" placeholder="10-digit mobile number" autocomplete="tel">
+                </div>
+
+                <div class="input-group">
+                    <label>Address</label>
+                    <textarea id="address" placeholder="Street, Apartment, Building, Landmark"></textarea>
+                </div>
+
+                <div class="row-2cols">
+                    <div class="input-group">
+                        <label>City</label>
+                        <input type="text" id="city" placeholder="e.g., Mumbai" autocomplete="address-level2">
+                    </div>
+                    <div class="input-group">
+                        <label>State</label>
+                        <input type="text" id="state" placeholder="e.g., Maharashtra" autocomplete="address-level1">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Pincode</label>
+                    <input type="text" id="pincode" placeholder="6-digit code" autocomplete="postal-code">
+                </div>
+
+                <!-- Payment Method Display (COD only) -->
+                <div class="payment-info">
+                    <div class="payment-method">
+                        💰 Payment Method: <span>Cash on Delivery (COD)</span>
+                    </div>
+                    <div class="payment-note">
+                        Payment will be done via WhatsApp confirmation
+                    </div>
+                </div>
+
+                <button type="button" class="place-order-btn" id="placeOrderBtn">Place Order ✦</button>
+            </form>
+
+            <div class="back-link">
+                <a href="items.html">← Back to Items</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get form elements
+    const fullNameInput = document.getElementById('fullName');
+    const mobileInput = document.getElementById('mobile');
+    const addressInput = document.getElementById('address');
+    const cityInput = document.getElementById('city');
+    const stateInput = document.getElementById('state');
+    const pincodeInput = document.getElementById('pincode');
+    const placeBtn = document.getElementById('placeOrderBtn');
+
+    // Validation function
+    function validateForm() {
+        const fullName = fullNameInput.value.trim();
+        const mobile = mobileInput.value.trim();
+        const address = addressInput.value.trim();
+        const city = cityInput.value.trim();
+        const state = stateInput.value.trim();
+        const pincode = pincodeInput.value.trim();
+
+        if (!fullName || !mobile || !address || !city || !state || !pincode) {
+            alert("Please fill all details");
+            return false;
+        }
+
+        // Mobile number validation (10 digits, starts with 6-9)
+        const mobileRegex = /^[6-9][0-9]{9}$/;
+        if (!mobileRegex.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number");
+            return false;
+        }
+
+        // Pincode validation (6 digits)
+        const pincodeRegex = /^[1-9][0-9]{5}$/;
+        if (!pincodeRegex.test(pincode)) {
+            alert("Please enter a valid 6-digit pincode");
+            return false;
+        }
+
+        return true;
+    }
+
+    // WhatsApp message creation and redirection
+    function sendWhatsAppOrder() {
+        if (!validateForm()) {
+            return;
+        }
+
+        // Collect all form data
+        const fullName = fullNameInput.value.trim();
+        const mobile = mobileInput.value.trim();
+        const address = addressInput.value.trim();
+        const city = cityInput.value.trim();
+        const state = stateInput.value.trim();
+        const pincode = pincodeInput.value.trim();
+
+        // Build the order message
+        const message = `New Order - Akaruo
+
+Name: ${fullName}
+Mobile: ${mobile}
+
+Address: ${address}
+City: ${city}
+State: ${state}
+Pincode: ${pincode}
+
+Payment: Cash on Delivery (COD)`;
+
+        // Encode message for URL
+        const encodedMessage = encodeURIComponent(message);
+        
+        // WhatsApp number (India format without +)
+        const whatsappNumber = "919608891170";
+        
+        // Create WhatsApp URL and open in new tab
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        
+        // Open WhatsApp (will open app on mobile or web on desktop)
+        window.open(whatsappUrl, '_blank');
+    }
+
+    // Event listener for Place Order button
+    placeBtn.addEventListener('click', sendWhatsAppOrder);
+</script>
+
+</body>
+</html>
